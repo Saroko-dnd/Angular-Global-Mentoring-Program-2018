@@ -8,6 +8,7 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
   imports: [
     CommonModule
   ],
-  declarations: [HeaderComponent, FooterComponent, BreadcrumbsComponent]
+  declarations: [HeaderComponent, FooterComponent, BreadcrumbsComponent],
+  exports: [HeaderComponent, FooterComponent, BreadcrumbsComponent]
 })
 export class CoreModule { }
