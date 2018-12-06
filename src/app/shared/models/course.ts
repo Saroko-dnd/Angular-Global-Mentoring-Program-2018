@@ -1,4 +1,4 @@
-import { ICourse } from '../../../shared/models/icourse';
+import { ICourse } from '../types/icourse';
 
 export class Course implements ICourse {
   constructor (
