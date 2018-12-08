@@ -1,0 +1,7 @@
+learn-portal-header,
+learn-portal-footer {
+  display: block;
+  background-color: rgb(185, 175, 175);
+  color: rgb(255, 255, 255);
+  width: 100%;
+}
