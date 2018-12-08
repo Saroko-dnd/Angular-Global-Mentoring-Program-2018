@@ -1,8 +1,7 @@
 import { Routes } from "@angular/router";
 
-import { CourseListComponent } from "./courses/components/course-list/course-list.component";
-import { CreateNewCourseComponent } from "./courses/components/create-new-course/create-new-course.component";
-import { LoginComponent } from "./login/components/login/login.component";
+import { CourseListComponent, CreateNewCourseComponent } from "./courses";
+import { LoginComponent } from "./login";
 
 export const appRoutes: Routes = [
   { path: "", redirectTo: "/courses", pathMatch: "full" },
