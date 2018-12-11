@@ -1,15 +1,15 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import {
   CourseListComponent,
   CourseListItemComponent,
   CreateNewCourseComponent,
   SearchCourseComponent
-} from "./components";
+} from './components';
 
-import { coursesRoutes } from "./courses.routing";
+import { coursesRoutes } from './courses.routing';
 
 @NgModule({
   imports: [CommonModule, RouterModule.forRoot(coursesRoutes)],

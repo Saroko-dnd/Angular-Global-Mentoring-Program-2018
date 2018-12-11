@@ -1,2 +1,3 @@
-export * from "./components";
-export * from "./header.component";
+export * from './components/breadcrumbs/breadcrumbs.component';
+export * from './components/logo/logo.component';
+export * from './header.component';
