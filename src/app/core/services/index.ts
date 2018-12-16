@@ -1,2 +1,2 @@
-export * from "./authorization";
-export * from "./breadcrumbs";
+export * from './authorization/authorization.service';
+export * from './breadcrumbs/breadcrumbs.service';
