@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbsComponent, HeaderComponent, LogoComponent } from './header';
 import { FooterComponent } from './footer/footer.component';
+import { ProfileNavigationComponent } from './header/components/profile-navigation/profile-navigation.component';
 
 @NgModule({
   imports: [CommonModule],
@@ -9,7 +10,8 @@ import { FooterComponent } from './footer/footer.component';
     HeaderComponent,
     FooterComponent,
     BreadcrumbsComponent,
-    LogoComponent
+    LogoComponent,
+    ProfileNavigationComponent
   ],
   exports: [HeaderComponent, FooterComponent]
 })
