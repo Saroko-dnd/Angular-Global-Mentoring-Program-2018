@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProfileNavigationComponent } from './profile-navigation.component';
+import { UserLoginComponent } from './user-login.component';
 
-describe('ProfileNavigationComponent', () => {
-  let component: ProfileNavigationComponent;
-  let fixture: ComponentFixture<ProfileNavigationComponent>;
+describe('UserLoginComponent', () => {
+  let component: UserLoginComponent;
+  let fixture: ComponentFixture<UserLoginComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProfileNavigationComponent ]
+      declarations: [ UserLoginComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProfileNavigationComponent);
+    fixture = TestBed.createComponent(UserLoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
