@@ -1,3 +1,38 @@
-<p>
-  course-list-item works!
-</p>
+<article class="d-flex border border-dark mx-5 mb-3">
+  <div class="d-flex flex-column mx-2">
+    <header class="d-flex align-items-center">
+      <h3 class="mr-auto">Course title</h3>
+      <span class="px-3">1h 28min</span>
+      <time class="px-3" pubdate datetime="2009-10-09">9th October, 2009</time>
+    </header>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, magnam!
+      Distinctio, incidunt rem, accusantium est ea totam nihil dolores tenetur
+      excepturi expedita quod unde dolore amet, eos voluptates similique quam.
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis,
+      repudiandae impedit repellendus quos laborum atque aut id necessitatibus
+      asperiores minus debitis fugit amet dolorum assumenda nam obcaecati vitae
+      in sequi!
+    </p>
+  </div>
+  <ul class="d-flex flex-column list-group ml-auto mr-2">
+    <li class="d-block my-3">
+      <button
+        class="btn btn-info w-100"
+        type="button"
+        (click)="logSearchInputValue()"
+      >
+        <i class="fa fa-edit"></i> Edit
+      </button>
+    </li>
+    <li class="d-block mb-3">
+      <button
+        class="btn btn-danger w-100"
+        type="button"
+        (click)="logSearchInputValue()"
+      >
+        <i class="fa fa-trash"></i> Delete
+      </button>
+    </li>
+  </ul>
+</article>
