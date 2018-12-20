@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 import { ICourse } from 'src/app/shared/types/icourse';
 
@@ -11,6 +11,16 @@ export class CourseListItemComponent implements OnInit {
   constructor() {}
 
   @Input() course: ICourse;
+
+  @Output() itemDeleted = new EventEmitter<string>();
+
+  deleteCourse() {
+    this.itemDeleted.emit(this.course.id);
+  }
+
+  onDeleted(id: string) {
+    console.log(id);
+  }
 
   ngOnInit() {}
 }

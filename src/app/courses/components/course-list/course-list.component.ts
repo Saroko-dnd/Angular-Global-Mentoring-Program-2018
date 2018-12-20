@@ -11,6 +11,10 @@ export class CourseListComponent implements OnInit {
 
   courses: ICourse[];
 
+  onItemDeleted(deletedCourseId: string) {
+    console.log(`Course with id ${deletedCourseId} was deleted`);
+  }
+
   ngOnInit() {
     this.courses = [
       {
