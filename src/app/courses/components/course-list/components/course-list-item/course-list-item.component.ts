@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { ICourse } from 'src/app/shared/types/icourse';
 
 @Component({
   selector: 'learn-portal-course-list-item',
   templateUrl: './course-list-item.component.html',
-  styleUrls: ['./course-list-item.component.css']
+  styleUrls: ['./course-list-item.component.scss']
 })
 export class CourseListItemComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
+  @Input() course: ICourse;
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
