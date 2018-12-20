@@ -3,9 +3,12 @@
     <header class="d-flex align-items-center">
       <h3 class="mr-auto">{{ course.title }}</h3>
       <span class="px-3 duration">{{ course.duration }}</span>
-      <time class="px-3" pubdate [attr.datetime]="course.date">{{
-        course.date | date: "M.d.yyyy"
-      }}</time>
+      <time
+        class="px-3"
+        pubdate
+        [attr.datetime]="course.date | date: 'yyyy-MM-dd'"
+        >{{ course.date | date: "MM.dd.yyyy" }}</time
+      >
     </header>
     <p>{{ course.description }}2009-10-09</p>
   </div>
