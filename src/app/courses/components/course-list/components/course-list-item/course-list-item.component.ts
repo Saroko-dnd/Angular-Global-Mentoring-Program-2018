@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 
 import { ICourse } from 'src/app/shared/types/icourse';
 
@@ -7,7 +7,7 @@ import { ICourse } from 'src/app/shared/types/icourse';
   templateUrl: './course-list-item.component.html',
   styleUrls: ['./course-list-item.component.scss']
 })
-export class CourseListItemComponent implements OnInit {
+export class CourseListItemComponent {
   constructor() {}
 
   @Input() course: ICourse;
@@ -17,6 +17,4 @@ export class CourseListItemComponent implements OnInit {
   deleteCourse() {
     this.itemDeleted.emit(this.course.id);
   }
-
-  ngOnInit() {}
 }

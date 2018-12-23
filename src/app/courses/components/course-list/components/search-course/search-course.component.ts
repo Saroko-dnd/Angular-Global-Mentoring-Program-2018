@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'learn-portal-search-course',
   templateUrl: './search-course.component.html',
   styleUrls: ['./search-course.component.scss']
 })
-export class SearchCourseComponent implements OnInit {
+export class SearchCourseComponent {
   constructor() {}
 
   inputSearchValue = '';
@@ -13,6 +13,4 @@ export class SearchCourseComponent implements OnInit {
   logSearchInputValue() {
     console.log(this.inputSearchValue);
   }
-
-  ngOnInit() {}
 }
