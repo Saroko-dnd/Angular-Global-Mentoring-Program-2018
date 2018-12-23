@@ -1,5 +1,7 @@
-p {
-  margin: 1rem 0;
-  font-weight: bold;
-  text-align: center;
+:host {
+  p {
+    margin: 1rem 0;
+    font-weight: bold;
+    text-align: center;
+  }
 }

@@ -1,12 +1,14 @@
-.duration,
-[pubdate] {
-  text-align: right;
-}
+:host {
+  .duration,
+  [pubdate] {
+    text-align: right;
+  }
 
-.duration {
-  width: 10rem;
-}
+  .duration {
+    width: 10rem;
+  }
 
-[pubdate] {
-  width: 7rem;
+  [pubdate] {
+    width: 7rem;
+  }
 }
