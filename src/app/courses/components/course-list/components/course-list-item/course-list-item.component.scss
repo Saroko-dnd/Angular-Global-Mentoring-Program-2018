@@ -1,14 +1,32 @@
-:host {
-  .duration,
-  [pubdate] {
-    text-align: right;
-  }
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
 
-  .duration {
-    width: 10rem;
-  }
+@include media-breakpoint-between(sm, xl) {
+  :host {
+    .duration,
+    [pubdate] {
+      text-align: right;
+    }
 
-  [pubdate] {
-    width: 7rem;
+    .duration {
+      width: 10rem;
+    }
+
+    [pubdate] {
+      width: 7rem;
+    }
+  }
+}
+
+@include media-breakpoint-between(xs, sm) {
+  :host {
+    .duration {
+      width: auto;
+    }
+
+    [pubdate] {
+      width: auto;
+    }
   }
 }
