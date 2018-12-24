@@ -12,6 +12,8 @@ import {
 
 import { coursesRoutes } from './courses.routing';
 
+import { CoursesService } from './services';
+
 @NgModule({
   imports: [CommonModule, FormsModule, RouterModule.forRoot(coursesRoutes)],
   declarations: [
@@ -20,6 +22,7 @@ import { coursesRoutes } from './courses.routing';
     SearchCourseComponent,
     CreateNewCourseComponent
   ],
-  exports: [CourseListComponent, CreateNewCourseComponent]
+  exports: [CourseListComponent, CreateNewCourseComponent],
+  providers: [CoursesService]
 })
 export class CoursesModule {}
