@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
+
+import { ICourse } from 'src/app/shared/types/icourse';
 
 @Component({
   selector: 'learn-portal-course-list-item',
   templateUrl: './course-list-item.component.html',
-  styleUrls: ['./course-list-item.component.css']
+  styleUrls: ['./course-list-item.component.scss']
 })
-export class CourseListItemComponent implements OnInit {
+export class CourseListItemComponent {
+  constructor() {}
 
-  constructor() { }
+  @Input() course: ICourse;
 
-  ngOnInit() {
+  @Output() itemDeleted = new EventEmitter<string>();
+
+  deleteCourse() {
+    this.itemDeleted.emit(this.course.id);
   }
-
 }

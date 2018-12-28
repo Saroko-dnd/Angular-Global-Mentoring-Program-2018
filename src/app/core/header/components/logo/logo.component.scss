@@ -1,0 +1,13 @@
+$brand-img-size: 3.5rem;
+
+:host {
+  .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    img {
+      width: $brand-img-size;
+      height: $brand-img-size;
+    }
+  }
+}

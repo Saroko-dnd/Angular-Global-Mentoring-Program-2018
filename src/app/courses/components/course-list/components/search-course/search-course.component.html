@@ -1,3 +1,24 @@
-<p>
-  search-course works!
-</p>
+<div class="d-flex flex-row justify-content-between">
+  <form class="form-inline d-flex flex-row w-50">
+    <input
+      class="form-control search-course-input mr-sm-2 flex-grow-1"
+      type="search"
+      aria-label="Search"
+      placeholder="Text to search"
+      [(ngModel)]="inputSearchValue"
+      [ngModelOptions]="{ standalone: true }"
+    />
+    <button
+      class="btn btn-outline-success my-2 my-sm-0 search-course-button"
+      type="button"
+      (click)="logSearchInputValue()"
+    >
+      Search
+    </button>
+  </form>
+  <nav>
+    <button type="button" class="btn btn-outline-primary">
+      <i class="fa fa-plus-square"></i> Add course
+    </button>
+  </nav>
+</div>

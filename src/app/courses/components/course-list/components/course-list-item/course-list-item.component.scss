@@ -1,0 +1,32 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+@include media-breakpoint-between(sm, xl) {
+  :host {
+    .duration,
+    [pubdate] {
+      text-align: right;
+    }
+
+    .duration {
+      width: 10rem;
+    }
+
+    [pubdate] {
+      width: 7rem;
+    }
+  }
+}
+
+@include media-breakpoint-between(xs, sm) {
+  :host {
+    .duration {
+      width: auto;
+    }
+
+    [pubdate] {
+      width: auto;
+    }
+  }
+}

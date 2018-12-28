@@ -1,3 +1,31 @@
-<p>
-  course-list-item works!
-</p>
+<article class="d-flex border border-dark mb-3">
+  <div class="d-flex flex-column mx-2">
+    <header class="d-flex align-items-center flex-md-row flex-column">
+      <h3 class="mr-md-auto mr-sm-0">{{ course.title }}</h3>
+      <span class="px-3 duration">{{ course.duration }}</span>
+      <time
+        class="px-3"
+        pubdate
+        [attr.datetime]="course.date | date: 'yyyy-MM-dd'"
+        >{{ course.date | date: "MM.dd.yyyy" }}</time
+      >
+    </header>
+    <p>{{ course.description }}2009-10-09</p>
+  </div>
+  <ul class="d-flex flex-column list-group ml-auto mr-2">
+    <li class="d-block my-3">
+      <button class="btn btn-info w-100" type="button">
+        <i class="fa fa-edit"></i> Edit
+      </button>
+    </li>
+    <li class="d-block mb-3">
+      <button
+        class="btn btn-danger w-100"
+        type="button"
+        (click)="deleteCourse()"
+      >
+        <i class="fa fa-trash"></i> Delete
+      </button>
+    </li>
+  </ul>
+</article>

@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'learn-portal-logo',
   templateUrl: './logo.component.html',
-  styleUrls: ['./logo.component.css']
+  styleUrls: ['./logo.component.scss']
 })
-export class LogoComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class LogoComponent {
+  constructor() {}
 }
