@@ -18,7 +18,7 @@ class CourseListItemStubComponent {
   @Input() course: ICourse;
   @Output() itemDeleted = new EventEmitter<string>();
 
-  deleteCourse() {
+  emitItemDeletedEvent() {
     this.itemDeleted.emit(this.course.id);
   }
 }
@@ -103,7 +103,7 @@ describe('CourseListComponent', () => {
     for (let courseIndex = 0; courseIndex < 2; ++courseIndex) {
       (<CourseListItemStubComponent>(
         listOfCoursesInHtml[courseIndex].componentInstance
-      )).deleteCourse();
+      )).emitItemDeletedEvent();
 
       expect(component.onItemDeleted).toHaveBeenCalledWith(
         component.courses[courseIndex].id
