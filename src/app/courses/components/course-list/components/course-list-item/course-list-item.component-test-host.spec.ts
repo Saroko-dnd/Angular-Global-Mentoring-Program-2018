@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CourseListItemComponent } from '../course-list-item.component';
+import { CourseListItemComponent } from './course-list-item.component';
 import { ICourse } from 'src/app/shared';
 import { By } from '@angular/platform-browser';
 
