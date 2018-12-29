@@ -23,9 +23,8 @@ describe('CourseListItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CourseListItemComponent ]
-    })
-    .compileComponents();
+      declarations: [CourseListItemComponent]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CourseListItemComponent);
     component = fixture.componentInstance;
@@ -45,7 +44,8 @@ describe('CourseListItemComponent', () => {
     expect(titleElement.nativeElement.textContent).toEqual(course.title);
     expect(durationElement.nativeElement.textContent).toEqual(course.duration);
     expect(dateElement.nativeElement.textContent).toEqual(expectedRenderedDate);
-    expect(descriptionElement.nativeElement.textContent).toEqual(course.description);
-
+    expect(descriptionElement.nativeElement.textContent).toEqual(
+      course.description
+    );
   });
 });
