@@ -53,7 +53,7 @@ describe('CourseListItemComponent', () => {
     it('should render course title inside h3 element', () => {
       const titleElement = fixture.debugElement.query(By.css('h3'));
 
-      expect(titleElement.nativeElement.textContent).toEqual(
+      expect((<HTMLElement>titleElement.nativeElement).textContent).toEqual(
         testCourseItem.title
       );
     });
@@ -61,7 +61,7 @@ describe('CourseListItemComponent', () => {
     it('should render course duration inside element with class "duration"', () => {
       const durationElement = fixture.debugElement.query(By.css('.duration'));
 
-      expect(durationElement.nativeElement.textContent).toEqual(
+      expect((<HTMLElement>durationElement.nativeElement).textContent).toEqual(
         testCourseItem.duration
       );
     });
@@ -70,7 +70,7 @@ describe('CourseListItemComponent', () => {
       const dateElement = fixture.debugElement.query(By.css('time'));
       const expectedRenderedDate = '08.19.2015';
 
-      expect(dateElement.nativeElement.textContent).toEqual(
+      expect((<HTMLElement>dateElement.nativeElement).textContent).toEqual(
         expectedRenderedDate
       );
     });
@@ -78,9 +78,9 @@ describe('CourseListItemComponent', () => {
     it('should render course description inside p element', () => {
       const descriptionElement = fixture.debugElement.query(By.css('p'));
 
-      expect(descriptionElement.nativeElement.textContent).toEqual(
-        testCourseItem.description
-      );
+      expect(
+        (<HTMLElement>descriptionElement.nativeElement).textContent
+      ).toEqual(testCourseItem.description);
     });
   });
 
