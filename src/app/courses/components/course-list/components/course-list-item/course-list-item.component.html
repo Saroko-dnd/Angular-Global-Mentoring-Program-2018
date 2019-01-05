@@ -6,7 +6,7 @@
   <div class="d-flex flex-column mx-2">
     <header class="d-flex align-items-center flex-md-row flex-column">
       <div class="d-flex align-items-center">
-        <h3 class="mr-md-auto mr-sm-0">{{ course.title }}</h3>
+        <h3 class="mr-md-auto mr-sm-0">{{ course.title | uppercase }}</h3>
         <i *ngIf="course.topRated" class="fa fa-star mx-1"></i>
       </div>
       <span class="px-3 duration">{{ course.duration }}</span>
