@@ -1,6 +1,7 @@
 <article
   class="d-flex border border-dark mb-3"
   [lpShowCourseFreshness]="course.date"
+  [ngClass]="{ 'bg-dark text-white': course.topRated }"
 >
   <div class="d-flex flex-column mx-2">
     <header class="d-flex align-items-center flex-md-row flex-column">
