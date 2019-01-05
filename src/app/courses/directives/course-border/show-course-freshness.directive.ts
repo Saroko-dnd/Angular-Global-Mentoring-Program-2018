@@ -1,12 +1,12 @@
 import { Directive, Input, OnInit, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[learnPortalCourseBorder]'
+  selector: '[lpShowCourseFreshness]'
 })
-export class CourseBorderDirective implements OnInit {
+export class ShowCourseFreshnessDirective implements OnInit {
   constructor(private element: ElementRef) {}
 
-  @Input('learnPortalCourseBorder') courseDate: Date;
+  @Input('lpShowCourseFreshness') courseDate: Date;
 
   ngOnInit() {
     const differenceInDays = Math.floor(

@@ -1,1 +1,1 @@
-export * from './course-border/course-border.directive';
+export * from './course-border/show-course-freshness.directive';

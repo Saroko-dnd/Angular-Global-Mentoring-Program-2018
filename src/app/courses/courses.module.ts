@@ -13,12 +13,12 @@ import {
 import { coursesRoutes } from './courses.routing';
 
 import { CoursesService } from './services';
-import { CourseBorderDirective } from './directives';
+import { ShowCourseFreshnessDirective } from './directives';
 
 @NgModule({
   imports: [CommonModule, FormsModule, RouterModule.forRoot(coursesRoutes)],
   declarations: [
-    CourseBorderDirective,
+    ShowCourseFreshnessDirective,
     CourseListComponent,
     CourseListItemComponent,
     SearchCourseComponent,
