@@ -17,7 +17,8 @@ export class CoursesService {
         dolorum assumenda nam obcaecati vitae in sequi!`,
         duration: '2h',
         id: '1',
-        title: 'Course 1 title'
+        title: 'Course 1 title',
+        topRated: false
       },
       {
         date: new Date('2020-2-13'),
@@ -30,7 +31,8 @@ export class CoursesService {
         dolorum assumenda nam obcaecati vitae in sequi!`,
         duration: '5h 30min',
         id: '2',
-        title: 'Course 2 title'
+        title: 'Course 2 title',
+        topRated: true
       },
       {
         date: new Date('2019-1-3'),
@@ -43,7 +45,8 @@ export class CoursesService {
         dolorum assumenda nam obcaecati vitae in sequi!`,
         duration: '40min',
         id: '3',
-        title: 'Course 3 title'
+        title: 'Course 3 title',
+        topRated: true
       },
       {
         date: new Date('2019-1-2'),
@@ -56,7 +59,8 @@ export class CoursesService {
         dolorum assumenda nam obcaecati vitae in sequi!`,
         duration: '50min',
         id: '4',
-        title: 'Course 4 title'
+        title: 'Course 4 title',
+        topRated: false
       },
       {
         date: new Date('2017-6-12'),
@@ -69,7 +73,8 @@ export class CoursesService {
         dolorum assumenda nam obcaecati vitae in sequi!`,
         duration: '1h 30min',
         id: '5',
-        title: 'Course 5 title'
+        title: 'Course 5 title',
+        topRated: false
       }
     ];
   }

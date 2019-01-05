@@ -6,6 +6,7 @@ export class Course implements ICourse {
     public description: string,
     public duration: string,
     public id: string,
-    public title: string
+    public title: string,
+    public topRated: boolean
   ) {}
 }
