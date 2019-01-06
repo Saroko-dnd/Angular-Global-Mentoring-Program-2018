@@ -7,7 +7,7 @@ export class CoursesService {
   getListOfCourses(): ICourse[] {
     return [
       {
-        date: new Date('2020-8-19'),
+        creationDate: new Date('2020-8-19'),
         description: `Lorem ipsum dolor sit amet, consectetur
         adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium
         est ea totam nihil dolores tenetur excepturi expedita quod unde dolore
@@ -21,7 +21,7 @@ export class CoursesService {
         topRated: false
       },
       {
-        date: new Date('2020-2-13'),
+        creationDate: new Date('2020-2-13'),
         description: `Lorem ipsum dolor sit amet, consectetur
         adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium
         est ea totam nihil dolores tenetur excepturi expedita quod unde dolore
@@ -35,7 +35,7 @@ export class CoursesService {
         topRated: true
       },
       {
-        date: new Date('2019-1-3'),
+        creationDate: new Date('2019-1-3'),
         description: `Lorem ipsum dolor sit amet, consectetur
         adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium
         est ea totam nihil dolores tenetur excepturi expedita quod unde dolore
@@ -49,7 +49,7 @@ export class CoursesService {
         topRated: true
       },
       {
-        date: new Date('2019-1-2'),
+        creationDate: new Date('2019-1-2'),
         description: `Lorem ipsum dolor sit amet, consectetur
         adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium
         est ea totam nihil dolores tenetur excepturi expedita quod unde dolore
@@ -63,7 +63,7 @@ export class CoursesService {
         topRated: false
       },
       {
-        date: new Date('2017-6-12'),
+        creationDate: new Date('2017-6-12'),
         description: `Lorem ipsum dolor sit amet, consectetur
         adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium
         est ea totam nihil dolores tenetur excepturi expedita quod unde dolore

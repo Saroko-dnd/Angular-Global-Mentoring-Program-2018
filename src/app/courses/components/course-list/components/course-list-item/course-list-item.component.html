@@ -1,6 +1,6 @@
 <article
   class="d-flex border border-dark mb-3"
-  [lpShowCourseFreshness]="course.date"
+  [lpShowCourseFreshness]="course.creationDate"
   [ngClass]="{ 'bg-dark text-white': course.topRated }"
 >
   <div class="d-flex flex-column mx-2">
@@ -14,7 +14,7 @@
         class="px-3"
         pubdate
         [attr.datetime]="course.date | date: 'yyyy-MM-dd'"
-        >{{ course.date | date: 'MM.dd.yyyy' }}</time
+        >{{ course.creationDate | date: 'MM.dd.yyyy' }}</time
       >
     </header>
     <p>{{ course.description }}</p>
