@@ -14,10 +14,17 @@ import { coursesRoutes } from './courses.routing';
 
 import { CoursesService } from './services';
 import { ShowCourseFreshnessDirective } from './directives';
-import { DurationPipe } from './pipes/duration.pipe';
+
+import { DurationPipe } from './pipes';
+import { SharedModule } from '../shared';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, RouterModule.forRoot(coursesRoutes)],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule.forRoot(coursesRoutes),
+    SharedModule
+  ],
   declarations: [
     CourseListComponent,
     CourseListItemComponent,

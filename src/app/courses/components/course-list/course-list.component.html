@@ -1,6 +1,6 @@
 <learn-portal-search-course class="d-block my-3"></learn-portal-search-course>
 <ul class="p-0 m-0">
-  <li *ngFor="let courseItem of courses">
+  <li *ngFor="let courseItem of (courses | orderBy: 'creationDate':'desc')">
     <learn-portal-course-list-item
       [course]="courseItem"
       (itemDeleted)="onItemDeleted($event)"
