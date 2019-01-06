@@ -15,7 +15,7 @@ export class CoursesService {
         consectetur adipisicing elit. Omnis, repudiandae impedit repellendus quos
         laborum atque aut id necessitatibus asperiores minus debitis fugit amet
         dolorum assumenda nam obcaecati vitae in sequi!`,
-        duration: '2h',
+        duration: 120,
         id: '1',
         title: 'Course 1 title',
         topRated: false
@@ -29,7 +29,7 @@ export class CoursesService {
         consectetur adipisicing elit. Omnis, repudiandae impedit repellendus quos
         laborum atque aut id necessitatibus asperiores minus debitis fugit amet
         dolorum assumenda nam obcaecati vitae in sequi!`,
-        duration: '5h 30min',
+        duration: 330,
         id: '2',
         title: 'Course 2 title',
         topRated: true
@@ -43,7 +43,7 @@ export class CoursesService {
         consectetur adipisicing elit. Omnis, repudiandae impedit repellendus quos
         laborum atque aut id necessitatibus asperiores minus debitis fugit amet
         dolorum assumenda nam obcaecati vitae in sequi!`,
-        duration: '40min',
+        duration: 40,
         id: '3',
         title: 'Course 3 title',
         topRated: true
@@ -57,7 +57,7 @@ export class CoursesService {
         consectetur adipisicing elit. Omnis, repudiandae impedit repellendus quos
         laborum atque aut id necessitatibus asperiores minus debitis fugit amet
         dolorum assumenda nam obcaecati vitae in sequi!`,
-        duration: '50min',
+        duration: 50,
         id: '4',
         title: 'Course 4 title',
         topRated: false
@@ -71,7 +71,7 @@ export class CoursesService {
         consectetur adipisicing elit. Omnis, repudiandae impedit repellendus quos
         laborum atque aut id necessitatibus asperiores minus debitis fugit amet
         dolorum assumenda nam obcaecati vitae in sequi!`,
-        duration: '1h 30min',
+        duration: 90,
         id: '5',
         title: 'Course 5 title',
         topRated: false

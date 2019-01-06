@@ -9,7 +9,7 @@
         <h3 class="mr-md-auto mr-sm-0">{{ course.title | uppercase }}</h3>
         <i *ngIf="course.topRated" class="fa fa-star mx-1"></i>
       </div>
-      <span class="px-3 duration">{{ course.duration }}</span>
+      <span class="px-3 duration">{{ course.duration | duration }}</span>
       <time
         class="px-3"
         pubdate

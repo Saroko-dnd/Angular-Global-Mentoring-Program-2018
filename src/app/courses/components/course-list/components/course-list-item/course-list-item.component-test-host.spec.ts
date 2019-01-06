@@ -8,9 +8,10 @@ import { By } from '@angular/platform-browser';
 const testCourseItem: ICourse = {
   date: new Date('2015-8-19'),
   description: `Lorem`,
-  duration: '2h',
+  duration: 120,
   id: '1',
-  title: 'Course 1 title'
+  title: 'Course 1 title',
+  topRated: true
 };
 
 @Component({
@@ -62,7 +63,7 @@ describe('CourseListItemComponent', () => {
       const durationElement = fixture.debugElement.query(By.css('.duration'));
 
       expect((<HTMLElement>durationElement.nativeElement).textContent).toEqual(
-        testCourseItem.duration
+        testCourseItem.duration.toString()
       );
     });
 
