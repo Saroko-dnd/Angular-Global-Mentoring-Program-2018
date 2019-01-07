@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  Directive,
+  Input,
+  Pipe,
+  PipeTransform
+} from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CourseListItemComponent } from './course-list-item.component';
@@ -6,13 +12,32 @@ import { ICourse } from 'src/app/shared';
 import { By } from '@angular/platform-browser';
 
 const testCourseItem: ICourse = {
-  date: new Date('2015-8-19'),
+  creationDate: new Date('2015-8-19'),
   description: `Lorem`,
   duration: 120,
   id: '1',
   title: 'Course 1 title',
   topRated: true
 };
+const testCourseDurationText = '2h 0min';
+
+@Directive({
+  selector: '[lpShowCourseFreshness]'
+})
+export class ShowCourseFreshnessStubDirective {
+  constructor() {}
+
+  @Input('lpShowCourseFreshness') courseDate: Date;
+}
+
+@Pipe({
+  name: 'duration'
+})
+export class DurationStubPipe implements PipeTransform {
+  transform(duration: number): string {
+    return testCourseDurationText;
+  }
+}
 
 @Component({
   template: `
@@ -38,7 +63,11 @@ describe('CourseListItemComponent', () => {
 
     beforeEach(async(() => {
       TestBed.configureTestingModule({
-        declarations: [CourseListItemComponent]
+        declarations: [
+          CourseListItemComponent,
+          DurationStubPipe,
+          ShowCourseFreshnessStubDirective
+        ]
       }).compileComponents();
     }));
 
@@ -51,19 +80,19 @@ describe('CourseListItemComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should render course title inside h3 element', () => {
+    it('should render course title in uppercase inside h3 element', () => {
       const titleElement = fixture.debugElement.query(By.css('h3'));
 
       expect((<HTMLElement>titleElement.nativeElement).textContent).toEqual(
-        testCourseItem.title
+        testCourseItem.title.toUpperCase()
       );
     });
 
-    it('should render course duration inside element with class "duration"', () => {
+    it('should render course duration in format "hh h mm min" inside element with class "duration"', () => {
       const durationElement = fixture.debugElement.query(By.css('.duration'));
 
       expect((<HTMLElement>durationElement.nativeElement).textContent).toEqual(
-        testCourseItem.duration.toString()
+        testCourseDurationText
       );
     });
 
@@ -91,7 +120,12 @@ describe('CourseListItemComponent', () => {
 
     beforeEach(async(() => {
       TestBed.configureTestingModule({
-        declarations: [CourseListItemComponent, TestHostComponent]
+        declarations: [
+          CourseListItemComponent,
+          TestHostComponent,
+          DurationStubPipe,
+          ShowCourseFreshnessStubDirective
+        ]
       }).compileComponents();
     }));
 

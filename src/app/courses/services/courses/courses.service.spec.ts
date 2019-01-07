@@ -20,9 +20,9 @@ describe('CoursesService', () => {
       courses.forEach(course => {
         expect(typeof course).toBe('object');
 
-        expect(course.date instanceof Date).toBe(true);
+        expect(course.creationDate instanceof Date).toBe(true);
         expect(typeof course.description).toBe('string');
-        expect(typeof course.duration).toBe('string');
+        expect(typeof course.duration).toBe('number');
         expect(typeof course.id).toBe('string');
         expect(typeof course.title).toBe('string');
       });

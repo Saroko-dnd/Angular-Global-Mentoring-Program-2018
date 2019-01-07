@@ -4,7 +4,9 @@ import {
   Component,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
+  Pipe,
+  PipeTransform
 } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -12,6 +14,7 @@ import { By } from '@angular/platform-browser';
 import { CourseListComponent } from './course-list.component';
 import { CoursesService } from '../..';
 import { ICourse } from 'src/app/shared';
+import { FilterPipe } from 'src/app/shared/pipes';
 
 @Component({ selector: 'learn-portal-course-list-item', template: '' })
 class CourseListItemStubComponent {
@@ -23,22 +26,47 @@ class CourseListItemStubComponent {
   }
 }
 
+@Pipe({
+  name: 'orderBy'
+})
+export class OrderByStubPipe implements PipeTransform {
+  transform(collection: ICourse[]): ICourse[] {
+    return collection.sort(
+      (courseA, courseB) =>
+        courseB.creationDate.getTime() - courseA.creationDate.getTime()
+    );
+  }
+}
+
+@Pipe({
+  name: 'filter'
+})
+export class FilterStubPipe implements PipeTransform {
+  transform(collection: ICourse[], field: string, value: string): ICourse[] {
+    return collection.filter(item =>
+      (<string>item[field]).match(new RegExp(value, 'i'))
+    );
+  }
+}
+
 describe('CourseListComponent', () => {
   const coursesServiceStub = {
     getListOfCourses: (): ICourse[] => [
       {
-        date: new Date('2015-8-19'),
-        description: `Lorem!`,
-        duration: '2h',
-        id: '1',
-        title: 'Course 1 title'
+        creationDate: new Date('2008-2-13'),
+        description: `Lorem ipsum!`,
+        duration: 330,
+        id: '2',
+        title: 'Course 2 title',
+        topRated: false
       },
       {
-        date: new Date('2008-2-13'),
-        description: `Lorem ipsum!`,
-        duration: '5h 30min',
-        id: '2',
-        title: 'Course 2 title'
+        creationDate: new Date('2015-8-19'),
+        description: `Lorem!`,
+        duration: 120,
+        id: '1',
+        title: 'Course 1 title',
+        topRated: true
       }
     ]
   };
@@ -47,8 +75,16 @@ describe('CourseListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CourseListComponent, CourseListItemStubComponent],
-      providers: [{ provide: CoursesService, useValue: coursesServiceStub }],
+      declarations: [
+        CourseListComponent,
+        CourseListItemStubComponent,
+        OrderByStubPipe,
+        FilterStubPipe
+      ],
+      providers: [
+        { provide: CoursesService, useValue: coursesServiceStub },
+        { provide: FilterPipe, useValue: FilterStubPipe }
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
