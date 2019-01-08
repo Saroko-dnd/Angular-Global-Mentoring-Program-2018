@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { isEqual } from 'lodash';
 
 @Pipe({
   name: 'filter'
@@ -25,7 +26,7 @@ export class FilterPipe implements PipeTransform {
     return collection.filter(item =>
       !exactMatch && typeof item === 'string'
         ? (<string>item).match(new RegExp(value, 'i'))
-        : item === value
+        : isEqual(item, value)
     );
   }
 }

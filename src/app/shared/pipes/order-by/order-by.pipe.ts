@@ -4,15 +4,15 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'orderBy'
 })
 export class OrderByPipe implements PipeTransform {
-  transform(collection: any[], field?: string, order?: string): any[] {
+  transform(collection: any[], field?: string, reverse?: boolean): any[] {
     if (field) {
       return collection.sort(
         (a: object, b: object): number =>
-          order === 'desc' ? b[field] - a[field] : a[field] - b[field]
+          reverse ? b[field] - a[field] : a[field] - b[field]
       );
     }
     return collection.sort(
-      (a: any, b: any): number => (order === 'desc' ? b - a : a - b)
+      (a: any, b: any): number => (reverse ? b - a : a - b)
     );
   }
 }
