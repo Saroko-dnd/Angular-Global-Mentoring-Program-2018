@@ -26,6 +26,20 @@ class CourseListItemStubComponent {
   }
 }
 
+@Component({
+  selector: 'learn-portal-search-course',
+  template: ''
+})
+export class SearchCourseStubComponent {
+  constructor() {}
+
+  @Output() searchActivated = new EventEmitter<string>();
+
+  emitActivateSearchEvent() {
+    this.searchActivated.emit('2');
+  }
+}
+
 @Pipe({
   name: 'orderBy'
 })
@@ -34,17 +48,6 @@ export class OrderByStubPipe implements PipeTransform {
     return collection.sort(
       (courseA, courseB) =>
         courseB.creationDate.getTime() - courseA.creationDate.getTime()
-    );
-  }
-}
-
-@Pipe({
-  name: 'filter'
-})
-export class FilterStubPipe implements PipeTransform {
-  transform(collection: ICourse[], field: string, value: string): ICourse[] {
-    return collection.filter(item =>
-      (<string>item[field]).match(new RegExp(value, 'i'))
     );
   }
 }
@@ -70,6 +73,13 @@ describe('CourseListComponent', () => {
       }
     ]
   };
+  const FilterStubPipe = {
+    transform(collection: ICourse[], field: string, value: string): ICourse[] {
+      return collection.filter(item =>
+        (<string>item[field]).match(new RegExp(value, 'i'))
+      );
+    }
+  };
   let component: CourseListComponent;
   let fixture: ComponentFixture<CourseListComponent>;
 
@@ -79,7 +89,7 @@ describe('CourseListComponent', () => {
         CourseListComponent,
         CourseListItemStubComponent,
         OrderByStubPipe,
-        FilterStubPipe
+        SearchCourseStubComponent
       ],
       providers: [
         { provide: CoursesService, useValue: coursesServiceStub },
@@ -149,5 +159,39 @@ describe('CourseListComponent', () => {
         `Course with id ${component.courses[courseIndex].id} was deleted`
       );
     }
+  });
+
+  it(`It should call function onSearchActivated and filter courses by title
+      from searchActivated event, when search-course component emits
+      such event`, () => {
+    let searchCourseComponent: DebugElement;
+    let listOfCoursesInHtml: DebugElement[];
+
+    fixture.detectChanges();
+
+    searchCourseComponent = fixture.debugElement.query(
+      By.css('learn-portal-search-course')
+    );
+
+    spyOn(component, 'onSearchActivated').and.callThrough();
+
+    (<SearchCourseStubComponent>(
+      searchCourseComponent.componentInstance
+    )).emitActivateSearchEvent();
+
+    expect(component.onSearchActivated).toHaveBeenCalledWith('2');
+    expect(component.courses.length).toEqual(1);
+
+    fixture.detectChanges();
+
+    listOfCoursesInHtml = fixture.debugElement.queryAll(
+      By.css('ul>li>learn-portal-course-list-item')
+    );
+
+    expect(listOfCoursesInHtml.length).toEqual(1);
+
+    expect(listOfCoursesInHtml[0].componentInstance.course.title).toEqual(
+      'Course 2 title'
+    );
   });
 });
