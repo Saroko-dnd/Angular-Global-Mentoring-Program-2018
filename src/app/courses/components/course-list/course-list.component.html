@@ -3,7 +3,7 @@
   (searchActivated)="onSearchActivated($event)"
 ></learn-portal-search-course>
 <ul class="p-0 m-0">
-  <li *ngFor="let courseItem of (courses | orderBy: 'creationDate': true)">
+  <li *ngFor="let courseItem of (courses | orderBy: 'creationDate')">
     <learn-portal-course-list-item
       [course]="courseItem"
       (itemDeleted)="onItemDeleted($event)"
