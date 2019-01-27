@@ -4,10 +4,10 @@ import { ICourse } from 'src/app/shared';
 
 @Injectable()
 export class CoursesService {
-  getListOfCourses(): ICourse[] {
-    return [
+  getList(): ICourse[] {
+    const listOfCourses: ICourse[] = [
       {
-        creationDate: new Date('2020-8-19'),
+        creationDate: new Date(),
         description: `Lorem ipsum dolor sit amet, consectetur
         adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium
         est ea totam nihil dolores tenetur excepturi expedita quod unde dolore
@@ -17,11 +17,11 @@ export class CoursesService {
         dolorum assumenda nam obcaecati vitae in sequi!`,
         duration: 120,
         id: '1',
-        title: 'Course 1 title',
+        title: 'JavaScript: Understanding the Weird Parts',
         topRated: false
       },
       {
-        creationDate: new Date('2020-2-13'),
+        creationDate: new Date(),
         description: `Lorem ipsum dolor sit amet, consectetur
         adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium
         est ea totam nihil dolores tenetur excepturi expedita quod unde dolore
@@ -31,11 +31,11 @@ export class CoursesService {
         dolorum assumenda nam obcaecati vitae in sequi!`,
         duration: 330,
         id: '2',
-        title: 'Course 2 title',
+        title: 'React Crash Course 2018',
         topRated: true
       },
       {
-        creationDate: new Date('2019-1-3'),
+        creationDate: new Date(),
         description: `Lorem ipsum dolor sit amet, consectetur
         adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium
         est ea totam nihil dolores tenetur excepturi expedita quod unde dolore
@@ -45,11 +45,11 @@ export class CoursesService {
         dolorum assumenda nam obcaecati vitae in sequi!`,
         duration: 40,
         id: '3',
-        title: 'Course 3 title',
+        title: 'Advanced Javascript',
         topRated: true
       },
       {
-        creationDate: new Date('2019-1-2'),
+        creationDate: new Date(),
         description: `Lorem ipsum dolor sit amet, consectetur
         adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium
         est ea totam nihil dolores tenetur excepturi expedita quod unde dolore
@@ -59,11 +59,11 @@ export class CoursesService {
         dolorum assumenda nam obcaecati vitae in sequi!`,
         duration: 50,
         id: '4',
-        title: 'Course 4 title',
+        title: 'Nuxt.js Fundamentals',
         topRated: false
       },
       {
-        creationDate: new Date('2017-6-12'),
+        creationDate: new Date(),
         description: `Lorem ipsum dolor sit amet, consectetur
         adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium
         est ea totam nihil dolores tenetur excepturi expedita quod unde dolore
@@ -73,10 +73,16 @@ export class CoursesService {
         dolorum assumenda nam obcaecati vitae in sequi!`,
         duration: 90,
         id: '5',
-        title: 'Course 5 title',
+        title: 'React Training: Advanced React.js',
         topRated: false
       }
     ];
+
+    listOfCourses.forEach((course: ICourse, index: number) => {
+      course.creationDate.setDate(course.creationDate.getDate() + index - 2);
+    });
+
+    return listOfCourses;
   }
 
   constructor() {}
