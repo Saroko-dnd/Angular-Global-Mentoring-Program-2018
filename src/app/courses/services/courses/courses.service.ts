@@ -107,6 +107,10 @@ export class CoursesService {
     return [...CoursesService.courses.values()];
   }
 
+  removeItem(id: string): void {
+    CoursesService.courses.delete(id);
+  }
+
   updateItem(course: ICourse): void {
     CoursesService.courses.set(course.id, course);
   }
