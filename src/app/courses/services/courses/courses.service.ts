@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { ICourse } from 'src/app/shared';
 
-import Guid from 'guid';
+import { Guid } from 'guid-typescript';
 
 @Injectable()
 export class CoursesService {
