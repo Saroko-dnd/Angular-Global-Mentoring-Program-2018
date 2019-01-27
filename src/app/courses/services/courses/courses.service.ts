@@ -78,9 +78,11 @@ export class CoursesService {
       }
     ];
 
-    listOfCourses.forEach((course: ICourse, index: number) => {
-      course.creationDate.setDate(course.creationDate.getDate() + index - 2);
-    });
+    listOfCourses.forEach(
+      (course: ICourse, index: number): void => {
+        course.creationDate.setDate(course.creationDate.getDate() + index - 2);
+      }
+    );
 
     return listOfCourses;
   }
