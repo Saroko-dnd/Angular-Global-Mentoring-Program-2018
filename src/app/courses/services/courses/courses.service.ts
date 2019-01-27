@@ -107,5 +107,9 @@ export class CoursesService {
     return [...CoursesService.courses.values()];
   }
 
+  updateItem(course: ICourse): void {
+    CoursesService.courses.set(course.id, course);
+  }
+
   constructor() {}
 }
