@@ -5,13 +5,14 @@
       type="search"
       aria-label="Search"
       placeholder="Text to search"
+      (keyup.enter)="activateSearch()"
       [(ngModel)]="inputSearchValue"
       [ngModelOptions]="{ standalone: true }"
     />
     <button
       class="btn btn-outline-success my-2 my-sm-0 search-course-button"
       type="button"
-      (click)="logSearchInputValue()"
+      (click)="activateSearch()"
     >
       Search
     </button>

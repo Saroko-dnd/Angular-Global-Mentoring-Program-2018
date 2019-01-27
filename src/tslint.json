@@ -1,17 +1,17 @@
 {
-    "extends": "../tslint.json",
-    "rules": {
-        "directive-selector": [
-            true,
-            "attribute",
-            "learn-portal",
-            "camelCase"
-        ],
-        "component-selector": [
-            true,
-            "element",
-            "learn-portal",
-            "kebab-case"
-        ]
-    }
+  "extends": "../tslint.json",
+  "rules": {
+    "directive-selector": [
+      true,
+      "attribute",
+      "lp",
+      "camelCase"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      "learn-portal",
+      "kebab-case"
+    ]
+  }
 }

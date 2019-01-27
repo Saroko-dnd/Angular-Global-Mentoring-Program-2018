@@ -1,13 +1,20 @@
-<article class="d-flex border border-dark mb-3">
+<article
+  class="d-flex border border-dark mb-3"
+  [lpShowCourseFreshness]="course.creationDate"
+  [ngClass]="{ 'bg-dark text-white': course.topRated }"
+>
   <div class="d-flex flex-column mx-2">
     <header class="d-flex align-items-center flex-md-row flex-column">
-      <h3 class="mr-md-auto mr-sm-0">{{ course.title }}</h3>
-      <span class="px-3 duration">{{ course.duration }}</span>
+      <div class="d-flex align-items-center mr-md-auto mr-sm-0">
+        <h3>{{ course.title | uppercase }}</h3>
+        <i *ngIf="course.topRated" class="fa fa-star mx-1"></i>
+      </div>
+      <span class="px-3 duration">{{ course.duration | duration }}</span>
       <time
         class="px-3"
         pubdate
         [attr.datetime]="course.date | date: 'yyyy-MM-dd'"
-        >{{ course.date | date: "MM.dd.yyyy" }}</time
+        >{{ course.creationDate | date: 'MM.dd.yyyy' }}</time
       >
     </header>
     <p>{{ course.description }}</p>

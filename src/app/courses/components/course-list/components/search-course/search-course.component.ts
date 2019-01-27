@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'learn-portal-search-course',
@@ -8,9 +8,11 @@ import { Component } from '@angular/core';
 export class SearchCourseComponent {
   constructor() {}
 
+  @Output() searchActivated = new EventEmitter<string>();
+
   inputSearchValue = '';
 
-  logSearchInputValue() {
-    console.log(this.inputSearchValue);
+  activateSearch() {
+    this.searchActivated.emit(this.inputSearchValue);
   }
 }

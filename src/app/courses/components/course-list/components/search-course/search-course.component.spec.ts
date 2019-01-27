@@ -21,7 +21,7 @@ describe('SearchCourseComponent', () => {
     fixture.detectChanges();
   });
 
-  it('It should print in console current search input value on search button click', () => {
+  it('It should call function activateSearch on search button click and emit searchActivated event with input value as an argument', () => {
     const testInputValue = 'test course search input value';
     const searchButton = fixture.debugElement.query(
       By.css('.search-course-button')
@@ -30,8 +30,8 @@ describe('SearchCourseComponent', () => {
       By.css('.search-course-input')
     );
 
-    spyOn(component, 'logSearchInputValue').and.callThrough();
-    spyOn(console, 'log');
+    spyOn(component, 'activateSearch').and.callThrough();
+    spyOn(component.searchActivated, 'emit');
 
     (<HTMLInputElement>searchInput.nativeElement).value = testInputValue;
     (<HTMLInputElement>searchInput.nativeElement).dispatchEvent(
@@ -41,7 +41,9 @@ describe('SearchCourseComponent', () => {
 
     searchButton.triggerEventHandler('click', null);
 
-    expect(component.logSearchInputValue).toHaveBeenCalled();
-    expect(console.log).toHaveBeenCalledWith(searchInput.nativeElement.value);
+    expect(component.activateSearch).toHaveBeenCalled();
+    expect(component.searchActivated.emit).toHaveBeenCalledWith(
+      (<HTMLInputElement>searchInput.nativeElement).value
+    );
   });
 });

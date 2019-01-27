@@ -1,6 +1,9 @@
-<learn-portal-search-course class="d-block my-3"></learn-portal-search-course>
+<learn-portal-search-course
+  class="d-block my-3"
+  (searchActivated)="onSearchActivated($event)"
+></learn-portal-search-course>
 <ul class="p-0 m-0">
-  <li *ngFor="let courseItem of courses">
+  <li *ngFor="let courseItem of (courses | orderBy: 'creationDate')">
     <learn-portal-course-list-item
       [course]="courseItem"
       (itemDeleted)="onItemDeleted($event)"
@@ -8,3 +11,10 @@
     </learn-portal-course-list-item>
   </li>
 </ul>
+<div
+  *ngIf="!courses.length"
+  class="alert alert-warning text-center"
+  role="alert"
+>
+  No data. Feel free to add new course.
+</div>

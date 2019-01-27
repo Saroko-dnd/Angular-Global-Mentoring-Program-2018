@@ -4,7 +4,9 @@ import {
   Component,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
+  Pipe,
+  PipeTransform
 } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -12,6 +14,7 @@ import { By } from '@angular/platform-browser';
 import { CourseListComponent } from './course-list.component';
 import { CoursesService } from '../..';
 import { ICourse } from 'src/app/shared';
+import { FilterPipe } from 'src/app/shared/pipes';
 
 @Component({ selector: 'learn-portal-course-list-item', template: '' })
 class CourseListItemStubComponent {
@@ -23,32 +26,75 @@ class CourseListItemStubComponent {
   }
 }
 
+@Component({
+  selector: 'learn-portal-search-course',
+  template: ''
+})
+export class SearchCourseStubComponent {
+  constructor() {}
+
+  @Output() searchActivated = new EventEmitter<string>();
+
+  emitActivateSearchEvent() {
+    this.searchActivated.emit('2');
+  }
+}
+
+@Pipe({
+  name: 'orderBy'
+})
+export class OrderByStubPipe implements PipeTransform {
+  transform(collection: ICourse[]): ICourse[] {
+    return collection.sort(
+      (courseA, courseB) =>
+        courseB.creationDate.getTime() - courseA.creationDate.getTime()
+    );
+  }
+}
+
 describe('CourseListComponent', () => {
   const coursesServiceStub = {
     getListOfCourses: (): ICourse[] => [
       {
-        date: new Date('2015-8-19'),
-        description: `Lorem!`,
-        duration: '2h',
-        id: '1',
-        title: 'Course 1 title'
+        creationDate: new Date('2008-2-13'),
+        description: `Lorem ipsum!`,
+        duration: 330,
+        id: '2',
+        title: 'Course 2 title',
+        topRated: false
       },
       {
-        date: new Date('2008-2-13'),
-        description: `Lorem ipsum!`,
-        duration: '5h 30min',
-        id: '2',
-        title: 'Course 2 title'
+        creationDate: new Date('2015-8-19'),
+        description: `Lorem!`,
+        duration: 120,
+        id: '1',
+        title: 'Course 1 title',
+        topRated: true
       }
     ]
+  };
+  const FilterStubPipe = {
+    transform(collection: ICourse[], field: string, value: string): ICourse[] {
+      return collection.filter(item =>
+        (<string>item[field]).match(new RegExp(value, 'i'))
+      );
+    }
   };
   let component: CourseListComponent;
   let fixture: ComponentFixture<CourseListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CourseListComponent, CourseListItemStubComponent],
-      providers: [{ provide: CoursesService, useValue: coursesServiceStub }],
+      declarations: [
+        CourseListComponent,
+        CourseListItemStubComponent,
+        OrderByStubPipe,
+        SearchCourseStubComponent
+      ],
+      providers: [
+        { provide: CoursesService, useValue: coursesServiceStub },
+        { provide: FilterPipe, useValue: FilterStubPipe }
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
@@ -113,5 +159,39 @@ describe('CourseListComponent', () => {
         `Course with id ${component.courses[courseIndex].id} was deleted`
       );
     }
+  });
+
+  it(`It should call function onSearchActivated and filter courses by title
+      from searchActivated event, when search-course component emits
+      such event`, () => {
+    let searchCourseComponent: DebugElement;
+    let listOfCoursesInHtml: DebugElement[];
+
+    fixture.detectChanges();
+
+    searchCourseComponent = fixture.debugElement.query(
+      By.css('learn-portal-search-course')
+    );
+
+    spyOn(component, 'onSearchActivated').and.callThrough();
+
+    (<SearchCourseStubComponent>(
+      searchCourseComponent.componentInstance
+    )).emitActivateSearchEvent();
+
+    expect(component.onSearchActivated).toHaveBeenCalledWith('2');
+    expect(component.courses.length).toEqual(1);
+
+    fixture.detectChanges();
+
+    listOfCoursesInHtml = fixture.debugElement.queryAll(
+      By.css('ul>li>learn-portal-course-list-item')
+    );
+
+    expect(listOfCoursesInHtml.length).toEqual(1);
+
+    expect(listOfCoursesInHtml[0].componentInstance.course.title).toEqual(
+      'Course 2 title'
+    );
   });
 });
