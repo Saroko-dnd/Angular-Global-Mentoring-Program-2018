@@ -10,5 +10,10 @@ export class AuthorizationService {
     localStorage.setItem('user-token', 'fake token');
   }
 
+  logout() {
+    localStorage.removeItem('user-name');
+    localStorage.removeItem('user-token');
+  }
+
   constructor() { }
 }
