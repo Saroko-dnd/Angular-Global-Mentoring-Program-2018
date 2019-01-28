@@ -15,8 +15,12 @@ export class AuthorizationService {
     localStorage.removeItem('user-token');
   }
 
-  IsAuthenticated(): boolean {
+  isAuthenticated(): boolean {
     return localStorage.getItem('user-login') !== null && localStorage.getItem('user-token') !== null;
+  }
+
+  getUserInfo(): string {
+    return localStorage.getItem('user-login');
   }
 
   constructor() { }
