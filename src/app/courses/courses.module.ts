@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+
 import {
   CourseListComponent,
   CourseListItemComponent,
@@ -23,7 +25,8 @@ import { SharedModule } from '../shared';
     CommonModule,
     FormsModule,
     RouterModule.forRoot(coursesRoutes),
-    SharedModule
+    SharedModule,
+    NgbModalModule
   ],
   declarations: [
     CourseListComponent,

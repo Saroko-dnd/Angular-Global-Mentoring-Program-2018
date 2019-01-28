@@ -6,7 +6,7 @@
   <li *ngFor="let courseItem of (courses | orderBy: 'creationDate')">
     <learn-portal-course-list-item
       [course]="courseItem"
-      (itemDeleted)="onItemDeleted($event)"
+      (itemDeleted)="onItemDeleted($event, confirmCourseDeletionModal)"
     >
     </learn-portal-course-list-item>
   </li>
@@ -18,3 +18,36 @@
 >
   No data. Feel free to add new course.
 </div>
+
+<ng-template #confirmCourseDeletionModal let-modal>
+  <div class="modal-header">
+    <h3 class="modal-title">Confirm course deletion</h3>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <p>Do you really want to delete this course?</p>
+  </div>
+  <div class="modal-footer d-flex justify-content-around">
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      (click)="modal.close('Yes')"
+    >
+      Yes
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      (click)="modal.close('No')"
+    >
+      No
+    </button>
+  </div>
+</ng-template>
