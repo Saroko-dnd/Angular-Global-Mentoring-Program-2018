@@ -7,10 +7,14 @@ import { AuthorizationService } from 'src/app/core/services';
   styleUrls: ['./user-login.component.scss']
 })
 export class UserLoginComponent implements OnInit {
-
-  constructor(private authorization: AuthorizationService) { }
+  constructor(private authorization: AuthorizationService) {}
 
   userLogin: string;
+
+  logout() {
+    this.userLogin = '';
+    this.authorization.logout();
+  }
 
   ngOnInit() {
     this.userLogin = this.authorization.getUserInfo();

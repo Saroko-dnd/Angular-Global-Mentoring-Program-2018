@@ -1,5 +1,7 @@
 <form class="form-inline my-2 my-lg-0">
   <!-- text placeholder -->
-  <span class="mr-sm-3">{{userLogin || 'Anonymous user'}}</span>
-  <button class="btn btn-primary my-2 my-sm-0" type="submit">Log off</button>
+  <span class="mr-sm-3">{{ userLogin || 'Anonymous user' }}</span>
+  <button class="btn btn-primary my-2 my-sm-0" type="button" (click)="logout()">
+    Log off
+  </button>
 </form>
