@@ -1,11 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
 @Injectable()
 export class AuthorizationService {
+  loginPerformed: EventEmitter<string>;
 
   login(email: string, password: string): void {
-    localStorage.setItem('user-login', 'Fake User');
+    const fakeUserLogin = 'Fake User';
+
+    localStorage.setItem('user-login', fakeUserLogin);
     localStorage.setItem('user-token', 'fake token');
+
+    this.loginPerformed.emit(fakeUserLogin);
   }
 
   logout(): void {
@@ -21,5 +26,7 @@ export class AuthorizationService {
     return localStorage.getItem('user-login');
   }
 
-  constructor() { }
+  constructor() {
+    this.loginPerformed = new EventEmitter();
+  }
 }

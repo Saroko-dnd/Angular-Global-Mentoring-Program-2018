@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import {Router} from '@angular/router';
 
 import { AuthorizationService } from 'src/app/core/services';
 
@@ -9,15 +10,27 @@ import { AuthorizationService } from 'src/app/core/services';
   styleUrls: ['./user-login.component.scss']
 })
 export class UserLoginComponent implements OnInit {
-  constructor(private authorization: AuthorizationService, private location: Location) {}
+  constructor(private authorization: AuthorizationService, private location: Location, private router: Router) {
+    authorization.loginPerformed.subscribe(userLogin => {
+        this.userLogin = userLogin;
+        this.userIsAuthenticated = true;
+      }
+    );
+  }
 
+  userIsAuthenticated: boolean;
   userLogin: string;
 
   isAuth(): boolean {
     return this.location.path() === '/login';
   }
 
+  login() {
+    this.router.navigateByUrl('/login');
+  }
+
   logout() {
+    this.userIsAuthenticated = false;
     this.userLogin = '';
     this.authorization.logout();
 
@@ -26,5 +39,6 @@ export class UserLoginComponent implements OnInit {
 
   ngOnInit() {
     this.userLogin = this.authorization.getUserInfo();
+    this.userIsAuthenticated = this.authorization.isAuthenticated();
   }
 }
