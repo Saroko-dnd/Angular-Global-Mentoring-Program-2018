@@ -5,12 +5,10 @@ export class AuthorizationService {
   loginPerformed: EventEmitter<string>;
 
   login(email: string, password: string): void {
-    const fakeUserLogin = 'Fake User';
-
-    localStorage.setItem('user-login', fakeUserLogin);
+    localStorage.setItem('user-login', email);
     localStorage.setItem('user-token', 'fake token');
 
-    this.loginPerformed.emit(fakeUserLogin);
+    this.loginPerformed.emit(email);
   }
 
   logout(): void {
@@ -19,7 +17,10 @@ export class AuthorizationService {
   }
 
   isAuthenticated(): boolean {
-    return localStorage.getItem('user-login') !== null && localStorage.getItem('user-token') !== null;
+    return (
+      localStorage.getItem('user-login') !== null &&
+      localStorage.getItem('user-token') !== null
+    );
   }
 
   getUserInfo(): string {
