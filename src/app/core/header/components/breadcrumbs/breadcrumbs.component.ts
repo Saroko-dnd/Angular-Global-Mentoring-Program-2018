@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'learn-portal-breadcrumbs',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./breadcrumbs.component.scss']
 })
 export class BreadcrumbsComponent {
-  constructor() {}
+  constructor(private location: Location) {}
+
+  isAuth(): boolean {
+    return this.location.path() === '/login';
+  }
 }

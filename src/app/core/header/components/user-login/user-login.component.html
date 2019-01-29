@@ -1,4 +1,4 @@
-<form class="form-inline my-2 my-lg-0">
+<form class="form-inline my-2 my-lg-0"  *ngIf="!isAuth()">
   <!-- text placeholder -->
   <span class="mr-sm-3">{{ userLogin || 'Anonymous user' }}</span>
   <button class="btn btn-primary my-2 my-sm-0" type="button" (click)="logout()">

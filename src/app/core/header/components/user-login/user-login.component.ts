@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+
 import { AuthorizationService } from 'src/app/core/services';
 
 @Component({
@@ -7,9 +9,13 @@ import { AuthorizationService } from 'src/app/core/services';
   styleUrls: ['./user-login.component.scss']
 })
 export class UserLoginComponent implements OnInit {
-  constructor(private authorization: AuthorizationService) {}
+  constructor(private authorization: AuthorizationService, private location: Location) {}
 
   userLogin: string;
+
+  isAuth(): boolean {
+    return this.location.path() === '/login';
+  }
 
   logout() {
     this.userLogin = '';
