@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthorizationService } from 'src/app/core/services';
 
 @Component({
   selector: 'learn-portal-login',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  constructor() {}
+  constructor(private authorizationService: AuthorizationService) {}
+
+  userEmailInput: string;
+  userPasswordInput: string;
+
+  login() {
+    this.authorizationService.login(this.userEmailInput, this.userPasswordInput);
+
+    console.log('logged in successfully');
+  }
 }

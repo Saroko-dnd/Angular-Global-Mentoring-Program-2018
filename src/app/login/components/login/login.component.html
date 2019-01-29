@@ -13,6 +13,8 @@
         id="inputEmail3"
         placeholder="Email"
         required="true"
+        [(ngModel)]="userEmailInput"
+        [ngModelOptions]="{ standalone: true }"
       />
     </div>
   </div>
@@ -27,12 +29,15 @@
         id="inputPassword3"
         placeholder="Password"
         required="true"
+        autocomplete="password"
+        [(ngModel)]="userPasswordInput"
+        [ngModelOptions]="{ standalone: true }"
       />
     </div>
   </div>
   <div class="col-sm-8 offset-sm-2 form-group px-0">
     <div class="">
-      <button type="submit" class="btn btn-primary">Login</button>
+      <button type="button" class="btn btn-primary" (click)="login()">Login</button>
     </div>
   </div>
 </form>
