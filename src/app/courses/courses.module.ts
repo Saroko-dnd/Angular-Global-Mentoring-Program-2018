@@ -6,9 +6,10 @@ import { FormsModule } from '@angular/forms';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
+  CourseDurationComponent,
+  CourseEditFormComponent,
   CourseListComponent,
   CourseListItemComponent,
-  CreateNewCourseComponent,
   SearchCourseComponent
 } from './components';
 
@@ -19,7 +20,6 @@ import { ShowCourseFreshnessDirective } from './directives';
 
 import { DurationPipe } from './pipes';
 import { SharedModule } from '../shared';
-import { CourseDurationComponent } from './components/create-new-course/components';
 
 @NgModule({
   imports: [
@@ -31,14 +31,14 @@ import { CourseDurationComponent } from './components/create-new-course/componen
   ],
   declarations: [
     CourseDurationComponent,
+    CourseEditFormComponent,
     CourseListComponent,
     CourseListItemComponent,
-    CreateNewCourseComponent,
     DurationPipe,
     SearchCourseComponent,
-    ShowCourseFreshnessDirective,
+    ShowCourseFreshnessDirective
   ],
-  exports: [CourseListComponent, CreateNewCourseComponent],
+  exports: [CourseListComponent, CourseEditFormComponent],
   providers: [CoursesService]
 })
 export class CoursesModule {}

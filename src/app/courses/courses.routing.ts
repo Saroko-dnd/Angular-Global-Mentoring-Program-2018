@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 
-import { CourseListComponent, CreateNewCourseComponent } from './components';
+import { CourseListComponent, CourseEditFormComponent } from './components';
 
 export const coursesRoutes: Routes = [
   { path: 'courses', component: CourseListComponent },
-  { path: 'courses/add', component: CreateNewCourseComponent },
-  { path: 'courses/edit', component: CreateNewCourseComponent }
+  { path: 'courses/add', component: CourseEditFormComponent },
+  { path: 'courses/edit', component: CourseEditFormComponent }
 ];
