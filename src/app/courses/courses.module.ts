@@ -19,6 +19,7 @@ import { ShowCourseFreshnessDirective } from './directives';
 
 import { DurationPipe } from './pipes';
 import { SharedModule } from '../shared';
+import { CourseDurationComponent } from './components/create-new-course/components';
 
 @NgModule({
   imports: [
@@ -29,12 +30,13 @@ import { SharedModule } from '../shared';
     NgbModalModule
   ],
   declarations: [
+    CourseDurationComponent,
     CourseListComponent,
     CourseListItemComponent,
     CreateNewCourseComponent,
     DurationPipe,
     SearchCourseComponent,
-    ShowCourseFreshnessDirective
+    ShowCourseFreshnessDirective,
   ],
   exports: [CourseListComponent, CreateNewCourseComponent],
   providers: [CoursesService]

@@ -4,5 +4,6 @@ import { CourseListComponent, CreateNewCourseComponent } from './components';
 
 export const coursesRoutes: Routes = [
   { path: 'courses', component: CourseListComponent },
-  { path: 'courses/create-new-course', component: CreateNewCourseComponent }
+  { path: 'courses/add', component: CreateNewCourseComponent },
+  { path: 'courses/edit', component: CreateNewCourseComponent }
 ];

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import {Router} from '@angular/router';
 
-import { AuthorizationService } from 'src/app/core/services';
+import { AuthorizationService } from '../../../services';
 
 @Component({
   selector: 'learn-portal-user-login',

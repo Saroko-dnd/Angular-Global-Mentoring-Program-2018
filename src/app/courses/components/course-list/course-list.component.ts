@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { CoursesService } from '../../services';
-import { ICourse } from 'src/app/shared';
-import { FilterPipe } from 'src/app/shared/pipes';
+import { ICourse } from '../../../shared';
+import { FilterPipe } from '../../../shared/pipes';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 

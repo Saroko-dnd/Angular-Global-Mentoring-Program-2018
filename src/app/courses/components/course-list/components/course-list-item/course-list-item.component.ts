@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { ICourse } from 'src/app/shared/types/icourse';
+import { ICourse } from '../../../../../shared/types/icourse';
 
 @Component({
   selector: 'learn-portal-course-list-item',

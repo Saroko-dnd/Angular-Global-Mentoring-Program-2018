@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { ICourse } from 'src/app/shared';
+import { ICourse } from '../../../shared';
 
 import { Guid } from 'guid-typescript';
 

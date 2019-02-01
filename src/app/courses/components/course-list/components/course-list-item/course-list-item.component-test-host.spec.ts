@@ -8,7 +8,7 @@ import {
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CourseListItemComponent } from './course-list-item.component';
-import { ICourse } from 'src/app/shared';
+import { ICourse } from '../../../../../shared';
 import { By } from '@angular/platform-browser';
 
 const testCourseItem: ICourse = {

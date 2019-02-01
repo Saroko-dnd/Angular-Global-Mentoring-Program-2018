@@ -13,8 +13,8 @@ import { By } from '@angular/platform-browser';
 
 import { CourseListComponent } from './course-list.component';
 import { CoursesService } from '../..';
-import { ICourse } from 'src/app/shared';
-import { FilterPipe } from 'src/app/shared/pipes';
+import { ICourse } from '../../../shared';
+import { FilterPipe } from '../../../shared/pipes';
 
 @Component({ selector: 'learn-portal-course-list-item', template: '' })
 class CourseListItemStubComponent {

@@ -1,3 +1,18 @@
-<p>
-  create-new-course works!
-</p>
+<form class="d-flex flex-column">
+  <div class="form-group">
+    <label for="courseTitleFormControl">Title</label>
+    <input type="text" class="form-control" id="courseTitleFormControl">
+  </div>
+  <div class="form-group">
+    <label for="courseDescriptionFormControl">Description</label>
+    <textarea class="form-control" id="courseDescriptionFormControl" rows="4"></textarea>
+  </div>
+  <div class="form-group col-sm-3 px-0">
+    <label for="courseCreationDateFormControl">Date</label>
+    <learn-portal-date-input class="" inputId='courseCreationDateFormControl'></learn-portal-date-input>
+  </div>
+  <div class="form-group d-flex flex-column">
+    <label for="courseDurationFormControl">Duration</label>
+    <learn-portal-course-duration inputId="courseDurationFormControl"></learn-portal-course-duration>
+  </div>
+</form>
