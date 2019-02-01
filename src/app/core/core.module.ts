@@ -4,6 +4,8 @@ import { BreadcrumbsComponent, HeaderComponent, LogoComponent } from './header';
 import { FooterComponent } from './footer/footer.component';
 import { UserLoginComponent } from './header/components/user-login/user-login.component';
 
+import { AuthorizationService } from 'src/app/core/services';
+
 @NgModule({
   imports: [CommonModule],
   declarations: [
@@ -13,6 +15,7 @@ import { UserLoginComponent } from './header/components/user-login/user-login.co
     LogoComponent,
     UserLoginComponent
   ],
-  exports: [HeaderComponent, FooterComponent]
+  exports: [HeaderComponent, FooterComponent],
+  providers: [AuthorizationService],
 })
 export class CoreModule {}

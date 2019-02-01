@@ -1,12 +1,12 @@
 <article
-  class="d-flex border border-dark mb-3"
+  class="d-flex flex-sm-row flex-column border border-dark mb-3 pb-2 pb-sm-0"
   [lpShowCourseFreshness]="course.creationDate"
   [ngClass]="{ 'bg-dark text-white': course.topRated }"
 >
   <div class="d-flex flex-column mx-2">
     <header class="d-flex align-items-center flex-md-row flex-column">
       <div class="d-flex align-items-center mr-md-auto mr-sm-0">
-        <h3>{{ course.title | uppercase }}</h3>
+        <h3 class="text-center text-sm-left">{{ course.title | uppercase }}</h3>
         <i *ngIf="course.topRated" class="fa fa-star mx-1"></i>
       </div>
       <span class="px-3 duration">{{ course.duration | duration }}</span>
@@ -19,13 +19,15 @@
     </header>
     <p>{{ course.description }}</p>
   </div>
-  <ul class="d-flex flex-column list-group ml-auto mr-2">
-    <li class="d-block my-3">
+  <ul
+    class="d-flex flex-row flex-sm-column list-group ml-sm-auto mr-sm-2 justify-content-center justify-content-sm-start"
+  >
+    <li class="d-block my-sm-3 mr-3 mr-sm-0">
       <button class="btn btn-info w-100" type="button">
         <i class="fa fa-edit"></i> Edit
       </button>
     </li>
-    <li class="d-block mb-3">
+    <li class="d-block mb-sm-3">
       <button
         class="btn btn-danger w-100"
         type="button"
