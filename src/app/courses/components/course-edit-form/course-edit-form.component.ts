@@ -27,6 +27,14 @@ export class CourseEditFormComponent implements OnInit {
     });
   }
 
+  cancelCourseEditing() {
+    console.log('cancelCourseEditing');
+  }
+
+  saveCourse() {
+    console.log('saveCourse');
+  }
+
   onAuthorAdded(addedAuthor: any) {
     console.log(addedAuthor);
   }
