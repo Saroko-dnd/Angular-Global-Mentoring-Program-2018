@@ -56,6 +56,7 @@ describe('CourseListComponent', () => {
   const coursesServiceStub = {
     getListOfCourses: (): ICourse[] => [
       {
+        authors: [],
         creationDate: new Date('2008-2-13'),
         description: `Lorem ipsum!`,
         duration: 330,
@@ -64,6 +65,7 @@ describe('CourseListComponent', () => {
         topRated: false
       },
       {
+        authors: [],
         creationDate: new Date('2015-8-19'),
         description: `Lorem!`,
         duration: 120,

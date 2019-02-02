@@ -3,7 +3,7 @@
   [lpShowCourseFreshness]="course.creationDate"
   [ngClass]="{ 'bg-dark text-white': course.topRated }"
 >
-  <div class="d-flex flex-column mx-2">
+  <div class="d-flex flex-column mx-2 flex-grow-1">
     <header class="d-flex align-items-center flex-md-row flex-column">
       <div class="d-flex align-items-center mr-md-auto mr-sm-0">
         <h3 class="text-center text-sm-left">{{ course.title | uppercase }}</h3>
@@ -23,7 +23,7 @@
     class="d-flex flex-row flex-sm-column list-group ml-sm-auto mr-sm-2 justify-content-center justify-content-sm-start"
   >
     <li class="d-block my-sm-3 mr-3 mr-sm-0">
-      <button class="btn btn-info w-100" type="button">
+      <button class="btn btn-info w-100" type="button" (click)="editCourse()">
         <i class="fa fa-edit"></i> Edit
       </button>
     </li>

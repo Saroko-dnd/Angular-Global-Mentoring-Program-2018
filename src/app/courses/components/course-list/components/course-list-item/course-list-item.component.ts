@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
 
 import { ICourse } from '../../../../../shared/types/icourse';
 
@@ -14,8 +20,13 @@ export class CourseListItemComponent {
   @Input() course: ICourse;
 
   @Output() itemDeleted = new EventEmitter<string>();
+  @Output() edit = new EventEmitter<string>();
 
   deleteCourse() {
     this.itemDeleted.emit(this.course.id);
+  }
+
+  editCourse() {
+    this.edit.emit(this.course.id);
   }
 }

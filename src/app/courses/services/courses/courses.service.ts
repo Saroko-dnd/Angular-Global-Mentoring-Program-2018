@@ -11,6 +11,13 @@ export class CoursesService {
     [
       '1',
       {
+        authors: [
+          {
+            id: '1370',
+            firstName: 'Polly',
+            lastName: 'Sosa'
+          }
+        ],
         creationDate: new Date(Date.now() - 172800000),
         description: `Lorem ipsum dolor sit amet, consectetur
       adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium
@@ -27,7 +34,25 @@ export class CoursesService {
     ],
     [
       '2',
+
       {
+        authors: [
+          {
+            id: '8413',
+            firstName: 'Greta',
+            lastName: 'Richardson'
+          },
+          {
+            id: '7458',
+            firstName: 'Deana',
+            lastName: 'Bruce'
+          },
+          {
+            id: '5508',
+            firstName: 'Patsy',
+            lastName: 'Bright'
+          }
+        ],
         creationDate: new Date(Date.now() - 86400000),
         description: `Lorem ipsum dolor sit amet, consectetur
       adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium
@@ -45,6 +70,18 @@ export class CoursesService {
     [
       '3',
       {
+        authors: [
+          {
+            id: '3618',
+            firstName: 'Laura',
+            lastName: 'Kirby'
+          },
+          {
+            id: '9064',
+            firstName: 'Quinn',
+            lastName: 'Cain'
+          }
+        ],
         creationDate: new Date(Date.now()),
         description: `Lorem ipsum dolor sit amet, consectetur
       adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium
@@ -62,6 +99,28 @@ export class CoursesService {
     [
       '4',
       {
+        authors: [
+          {
+            id: '21',
+            firstName: 'Maddox',
+            lastName: 'Diaz'
+          },
+          {
+            id: '800',
+            firstName: 'Glenda',
+            lastName: 'Juarez'
+          },
+          {
+            id: '1772',
+            firstName: 'Hilda',
+            lastName: 'Gaines'
+          },
+          {
+            id: '3003',
+            firstName: 'Abbott',
+            lastName: 'Mckay'
+          }
+        ],
         creationDate: new Date(Date.now() + 86400000),
         description: `Lorem ipsum dolor sit amet, consectetur
       adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium
@@ -79,6 +138,23 @@ export class CoursesService {
     [
       '5',
       {
+        authors: [
+          {
+            id: '9926',
+            firstName: 'Burt',
+            lastName: 'Holland'
+          },
+          {
+            id: '6440',
+            firstName: 'Andrews',
+            lastName: 'Byers'
+          },
+          {
+            id: '8509',
+            firstName: 'Shawn',
+            lastName: 'Craig'
+          }
+        ],
         creationDate: new Date(Date.now() + 172800000),
         description: `Lorem ipsum dolor sit amet, consectetur
       adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium

@@ -9,9 +9,11 @@ export class ShowCourseFreshnessDirective implements OnInit {
   @Input('lpShowCourseFreshness') courseDate: Date;
 
   ngOnInit() {
-    const differenceInDays = Math.floor(
-      (Date.now() - this.courseDate.getTime()) / (1000 * 60 * 60 * 24)
-    );
+    const differenceInDays = this.courseDate
+      ? Math.floor(
+          (Date.now() - this.courseDate.getTime()) / (1000 * 60 * 60 * 24)
+        )
+      : 0;
 
     if (differenceInDays <= 14 && differenceInDays > 0) {
       this.element.nativeElement.style.cssText =

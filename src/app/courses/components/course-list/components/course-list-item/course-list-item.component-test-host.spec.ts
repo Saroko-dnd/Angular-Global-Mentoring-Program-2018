@@ -12,6 +12,7 @@ import { ICourse } from '../../../../../shared';
 import { By } from '@angular/platform-browser';
 
 const testCourseItem: ICourse = {
+  authors: [],
   creationDate: new Date('2015-8-19'),
   description: `Lorem`,
   duration: 120,
