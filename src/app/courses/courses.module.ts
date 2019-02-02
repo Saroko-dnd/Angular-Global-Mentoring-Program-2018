@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
+import { NgSelectModule } from '@ng-select/ng-select';
+
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
@@ -25,6 +27,7 @@ import { SharedModule } from '../shared';
   imports: [
     CommonModule,
     FormsModule,
+    NgSelectModule,
     RouterModule.forRoot(coursesRoutes),
     SharedModule,
     NgbModalModule

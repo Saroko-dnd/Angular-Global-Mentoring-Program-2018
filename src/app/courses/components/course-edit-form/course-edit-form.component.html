@@ -19,9 +19,25 @@
     ></learn-portal-date-input>
   </div>
   <div class="form-group d-flex flex-column">
-    <label for="courseDurationFormControl">Duration</label>
+    <label id="courseDurationFormControl">Duration</label>
     <learn-portal-course-duration
       inputId="courseDurationFormControl"
     ></learn-portal-course-duration>
+  </div>
+  <div>
+    <label id="courseAuthorsFormControl">Authors</label>
+    <ng-select
+      [items]="authorsMultiSelect.dropdownList"
+      [multiple]="true"
+      [labelForId]="courseAuthorsFormControl"
+      [closeOnSelect]="false"
+      [hideSelected]="true"
+      bindLabel="name"
+      placeholder="Start typing"
+      (add)="onAuthorAdded($event)"
+      (remove)="onAuthorRemoved($event)"
+      (clear)="onAllAuthorsRemoved()"
+    >
+    </ng-select>
   </div>
 </form>

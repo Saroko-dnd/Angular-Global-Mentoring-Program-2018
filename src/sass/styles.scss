@@ -1,8 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-@import "variables";
+@import 'variables';
 
-@import "~font-awesome/scss/font-awesome";
-@import "~bootstrap/scss/bootstrap.scss";
+@import '~font-awesome/scss/font-awesome';
+@import '~bootstrap/scss/bootstrap.scss';
+
+@import '~@ng-select/ng-select/themes/material.theme.css';
 
 learn-portal-root {
   min-height: 100vh;
