@@ -8,7 +8,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
-  CourseDurationComponent,
   CourseEditFormComponent,
   CourseListComponent,
   CourseListItemComponent,
@@ -22,6 +21,7 @@ import { ShowCourseFreshnessDirective } from './directives';
 
 import { DurationPipe } from './pipes';
 import { SharedModule } from '../shared';
+import { CourseDurationInputComponent } from './components/';
 
 @NgModule({
   imports: [
@@ -33,7 +33,7 @@ import { SharedModule } from '../shared';
     NgbModalModule
   ],
   declarations: [
-    CourseDurationComponent,
+    CourseDurationInputComponent,
     CourseEditFormComponent,
     CourseListComponent,
     CourseListItemComponent,

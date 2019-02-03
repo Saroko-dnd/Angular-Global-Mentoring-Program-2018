@@ -32,11 +32,11 @@
   </div>
   <div class="form-group d-flex flex-column">
     <label for="courseDurationFormControl">Duration</label>
-    <learn-portal-course-duration
+    <learn-portal-course-duration-input
       inputId="courseDurationFormControl"
       [(ngModel)]="course.duration"
       [ngModelOptions]="{ standalone: true }"
-    ></learn-portal-course-duration>
+    ></learn-portal-course-duration-input>
   </div>
   <div>
     <label (click)="authorsSelector.focus()">Authors</label>

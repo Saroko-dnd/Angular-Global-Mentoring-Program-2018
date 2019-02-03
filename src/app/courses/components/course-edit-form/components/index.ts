@@ -1,1 +1,1 @@
-export * from './course-duration/course-duration.component';
+export * from './course-duration-input/course-duration-input.component';

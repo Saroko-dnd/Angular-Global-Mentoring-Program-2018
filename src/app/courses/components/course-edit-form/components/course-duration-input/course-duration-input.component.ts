@@ -7,17 +7,18 @@ const noop = () => {};
 
 export const COURSE_DURATION_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => CourseDurationComponent),
+  useExisting: forwardRef(() => CourseDurationInputComponent),
   multi: true
 };
 
 @Component({
-  selector: 'learn-portal-course-duration',
-  templateUrl: './course-duration.component.html',
-  styleUrls: ['./course-duration.component.scss'],
+  selector: 'learn-portal-course-duration-input',
+  templateUrl: './course-duration-input.component.html',
+  styleUrls: ['./course-duration-input.component.scss'],
   providers: [COURSE_DURATION_INPUT_CONTROL_VALUE_ACCESSOR]
 })
-export class CourseDurationComponent implements OnInit, ControlValueAccessor {
+export class CourseDurationInputComponent
+  implements OnInit, ControlValueAccessor {
   @Input() inputId: string;
 
   private innerValue: number;
