@@ -7,6 +7,7 @@
     <learn-portal-course-list-item
       [course]="courseItem"
       (itemDeleted)="onItemDeleted($event, confirmCourseDeletionModal)"
+      (edit)="onItemEdit($event)"
     >
     </learn-portal-course-list-item>
   </li>

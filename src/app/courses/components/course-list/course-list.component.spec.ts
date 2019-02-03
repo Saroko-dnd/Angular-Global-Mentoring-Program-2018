@@ -13,8 +13,8 @@ import { By } from '@angular/platform-browser';
 
 import { CourseListComponent } from './course-list.component';
 import { CoursesService } from '../..';
-import { ICourse } from 'src/app/shared';
-import { FilterPipe } from 'src/app/shared/pipes';
+import { ICourse } from '../../../shared';
+import { FilterPipe } from '../../../shared/pipes';
 
 @Component({ selector: 'learn-portal-course-list-item', template: '' })
 class CourseListItemStubComponent {
@@ -56,6 +56,7 @@ describe('CourseListComponent', () => {
   const coursesServiceStub = {
     getListOfCourses: (): ICourse[] => [
       {
+        authors: [],
         creationDate: new Date('2008-2-13'),
         description: `Lorem ipsum!`,
         duration: 330,
@@ -64,6 +65,7 @@ describe('CourseListComponent', () => {
         topRated: false
       },
       {
+        authors: [],
         creationDate: new Date('2015-8-19'),
         description: `Lorem!`,
         duration: 120,

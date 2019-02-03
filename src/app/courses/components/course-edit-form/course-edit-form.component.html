@@ -1,0 +1,71 @@
+<form class="d-flex flex-column" ngNativeValidate>
+  <div class="form-group">
+    <label for="courseTitleFormControl">Title</label>
+    <input
+      type="text"
+      class="form-control"
+      id="courseTitleFormControl"
+      [(ngModel)]="course.title"
+      [ngModelOptions]="{ standalone: true }"
+    />
+  </div>
+  <div class="form-group">
+    <label for="courseDescriptionFormControl">Description</label>
+    <textarea
+      class="form-control"
+      id="courseDescriptionFormControl"
+      rows="4"
+      [(ngModel)]="course.description"
+      [ngModelOptions]="{ standalone: true }"
+      ngDefaultControl
+    ></textarea>
+  </div>
+  <div class="form-group col-sm-3 px-0">
+    <label for="courseCreationDateFormControl">Date</label>
+    <learn-portal-date-input
+      class=""
+      inputId="courseCreationDateFormControl"
+      [ngModel]="course.creationDate | date: 'yyyy-MM-dd'"
+      (ngModelChange)="updateCourseDate($event)"
+      [ngModelOptions]="{ standalone: true }"
+    ></learn-portal-date-input>
+  </div>
+  <div class="form-group d-flex flex-column">
+    <label for="courseDurationFormControl">Duration</label>
+    <learn-portal-course-duration-input
+      inputId="courseDurationFormControl"
+      [(ngModel)]="course.duration"
+      [ngModelOptions]="{ standalone: true }"
+    ></learn-portal-course-duration-input>
+  </div>
+  <div>
+    <label (click)="authorsSelector.focus()">Authors</label>
+    <ng-select
+      #authorsSelector
+      [items]="authorsMultiSelect.dropdownList"
+      [multiple]="true"
+      [closeOnSelect]="false"
+      [hideSelected]="true"
+      bindLabel="name"
+      placeholder="Start typing"
+      (add)="onAuthorAdded($event)"
+      (remove)="onAuthorRemoved($event)"
+      (clear)="onAllAuthorsRemoved()"
+      [(ngModel)]="authorsMultiSelect.selectedAuthors"
+      [ngModelOptions]="{ standalone: true }"
+    >
+    </ng-select>
+  </div>
+  <div class="d-flex">
+    <button type="button" class="btn btn-success" (click)="saveCourse()">
+      Save
+    </button>
+    <button
+      type="button"
+      class="ml-3 btn btn-dark"
+      (click)="cancelCourseEditing()"
+    >
+      Cancel
+    </button>
+  </div>
+</form>

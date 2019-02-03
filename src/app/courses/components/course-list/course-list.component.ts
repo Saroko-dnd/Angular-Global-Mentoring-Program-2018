@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { CoursesService } from '../../services';
-import { ICourse } from 'src/app/shared';
-import { FilterPipe } from 'src/app/shared/pipes';
+import { ICourse } from '../../../shared';
+import { FilterPipe } from '../../../shared/pipes';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -15,7 +16,8 @@ export class CourseListComponent implements OnInit {
   constructor(
     private coursesService: CoursesService,
     private filterPipe: FilterPipe,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router
   ) {}
 
   private _courses: ICourse[];
@@ -41,6 +43,10 @@ export class CourseListComponent implements OnInit {
       },
       reason => {}
     );
+  }
+
+  onItemEdit(courseId: string): void {
+    this.router.navigate(['/courses', courseId]);
   }
 
   onSearchActivated(title: string) {

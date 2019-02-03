@@ -3,12 +3,15 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
+import { NgSelectModule } from '@ng-select/ng-select';
+
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
+  CourseDurationInputComponent,
+  CourseEditFormComponent,
   CourseListComponent,
   CourseListItemComponent,
-  CreateNewCourseComponent,
   SearchCourseComponent
 } from './components';
 
@@ -24,19 +27,21 @@ import { SharedModule } from '../shared';
   imports: [
     CommonModule,
     FormsModule,
+    NgSelectModule,
     RouterModule.forRoot(coursesRoutes),
     SharedModule,
     NgbModalModule
   ],
   declarations: [
+    CourseDurationInputComponent,
+    CourseEditFormComponent,
     CourseListComponent,
     CourseListItemComponent,
-    CreateNewCourseComponent,
     DurationPipe,
     SearchCourseComponent,
     ShowCourseFreshnessDirective
   ],
-  exports: [CourseListComponent, CreateNewCourseComponent],
+  exports: [CourseListComponent, CourseEditFormComponent],
   providers: [CoursesService]
 })
 export class CoursesModule {}

@@ -1,6 +1,4 @@
 import { DurationPipe } from './duration.pipe';
-import { Component } from '@angular/core';
-import { ICourse } from 'src/app/shared';
 
 describe('DurationPipe', () => {
   const durationPipe = new DurationPipe();

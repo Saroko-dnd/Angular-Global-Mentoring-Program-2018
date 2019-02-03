@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { ICourse } from 'src/app/shared';
+import { ICourse } from '../../../shared';
 
 import { Guid } from 'guid-typescript';
+import { IAuthor } from 'src/app/shared/types/iauthor';
 
 @Injectable()
 export class CoursesService {
@@ -10,6 +11,13 @@ export class CoursesService {
     [
       '1',
       {
+        authors: [
+          {
+            id: '1370',
+            firstName: 'Polly',
+            lastName: 'Sosa'
+          }
+        ],
         creationDate: new Date(Date.now() - 172800000),
         description: `Lorem ipsum dolor sit amet, consectetur
       adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium
@@ -26,7 +34,25 @@ export class CoursesService {
     ],
     [
       '2',
+
       {
+        authors: [
+          {
+            id: '8413',
+            firstName: 'Greta',
+            lastName: 'Richardson'
+          },
+          {
+            id: '7458',
+            firstName: 'Deana',
+            lastName: 'Bruce'
+          },
+          {
+            id: '5508',
+            firstName: 'Patsy',
+            lastName: 'Bright'
+          }
+        ],
         creationDate: new Date(Date.now() - 86400000),
         description: `Lorem ipsum dolor sit amet, consectetur
       adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium
@@ -44,6 +70,18 @@ export class CoursesService {
     [
       '3',
       {
+        authors: [
+          {
+            id: '3618',
+            firstName: 'Laura',
+            lastName: 'Kirby'
+          },
+          {
+            id: '9064',
+            firstName: 'Quinn',
+            lastName: 'Cain'
+          }
+        ],
         creationDate: new Date(Date.now()),
         description: `Lorem ipsum dolor sit amet, consectetur
       adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium
@@ -61,6 +99,28 @@ export class CoursesService {
     [
       '4',
       {
+        authors: [
+          {
+            id: '21',
+            firstName: 'Maddox',
+            lastName: 'Diaz'
+          },
+          {
+            id: '800',
+            firstName: 'Glenda',
+            lastName: 'Juarez'
+          },
+          {
+            id: '1772',
+            firstName: 'Hilda',
+            lastName: 'Gaines'
+          },
+          {
+            id: '3003',
+            firstName: 'Abbott',
+            lastName: 'Mckay'
+          }
+        ],
         creationDate: new Date(Date.now() + 86400000),
         description: `Lorem ipsum dolor sit amet, consectetur
       adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium
@@ -78,6 +138,23 @@ export class CoursesService {
     [
       '5',
       {
+        authors: [
+          {
+            id: '9926',
+            firstName: 'Burt',
+            lastName: 'Holland'
+          },
+          {
+            id: '6440',
+            firstName: 'Andrews',
+            lastName: 'Byers'
+          },
+          {
+            id: '8509',
+            firstName: 'Shawn',
+            lastName: 'Craig'
+          }
+        ],
         creationDate: new Date(Date.now() + 172800000),
         description: `Lorem ipsum dolor sit amet, consectetur
       adipisicing elit. Ducimus, magnam! Distinctio, incidunt rem, accusantium
@@ -93,10 +170,66 @@ export class CoursesService {
       }
     ]
   ]);
+  static authors: IAuthor[] = [
+    {
+      id: '1',
+      firstName: 'James',
+      lastName: 'Smith'
+    },
+    {
+      id: '2',
+      firstName: 'John',
+      lastName: 'Davis'
+    },
+    {
+      id: '3',
+      firstName: 'Robert',
+      lastName: 'Williams'
+    },
+    {
+      id: '4',
+      firstName: 'Michael',
+      lastName: 'Jones'
+    },
+    {
+      id: '5',
+      firstName: 'William',
+      lastName: 'Brown'
+    },
+    {
+      id: '6',
+      firstName: 'David',
+      lastName: 'Miller'
+    },
+    {
+      id: '7',
+      firstName: 'Richard',
+      lastName: 'Wilson'
+    },
+    {
+      id: '8',
+      firstName: 'Joseph',
+      lastName: 'Taylor'
+    },
+    {
+      id: '9',
+      firstName: 'Thomas',
+      lastName: 'Anderson'
+    },
+    {
+      id: '10',
+      firstName: 'Charles',
+      lastName: 'Martinez'
+    }
+  ];
 
   createCourse(newCourse: ICourse): void {
     newCourse.id = Guid.raw();
     CoursesService.courses.set(newCourse.id, newCourse);
+  }
+
+  getAuthors(): IAuthor[] {
+    return CoursesService.authors;
   }
 
   getItemById(id: string): ICourse {

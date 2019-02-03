@@ -1,0 +1,12 @@
+<div class="d-flex">
+  <input
+    type="number"
+    class="form-control col-sm-3"
+    id="{{ inputId }}"
+    min="0"
+    [(ngModel)]="value"
+    [ngModelOptions]="{ standalone: true }"
+    (input)="onInput($event)"
+  />
+  <span class="ml-3">{{ value || 0 | duration }}</span>
+</div>

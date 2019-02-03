@@ -1,11 +1,18 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
 
-import { ICourse } from 'src/app/shared/types/icourse';
+import { ICourse } from '../../../../../shared/types/icourse';
 
 @Component({
   selector: 'learn-portal-course-list-item',
   templateUrl: './course-list-item.component.html',
-  styleUrls: ['./course-list-item.component.scss']
+  styleUrls: ['./course-list-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseListItemComponent {
   constructor() {}
@@ -13,8 +20,13 @@ export class CourseListItemComponent {
   @Input() course: ICourse;
 
   @Output() itemDeleted = new EventEmitter<string>();
+  @Output() edit = new EventEmitter<string>();
 
   deleteCourse() {
     this.itemDeleted.emit(this.course.id);
+  }
+
+  editCourse() {
+    this.edit.emit(this.course.id);
   }
 }
