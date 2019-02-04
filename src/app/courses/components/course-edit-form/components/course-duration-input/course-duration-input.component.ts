@@ -20,6 +20,7 @@ export const COURSE_DURATION_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 export class CourseDurationInputComponent
   implements OnInit, ControlValueAccessor {
   @Input() inputId: string;
+  @Input() required: boolean;
 
   private innerValue: number;
 

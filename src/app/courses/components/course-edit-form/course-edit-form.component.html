@@ -1,19 +1,21 @@
-<form class="d-flex flex-column" ngNativeValidate>
+<form class="d-flex flex-column" (submit)="saveCourse()" ngNativeValidate>
   <div class="form-group">
-    <label for="courseTitleFormControl">Title</label>
+    <label for="courseTitleFormControl">Title <span class="text-danger">*Required</span></label>
     <input
       type="text"
       class="form-control"
       id="courseTitleFormControl"
+      required
       [(ngModel)]="course.title"
       [ngModelOptions]="{ standalone: true }"
     />
   </div>
   <div class="form-group">
-    <label for="courseDescriptionFormControl">Description</label>
+    <label for="courseDescriptionFormControl">Description <span class="text-danger">*Required</span></label>
     <textarea
       class="form-control"
       id="courseDescriptionFormControl"
+      required="true"
       rows="4"
       [(ngModel)]="course.description"
       [ngModelOptions]="{ standalone: true }"
@@ -21,27 +23,33 @@
     ></textarea>
   </div>
   <div class="form-group col-sm-3 px-0">
-    <label for="courseCreationDateFormControl">Date</label>
+    <label for="courseCreationDateFormControl">Date <span class="text-danger">*Required</span></label>
     <learn-portal-date-input
       class=""
       inputId="courseCreationDateFormControl"
+      [required]="true"
       [ngModel]="course.creationDate | date: 'yyyy-MM-dd'"
       (ngModelChange)="updateCourseDate($event)"
       [ngModelOptions]="{ standalone: true }"
     ></learn-portal-date-input>
   </div>
   <div class="form-group d-flex flex-column">
-    <label for="courseDurationFormControl">Duration</label>
+    <label for="courseDurationFormControl">Duration <span class="text-danger">*Required</span></label>
     <learn-portal-course-duration-input
       inputId="courseDurationFormControl"
+      [required]="true"
       [(ngModel)]="course.duration"
       [ngModelOptions]="{ standalone: true }"
     ></learn-portal-course-duration-input>
   </div>
   <div>
-    <label (click)="authorsSelector.focus()">Authors</label>
+    <label (click)="authorsSelector.focus()">Authors <span class="text-danger">*Required</span></label>
     <ng-select
       #authorsSelector
+      #authorsTooltip="ngbTooltip"
+      ngbTooltip="You must select at least one author"
+      placement="top"
+      triggers="manual"
       [items]="authorsMultiSelect.dropdownList"
       [multiple]="true"
       [closeOnSelect]="false"
@@ -57,7 +65,7 @@
     </ng-select>
   </div>
   <div class="d-flex">
-    <button type="button" class="btn btn-success" (click)="saveCourse()">
+    <button type="submit" class="btn btn-success">
       Save
     </button>
     <button

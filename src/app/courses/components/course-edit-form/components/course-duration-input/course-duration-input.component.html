@@ -4,6 +4,7 @@
     class="form-control col-sm-3"
     id="{{ inputId }}"
     min="0"
+    required="{{required}}"
     [(ngModel)]="value"
     [ngModelOptions]="{ standalone: true }"
     (input)="onInput($event)"

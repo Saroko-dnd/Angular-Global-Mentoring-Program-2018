@@ -17,6 +17,7 @@ export const DATE_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class DateInputComponent implements OnInit, ControlValueAccessor {
   @Input() inputId: string;
+  @Input() required: boolean;
 
   private innerValue: string;
 
