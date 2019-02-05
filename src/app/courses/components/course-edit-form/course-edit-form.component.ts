@@ -8,6 +8,7 @@ import { cloneDeep } from 'lodash';
 import { IAuthor } from 'src/app/shared/types/iauthor';
 import { CoursesService } from '../../services';
 import { ICourse } from 'src/app/shared';
+import { AuthorizationService } from 'src/app/core';
 
 @Component({
   selector: 'learn-portal-course-edit-form',
@@ -16,6 +17,7 @@ import { ICourse } from 'src/app/shared';
 })
 export class CourseEditFormComponent implements OnInit {
   constructor(
+    private authorizationService: AuthorizationService,
     private coursesService: CoursesService,
     private route: ActivatedRoute,
     private router: Router
@@ -41,7 +43,7 @@ export class CourseEditFormComponent implements OnInit {
   formIsValid = false;
 
   ngOnInit() {
-    const authors: IAuthor[] = this.coursesService.getAuthors();
+    const authors: IAuthor[] = this.authorizationService.getUsers();
 
     authors.forEach(author => {
       this.authorsMultiSelect.dropdownList.push({
