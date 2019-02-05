@@ -1,5 +1,15 @@
 <nav aria-label="breadcrumb" class="p-0" *ngIf="!isAuth()">
-  <ul class="breadcrumb container mb-0">
-    <li class="breadcrumb-item active" aria-current="courses">Courses</li>
+  <ul class="breadcrumb container mb-0 d-flex">
+    <li
+      [ngClass]="
+        breadcrumb.route ? 'breadcrumb-item' : 'breadcrumb-item active'
+      "
+      *ngFor="let breadcrumb of breadcrumbsTrail"
+    >
+      <a *ngIf="breadcrumb.route" [routerLink]="breadcrumb.route">{{
+        breadcrumb.label
+      }}</a>
+      <span *ngIf="!breadcrumb.route">{{ breadcrumb.label }}</span>
+    </li>
   </ul>
 </nav>
