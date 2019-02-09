@@ -1,3 +1,3 @@
 export * from './icourse';
 export * from './iuser';
-export * from './inputEvent';
+export * from './iinput-event';

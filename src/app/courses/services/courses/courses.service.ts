@@ -170,66 +170,11 @@ export class CoursesService {
       }
     ]
   ]);
-  static authors: IAuthor[] = [
-    {
-      id: '1',
-      firstName: 'James',
-      lastName: 'Smith'
-    },
-    {
-      id: '2',
-      firstName: 'John',
-      lastName: 'Davis'
-    },
-    {
-      id: '3',
-      firstName: 'Robert',
-      lastName: 'Williams'
-    },
-    {
-      id: '4',
-      firstName: 'Michael',
-      lastName: 'Jones'
-    },
-    {
-      id: '5',
-      firstName: 'William',
-      lastName: 'Brown'
-    },
-    {
-      id: '6',
-      firstName: 'David',
-      lastName: 'Miller'
-    },
-    {
-      id: '7',
-      firstName: 'Richard',
-      lastName: 'Wilson'
-    },
-    {
-      id: '8',
-      firstName: 'Joseph',
-      lastName: 'Taylor'
-    },
-    {
-      id: '9',
-      firstName: 'Thomas',
-      lastName: 'Anderson'
-    },
-    {
-      id: '10',
-      firstName: 'Charles',
-      lastName: 'Martinez'
-    }
-  ];
+
 
   createCourse(newCourse: ICourse): void {
     newCourse.id = Guid.raw();
     CoursesService.courses.set(newCourse.id, newCourse);
-  }
-
-  getAuthors(): IAuthor[] {
-    return CoursesService.authors;
   }
 
   getItemById(id: string): ICourse {

@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
 import { cloneDeep } from 'lodash';
 
 import { IAuthor } from 'src/app/shared/types/iauthor';
 import { CoursesService } from '../../services';
 import { ICourse } from 'src/app/shared';
+import { AuthorizationService } from 'src/app/core';
 
 @Component({
   selector: 'learn-portal-course-edit-form',
@@ -14,10 +17,18 @@ import { ICourse } from 'src/app/shared';
 })
 export class CourseEditFormComponent implements OnInit {
   constructor(
+    private authorizationService: AuthorizationService,
     private coursesService: CoursesService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
+
+  @ViewChild('authorsTooltip') authorsTooltip: NgbTooltip;
+
+  authorsMultiSelect = {
+    dropdownList: [],
+    selectedAuthors: []
+  };
 
   course: ICourse = {
     authors: [],
@@ -29,13 +40,10 @@ export class CourseEditFormComponent implements OnInit {
     topRated: false
   };
 
-  authorsMultiSelect = {
-    dropdownList: [],
-    selectedAuthors: []
-  };
+  formIsValid = false;
 
   ngOnInit() {
-    const authors: IAuthor[] = this.coursesService.getAuthors();
+    const authors: IAuthor[] = this.authorizationService.getUsers();
 
     authors.forEach(author => {
       this.authorsMultiSelect.dropdownList.push({
@@ -62,28 +70,6 @@ export class CourseEditFormComponent implements OnInit {
     this.router.navigateByUrl('/courses');
   }
 
-  saveCourse() {
-    this.course.authors = [];
-
-    this.authorsMultiSelect.selectedAuthors.forEach(author => {
-      const nameParts: string[] = author.name.split(' ');
-
-      this.course.authors.push({
-        id: author.id,
-        firstName: nameParts[0],
-        lastName: nameParts[1]
-      });
-    });
-
-    if (!this.router.url.endsWith('new')) {
-      this.coursesService.updateItem(this.course);
-    } else {
-      this.coursesService.createCourse(this.course);
-    }
-
-    this.router.navigateByUrl('/courses');
-  }
-
   onAuthorAdded(addedAuthor: any) {
     console.log(addedAuthor);
   }
@@ -96,7 +82,43 @@ export class CourseEditFormComponent implements OnInit {
     console.log('all authores are removed');
   }
 
+  saveCourse() {
+    this.validate();
+
+    if (this.formIsValid) {
+      this.course.authors = [];
+
+      this.authorsMultiSelect.selectedAuthors.forEach(author => {
+        const nameParts: string[] = author.name.split(' ');
+
+        this.course.authors.push({
+          id: author.id,
+          firstName: nameParts[0],
+          lastName: nameParts[1]
+        });
+      });
+
+      if (!this.router.url.endsWith('new')) {
+        this.coursesService.updateItem(this.course);
+      } else {
+        this.coursesService.createCourse(this.course);
+      }
+
+      this.router.navigateByUrl('/courses');
+    }
+  }
+
   updateCourseDate(date: string) {
     this.course.creationDate = new Date(date);
+  }
+
+  validate() {
+    if (this.authorsMultiSelect.selectedAuthors.length) {
+      this.formIsValid = true;
+      return true;
+    }
+
+    this.authorsTooltip.open();
+    return false;
   }
 }

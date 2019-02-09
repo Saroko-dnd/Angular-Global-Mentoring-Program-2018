@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbTooltipModule,  } from '@ng-bootstrap/ng-bootstrap';
 
 import {
   CourseDurationInputComponent,
@@ -27,10 +27,12 @@ import { SharedModule } from '../shared';
   imports: [
     CommonModule,
     FormsModule,
+    NgbModalModule,
+    NgbTooltipModule,
     NgSelectModule,
     RouterModule.forRoot(coursesRoutes),
     SharedModule,
-    NgbModalModule
+
   ],
   declarations: [
     CourseDurationInputComponent,

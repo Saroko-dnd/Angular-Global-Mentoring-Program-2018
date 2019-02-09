@@ -1,7 +1,62 @@
 import { Injectable, EventEmitter } from '@angular/core';
 
+import { IUser } from 'src/app/shared';
+
 @Injectable()
 export class AuthorizationService {
+  static users: IUser[] = [
+    {
+      id: '1',
+      firstName: 'James',
+      lastName: 'Smith'
+    },
+    {
+      id: '2',
+      firstName: 'John',
+      lastName: 'Davis'
+    },
+    {
+      id: '3',
+      firstName: 'Robert',
+      lastName: 'Williams'
+    },
+    {
+      id: '4',
+      firstName: 'Michael',
+      lastName: 'Jones'
+    },
+    {
+      id: '5',
+      firstName: 'William',
+      lastName: 'Brown'
+    },
+    {
+      id: '6',
+      firstName: 'David',
+      lastName: 'Miller'
+    },
+    {
+      id: '7',
+      firstName: 'Richard',
+      lastName: 'Wilson'
+    },
+    {
+      id: '8',
+      firstName: 'Joseph',
+      lastName: 'Taylor'
+    },
+    {
+      id: '9',
+      firstName: 'Thomas',
+      lastName: 'Anderson'
+    },
+    {
+      id: '10',
+      firstName: 'Charles',
+      lastName: 'Martinez'
+    }
+  ];
+
   loginPerformed: EventEmitter<string>;
 
   login(email: string, password: string): void {
@@ -21,6 +76,10 @@ export class AuthorizationService {
       localStorage.getItem('user-login') !== null &&
       localStorage.getItem('user-token') !== null
     );
+  }
+
+  getUsers(): IUser[] {
+    return AuthorizationService.users;
   }
 
   getUserInfo(): string {
