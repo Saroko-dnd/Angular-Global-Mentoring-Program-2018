@@ -10,6 +10,15 @@ import { CoursesService } from '../../services';
 import { ICourse } from 'src/app/shared';
 import { AuthorizationService } from 'src/app/core';
 
+interface IAuthorForMultiSelector extends IAuthor {
+  name: string;
+}
+
+interface IMultiSelectorModel {
+  dropdownList: IAuthorForMultiSelector[];
+  selectedAuthors: IAuthorForMultiSelector[];
+}
+
 @Component({
   selector: 'learn-portal-course-edit-form',
   templateUrl: './course-edit-form.component.html',
@@ -25,7 +34,7 @@ export class CourseEditFormComponent implements OnInit {
 
   @ViewChild('authorsTooltip') authorsTooltip: NgbTooltip;
 
-  authorsMultiSelect = {
+  authorsMultiSelect: IMultiSelectorModel = {
     dropdownList: [],
     selectedAuthors: []
   };
@@ -43,11 +52,21 @@ export class CourseEditFormComponent implements OnInit {
   formIsValid = false;
 
   ngOnInit() {
-    const authors: IAuthor[] = this.authorizationService.getUsers();
+    const authors: IAuthor[] = this.authorizationService
+      .getUsers()
+      .map(user => {
+        return {
+          id: user.id,
+          firstName: user.name.first,
+          lastName: user.name.last
+        };
+      });
 
     authors.forEach(author => {
       this.authorsMultiSelect.dropdownList.push({
         id: author.id,
+        firstName: author.firstName,
+        lastName: author.lastName,
         name: `${author.firstName} ${author.lastName}`
       });
     });
@@ -60,6 +79,8 @@ export class CourseEditFormComponent implements OnInit {
       this.course.authors.forEach(author => {
         this.authorsMultiSelect.selectedAuthors.push({
           id: author.id,
+          firstName: author.firstName,
+          lastName: author.lastName,
           name: `${author.firstName} ${author.lastName}`
         });
       });
@@ -89,12 +110,10 @@ export class CourseEditFormComponent implements OnInit {
       this.course.authors = [];
 
       this.authorsMultiSelect.selectedAuthors.forEach(author => {
-        const nameParts: string[] = author.name.split(' ');
-
         this.course.authors.push({
           id: author.id,
-          firstName: nameParts[0],
-          lastName: nameParts[1]
+          firstName: author.firstName,
+          lastName: author.lastName
         });
       });
 

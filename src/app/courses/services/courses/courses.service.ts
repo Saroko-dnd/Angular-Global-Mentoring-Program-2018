@@ -13,7 +13,7 @@ export class CoursesService {
       {
         authors: [
           {
-            id: '1370',
+            id: 1370,
             firstName: 'Polly',
             lastName: 'Sosa'
           }
@@ -38,17 +38,17 @@ export class CoursesService {
       {
         authors: [
           {
-            id: '8413',
+            id: 8413,
             firstName: 'Greta',
             lastName: 'Richardson'
           },
           {
-            id: '7458',
+            id: 7458,
             firstName: 'Deana',
             lastName: 'Bruce'
           },
           {
-            id: '5508',
+            id: 5508,
             firstName: 'Patsy',
             lastName: 'Bright'
           }
@@ -72,12 +72,12 @@ export class CoursesService {
       {
         authors: [
           {
-            id: '3618',
+            id: 3618,
             firstName: 'Laura',
             lastName: 'Kirby'
           },
           {
-            id: '9064',
+            id: 9064,
             firstName: 'Quinn',
             lastName: 'Cain'
           }
@@ -101,22 +101,22 @@ export class CoursesService {
       {
         authors: [
           {
-            id: '21',
+            id: 21,
             firstName: 'Maddox',
             lastName: 'Diaz'
           },
           {
-            id: '800',
+            id: 800,
             firstName: 'Glenda',
             lastName: 'Juarez'
           },
           {
-            id: '1772',
+            id: 1772,
             firstName: 'Hilda',
             lastName: 'Gaines'
           },
           {
-            id: '3003',
+            id: 3003,
             firstName: 'Abbott',
             lastName: 'Mckay'
           }
@@ -140,17 +140,17 @@ export class CoursesService {
       {
         authors: [
           {
-            id: '9926',
+            id: 9926,
             firstName: 'Burt',
             lastName: 'Holland'
           },
           {
-            id: '6440',
+            id: 6440,
             firstName: 'Andrews',
             lastName: 'Byers'
           },
           {
-            id: '8509',
+            id: 8509,
             firstName: 'Shawn',
             lastName: 'Craig'
           }
@@ -170,7 +170,6 @@ export class CoursesService {
       }
     ]
   ]);
-
 
   createCourse(newCourse: ICourse): void {
     newCourse.id = Guid.raw();
