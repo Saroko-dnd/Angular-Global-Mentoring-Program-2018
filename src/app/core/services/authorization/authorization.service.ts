@@ -1,6 +1,11 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, Inject, EventEmitter } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { IUser } from 'src/app/shared';
+
+interface IResponceWithUserToken {
+  token: string;
+}
 
 @Injectable()
 export class AuthorizationService {
@@ -58,12 +63,26 @@ export class AuthorizationService {
   ];
 
   loginPerformed: EventEmitter<string>;
+  loginFailed: EventEmitter<undefined>;
 
-  login(email: string, password: string): void {
-    localStorage.setItem('user-login', email);
-    localStorage.setItem('user-token', 'fake token');
+  login(username: string, password: string, successCallback: () => void): void {
+    this.http
+      .post<IResponceWithUserToken>(`${this.AUTH_URL}`, {
+        login: username,
+        password
+      })
+      .subscribe(
+        response => {
+          localStorage.setItem('user-token', response.token);
+          localStorage.setItem('user-login', username);
+          this.loginPerformed.emit(username);
 
-    this.loginPerformed.emit(email);
+          successCallback();
+        },
+        error => {
+          this.loginFailed.emit();
+        }
+      );
   }
 
   logout(): void {
@@ -86,7 +105,11 @@ export class AuthorizationService {
     return localStorage.getItem('user-login');
   }
 
-  constructor() {
+  constructor(
+    @Inject('AUTH_URL') private AUTH_URL: String,
+    private http: HttpClient
+  ) {
     this.loginPerformed = new EventEmitter();
+    this.loginFailed = new EventEmitter();
   }
 }
