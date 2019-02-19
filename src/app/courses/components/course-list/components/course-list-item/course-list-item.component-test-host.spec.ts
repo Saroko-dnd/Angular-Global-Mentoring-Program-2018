@@ -13,12 +13,12 @@ import { By } from '@angular/platform-browser';
 
 const testCourseItem: ICourse = {
   authors: [],
-  creationDate: new Date('2015-8-19'),
+  date: '2015-8-19',
   description: `Lorem`,
-  duration: 120,
+  length: 120,
   id: '1',
-  title: 'Course 1 title',
-  topRated: true
+  name: 'Course 1 title',
+  isTopRated: true
 };
 const testCourseDurationText = '2h 0min';
 
@@ -85,7 +85,7 @@ describe('CourseListItemComponent', () => {
       const titleElement = fixture.debugElement.query(By.css('h3'));
 
       expect((<HTMLElement>titleElement.nativeElement).textContent).toEqual(
-        testCourseItem.title.toUpperCase()
+        testCourseItem.name.toUpperCase()
       );
     });
 
