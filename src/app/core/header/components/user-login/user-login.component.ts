@@ -45,5 +45,9 @@ export class UserLoginComponent implements OnInit {
     });
 
     this.userIsAuthenticated = this.authorization.isAuthenticated();
+
+    if (this.userIsAuthenticated) {
+      this.userLogin = this.authorization.getUserLogin();
+    }
   }
 }

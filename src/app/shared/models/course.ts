@@ -4,11 +4,11 @@ import { IAuthor } from '../types/iauthor';
 export class Course implements ICourse {
   constructor(
     public authors: IAuthor[],
-    public creationDate: Date,
+    public date: string,
     public description: string,
-    public duration: number,
+    public length: number,
     public id: string,
-    public title: string,
-    public topRated: boolean
+    public name: string,
+    public isTopRated: boolean
   ) {}
 }

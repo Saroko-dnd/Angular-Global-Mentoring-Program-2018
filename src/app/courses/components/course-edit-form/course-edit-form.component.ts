@@ -41,12 +41,12 @@ export class CourseEditFormComponent implements OnInit {
 
   course: ICourse = {
     authors: [],
-    creationDate: null,
+    date: null,
     description: null,
-    duration: null,
+    length: null,
     id: null,
-    title: null,
-    topRated: false
+    name: null,
+    isTopRated: false
   };
 
   formIsValid = false;
@@ -128,7 +128,7 @@ export class CourseEditFormComponent implements OnInit {
   }
 
   updateCourseDate(date: string) {
-    this.course.creationDate = new Date(date);
+    this.course.date = date;
   }
 
   validate() {

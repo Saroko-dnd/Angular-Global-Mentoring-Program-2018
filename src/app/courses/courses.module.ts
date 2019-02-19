@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 
-import { NgbModalModule, NgbTooltipModule,  } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
   CourseDurationInputComponent,
@@ -29,6 +29,7 @@ import { SharedModule } from '../shared';
     FormsModule,
     NgbModalModule,
     NgbTooltipModule,
+    NgbPaginationModule,
     NgSelectModule,
     RouterModule.forRoot(coursesRoutes),
     SharedModule,
@@ -44,6 +45,10 @@ import { SharedModule } from '../shared';
     ShowCourseFreshnessDirective
   ],
   exports: [CourseListComponent, CourseEditFormComponent],
-  providers: [CoursesService]
+  providers: [
+    CoursesService,
+    { provide: 'COURSES_NUMBER_API_PATH', useValue: '/courses/number' },
+    { provide: 'COURSES_LIST_API_PATH', useValue: '/courses' },
+  ]
 })
 export class CoursesModule {}

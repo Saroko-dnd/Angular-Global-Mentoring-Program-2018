@@ -2,10 +2,10 @@ import { IAuthor } from './iauthor';
 
 export interface ICourse {
   authors: IAuthor[];
-  creationDate: Date;
+  date: string;
   description: string;
-  duration: number;
   id: string;
-  title: string;
-  topRated: boolean;
+  isTopRated: boolean;
+  length: number;
+  name: string;
 }

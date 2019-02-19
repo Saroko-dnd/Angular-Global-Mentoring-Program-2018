@@ -157,6 +157,11 @@ export class AuthorizationService {
     return AuthorizationService.users;
   }
 
+  getUserLogin(): string {
+    return localStorage.getItem('user-login');
+  }
+
+
   getUserInfo(): Observable<IUser> {
     return this.http.post<IUser>(`${this.USER_INFO_API_PATH}`, {}).pipe(
       map(user => {

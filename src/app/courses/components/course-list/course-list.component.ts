@@ -20,9 +20,12 @@ export class CourseListComponent implements OnInit {
     private router: Router
   ) {}
 
-  private _courses: ICourse[];
+  private _courses: ICourse[] = [];
 
-  courses: ICourse[];
+  courses: ICourse[] = [];
+  numberOfCourses: number;
+  pageCapacity = 10;
+  page = 0;
 
   onItemDeleted(deletedCourseId: string, confirmCourseDeletionModal: any) {
     this.modalService.open(confirmCourseDeletionModal).result.then(
@@ -38,7 +41,9 @@ export class CourseListComponent implements OnInit {
           }
 
           this.coursesService.removeItem(deletedCourseId);
-          this._courses = this.coursesService.getList();
+          this.coursesService.getList(this.page, this.pageCapacity).subscribe(courses => {
+            this._courses = courses;
+          });
         }
       },
       reason => {}
@@ -53,8 +58,21 @@ export class CourseListComponent implements OnInit {
     this.courses = this.filterPipe.transform(this._courses, 'title', title);
   }
 
+  pageChanged(pageNumber: number) {
+    this.coursesService.getList(pageNumber - 1, this.pageCapacity).subscribe(courses => {
+      this.courses = courses;
+    });
+  }
+
   ngOnInit() {
-    this.courses = this.coursesService.getList();
+    this.coursesService.getNumberOfCourses().subscribe(numberOfCourses => {
+      this.numberOfCourses = numberOfCourses;
+    });
+
+    this.coursesService.getList(this.page, this.pageCapacity).subscribe(courses => {
+      this.courses = courses;
+    });
+
     this._courses = this.courses;
   }
 }
