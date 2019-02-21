@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ICourse } from '../../../shared';
+import { ICourse, ICoursesData } from 'src/app/shared';
 
 import { Guid } from 'guid-typescript';
 import { IAuthor } from 'src/app/shared/types/iauthor';
@@ -22,20 +22,18 @@ export class CoursesService {
     CoursesService.courses.set(newCourse.id, newCourse);
   }
 
-  getNumberOfCourses(): Observable<number> {
-    return this.http.get<ICoursesMetadata>(`${this.COURSES_NUMBER_API_PATH}`, {}).pipe(
-      map(coursesMetadata => {
-        return coursesMetadata.numberOfCourses;
-      })
-    );
-  }
-
   getItemById(id: string): ICourse {
     return CoursesService.courses.get(id);
   }
 
-  getList(page: number, count: number): Observable<ICourse[]> {
-    return this.http.get<ICourse[]>(`${this.COURSES_LIST_API_PATH}`, {params: {start: (page * count) + '', count: count + ''}});
+  getList(
+    page: number,
+    count: number,
+    textFragment = ''
+  ): Observable<ICoursesData> {
+    return this.http.get<ICoursesData>(`${this.COURSES_LIST_API_PATH}`, {
+      params: { start: page * count + '', count: count + '', textFragment }
+    });
   }
 
   removeItem(id: string): void {

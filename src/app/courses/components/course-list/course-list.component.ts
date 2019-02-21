@@ -26,6 +26,7 @@ export class CourseListComponent implements OnInit {
   numberOfCourses: number;
   pageCapacity = 10;
   page = 0;
+  searchQuery = '';
 
   onItemDeleted(deletedCourseId: string, confirmCourseDeletionModal: any) {
     this.modalService.open(confirmCourseDeletionModal).result.then(
@@ -41,9 +42,11 @@ export class CourseListComponent implements OnInit {
           }
 
           this.coursesService.removeItem(deletedCourseId);
-          this.coursesService.getList(this.page, this.pageCapacity).subscribe(courses => {
-            this._courses = courses;
-          });
+          this.coursesService
+            .getList(this.page, this.pageCapacity)
+            .subscribe(coursesInfo => {
+              this._courses = coursesInfo.courses;
+            });
         }
       },
       reason => {}
@@ -54,24 +57,32 @@ export class CourseListComponent implements OnInit {
     this.router.navigate(['/courses', courseId]);
   }
 
-  onSearchActivated(title: string) {
-    this.courses = this.filterPipe.transform(this._courses, 'title', title);
+  onSearchActivated(textFragment: string) {
+    this.searchQuery = textFragment;
+
+    this.coursesService
+      .getList(0, this.pageCapacity, textFragment)
+      .subscribe(coursesInfo => {
+        this.courses = coursesInfo.courses;
+        this.numberOfCourses = coursesInfo.length;
+      });
   }
 
   pageChanged(pageNumber: number) {
-    this.coursesService.getList(pageNumber - 1, this.pageCapacity).subscribe(courses => {
-      this.courses = courses;
-    });
+    this.coursesService
+      .getList(pageNumber - 1, this.pageCapacity, this.searchQuery)
+      .subscribe(coursesInfo => {
+        this.courses = coursesInfo.courses;
+      });
   }
 
   ngOnInit() {
-    this.coursesService.getNumberOfCourses().subscribe(numberOfCourses => {
-      this.numberOfCourses = numberOfCourses;
-    });
-
-    this.coursesService.getList(this.page, this.pageCapacity).subscribe(courses => {
-      this.courses = courses;
-    });
+    this.coursesService
+      .getList(this.page, this.pageCapacity)
+      .subscribe(coursesInfo => {
+        this.courses = coursesInfo.courses;
+        this.numberOfCourses = coursesInfo.length;
+      });
 
     this._courses = this.courses;
   }
