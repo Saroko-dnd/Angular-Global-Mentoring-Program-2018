@@ -19,34 +19,27 @@ export class CourseListComponent implements OnInit {
     private modalService: NgbModal,
     private router: Router
   ) {}
-
-  private _courses: ICourse[] = [];
-
   courses: ICourse[] = [];
   numberOfCourses: number;
   pageCapacity = 10;
-  page = 0;
+  page = 1;
   searchQuery = '';
 
   onItemDeleted(deletedCourseId: string, confirmCourseDeletionModal: any) {
     this.modalService.open(confirmCourseDeletionModal).result.then(
       result => {
-        let courseIndex: number;
-
         if (result === 'Yes') {
-          courseIndex = this.courses.findIndex(
-            course => course.id === deletedCourseId
-          );
-          if (courseIndex >= 0) {
-            this.courses.splice(courseIndex, 1);
-          }
+          this.coursesService.removeItem(deletedCourseId).subscribe(response => {
+            if (this.page !== 1 && this.courses.length === 1) {
+              this.page -= 1;
+              this.numberOfCourses -= this.pageCapacity;
+            }
 
-          this.coursesService.removeItem(deletedCourseId);
-          this.coursesService
-            .getList(this.page, this.pageCapacity)
-            .subscribe(coursesInfo => {
-              this._courses = coursesInfo.courses;
+            this.coursesService.getList(this.page - 1, this.pageCapacity).subscribe(coursesData => {
+              this.courses = coursesData.courses;
             });
+          });
+
         }
       },
       reason => {}
@@ -77,13 +70,9 @@ export class CourseListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.coursesService
-      .getList(this.page, this.pageCapacity)
-      .subscribe(coursesInfo => {
-        this.courses = coursesInfo.courses;
-        this.numberOfCourses = coursesInfo.length;
-      });
-
-    this._courses = this.courses;
+    this.coursesService.getList(this.page - 1, this.pageCapacity).subscribe(coursesData => {
+      this.courses = coursesData.courses;
+      this.numberOfCourses = coursesData.length;
+    });
   }
 }

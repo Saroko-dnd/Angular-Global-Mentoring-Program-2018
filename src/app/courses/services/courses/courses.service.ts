@@ -36,8 +36,8 @@ export class CoursesService {
     });
   }
 
-  removeItem(id: string): void {
-    CoursesService.courses.delete(id);
+  removeItem(id: string): Observable<Object> {
+    return this.http.delete(`${this.COURSES_LIST_API_PATH}`, {params: {id}, responseType: 'text'});
   }
 
   updateItem(course: ICourse): void {
