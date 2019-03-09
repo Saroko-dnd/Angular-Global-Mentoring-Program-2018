@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+
 import { CoursesService } from '../../services';
 import { ICourse } from '../../../shared';
 import { FilterPipe } from '../../../shared/pipes';
@@ -17,7 +19,8 @@ export class CourseListComponent implements OnInit {
     private coursesService: CoursesService,
     private filterPipe: FilterPipe,
     private modalService: NgbModal,
-    private router: Router
+    private router: Router,
+    private spinnerService: Ng4LoadingSpinnerService
   ) {}
   courses: ICourse[] = [];
   numberOfCourses: number;
@@ -29,17 +32,24 @@ export class CourseListComponent implements OnInit {
     this.modalService.open(confirmCourseDeletionModal).result.then(
       result => {
         if (result === 'Yes') {
-          this.coursesService.removeItem(deletedCourseId).subscribe(response => {
-            if (this.page !== 1 && this.courses.length === 1) {
-              this.page -= 1;
-              this.numberOfCourses -= this.pageCapacity;
-            }
+          this.spinnerService.show();
 
-            this.coursesService.getList(this.page - 1, this.pageCapacity).subscribe(coursesData => {
-              this.courses = coursesData.courses;
+          this.coursesService
+            .removeItem(deletedCourseId)
+            .subscribe(response => {
+              if (this.page !== 1 && this.courses.length === 1) {
+                this.page -= 1;
+              }
+
+              this.numberOfCourses -= 1;
+
+              this.coursesService
+                .getList(this.page - 1, this.pageCapacity)
+                .subscribe(coursesData => {
+                  this.courses = coursesData.courses;
+                  this.spinnerService.hide();
+                });
             });
-          });
-
         }
       },
       reason => {}
@@ -51,6 +61,7 @@ export class CourseListComponent implements OnInit {
   }
 
   onSearchActivated(textFragment: string) {
+    this.spinnerService.show();
     this.searchQuery = textFragment;
 
     this.coursesService
@@ -58,21 +69,29 @@ export class CourseListComponent implements OnInit {
       .subscribe(coursesInfo => {
         this.courses = coursesInfo.courses;
         this.numberOfCourses = coursesInfo.length;
+
+        this.spinnerService.hide();
       });
   }
 
   pageChanged(pageNumber: number) {
+    this.spinnerService.show();
+
     this.coursesService
       .getList(pageNumber - 1, this.pageCapacity, this.searchQuery)
       .subscribe(coursesInfo => {
         this.courses = coursesInfo.courses;
+
+        this.spinnerService.hide();
       });
   }
 
   ngOnInit() {
-    this.coursesService.getList(this.page - 1, this.pageCapacity).subscribe(coursesData => {
-      this.courses = coursesData.courses;
-      this.numberOfCourses = coursesData.length;
-    });
+    this.coursesService
+      .getList(this.page - 1, this.pageCapacity)
+      .subscribe(coursesData => {
+        this.courses = coursesData.courses;
+        this.numberOfCourses = coursesData.length;
+      });
   }
 }

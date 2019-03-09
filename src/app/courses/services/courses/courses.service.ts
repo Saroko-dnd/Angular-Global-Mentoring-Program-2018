@@ -15,15 +15,20 @@ interface ICoursesMetadata {
 
 @Injectable()
 export class CoursesService {
-  static courses: Map<string, ICourse> = new Map();
-
-  createCourse(newCourse: ICourse): void {
+  createCourse(newCourse: ICourse): Observable<any> {
     newCourse.id = Guid.raw();
-    CoursesService.courses.set(newCourse.id, newCourse);
+
+    return this.http.post(`${this.COURSES_CREATE_API_PATH}`, newCourse, {
+      responseType: 'text'
+    });
   }
 
-  getItemById(id: string): ICourse {
-    return CoursesService.courses.get(id);
+  getAuthors(): Observable<IAuthor[]> {
+    return this.http.get<IAuthor[]>(`${this.AUTHORS_API_PATH}`);
+  }
+
+  getItemById(id: string): Observable<ICourse> {
+    return this.http.get<ICourse>(`${this.COURSES_LIST_API_PATH}/${id}`);
   }
 
   getList(
@@ -36,17 +41,24 @@ export class CoursesService {
     });
   }
 
-  removeItem(id: string): Observable<Object> {
-    return this.http.delete(`${this.COURSES_LIST_API_PATH}`, {params: {id}, responseType: 'text'});
+  removeItem(id: string): Observable<any> {
+    return this.http.delete(`${this.COURSES_LIST_API_PATH}`, {
+      params: { id },
+      responseType: 'text'
+    });
   }
 
-  updateItem(course: ICourse): void {
-    CoursesService.courses.set(course.id, course);
+  updateItem(course: ICourse): Observable<any> {
+    return this.http.post(`${this.COURSES_UPDATE_API_PATH}`, course, {
+      responseType: 'text'
+    });
   }
 
   constructor(
-    @Inject('COURSES_NUMBER_API_PATH') private COURSES_NUMBER_API_PATH: String,
     @Inject('COURSES_LIST_API_PATH') private COURSES_LIST_API_PATH: String,
+    @Inject('COURSES_CREATE_API_PATH') private COURSES_CREATE_API_PATH: String,
+    @Inject('COURSES_UPDATE_API_PATH') private COURSES_UPDATE_API_PATH: String,
+    @Inject('AUTHORS_API_PATH') private AUTHORS_API_PATH: String,
     private http: HttpClient
   ) {}
 }
