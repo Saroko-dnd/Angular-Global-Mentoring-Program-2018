@@ -2,10 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 
-import { NgbModalModule, NgbTooltipModule,  } from '@ng-bootstrap/ng-bootstrap';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
+import {
+  NgbModalModule,
+  NgbPaginationModule,
+  NgbTooltipModule
+} from '@ng-bootstrap/ng-bootstrap';
 
 import {
   CourseDurationInputComponent,
@@ -25,14 +32,17 @@ import { SharedModule } from '../shared';
 
 @NgModule({
   imports: [
+    BrowserAnimationsModule,
     CommonModule,
     FormsModule,
     NgbModalModule,
     NgbTooltipModule,
+    NgbPaginationModule,
     NgSelectModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
     RouterModule.forRoot(coursesRoutes),
-    SharedModule,
-
+    SharedModule
   ],
   declarations: [
     CourseDurationInputComponent,
@@ -44,6 +54,12 @@ import { SharedModule } from '../shared';
     ShowCourseFreshnessDirective
   ],
   exports: [CourseListComponent, CourseEditFormComponent],
-  providers: [CoursesService]
+  providers: [
+    CoursesService,
+    { provide: 'COURSES_LIST_API_PATH', useValue: '/courses' },
+    { provide: 'COURSES_CREATE_API_PATH', useValue: '/courses/new' },
+    { provide: 'COURSES_UPDATE_API_PATH', useValue: '/courses/update' },
+    { provide: 'AUTHORS_API_PATH', useValue: '/authors' }
+  ]
 })
 export class CoursesModule {}

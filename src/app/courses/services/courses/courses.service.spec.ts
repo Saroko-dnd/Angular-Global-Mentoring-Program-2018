@@ -12,19 +12,22 @@ describe('CoursesService', () => {
 
     it('should return not empty array of courses', () => {
       const service: CoursesService = TestBed.get(CoursesService);
-      const courses = service.getList();
+      let courses;
+      service.getList(0, 5).subscribe(foundCourses => {
+        courses = foundCourses;
 
-      expect(Array.isArray(courses)).toBe(true);
-      expect(courses.length > 0).toBe(true);
+        expect(Array.isArray(courses)).toBe(true);
+        expect(courses.length > 0).toBe(true);
 
-      courses.forEach(course => {
-        expect(typeof course).toBe('object');
+        courses.forEach(course => {
+          expect(typeof course).toBe('object');
 
-        expect(course.creationDate instanceof Date).toBe(true);
-        expect(typeof course.description).toBe('string');
-        expect(typeof course.duration).toBe('number');
-        expect(typeof course.id).toBe('string');
-        expect(typeof course.title).toBe('string');
+          expect(course.creationDate instanceof Date).toBe(true);
+          expect(typeof course.description).toBe('string');
+          expect(typeof course.duration).toBe('number');
+          expect(typeof course.id).toBe('string');
+          expect(typeof course.title).toBe('string');
+        });
       });
     });
   });

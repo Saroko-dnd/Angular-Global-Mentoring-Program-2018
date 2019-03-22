@@ -47,7 +47,7 @@ export class OrderByStubPipe implements PipeTransform {
   transform(collection: ICourse[]): ICourse[] {
     return collection.sort(
       (courseA, courseB) =>
-        courseB.creationDate.getTime() - courseA.creationDate.getTime()
+        new Date(courseB.date).getTime() - new Date(courseA.date).getTime()
     );
   }
 }
@@ -57,21 +57,21 @@ describe('CourseListComponent', () => {
     getListOfCourses: (): ICourse[] => [
       {
         authors: [],
-        creationDate: new Date('2008-2-13'),
+        date: '2008-2-13',
         description: `Lorem ipsum!`,
-        duration: 330,
+        length: 330,
         id: '2',
-        title: 'Course 2 title',
-        topRated: false
+        name: 'Course 2 title',
+        isTopRated: false
       },
       {
         authors: [],
-        creationDate: new Date('2015-8-19'),
+        date: '2015-8-19',
         description: `Lorem!`,
-        duration: 120,
+        length: 120,
         id: '1',
-        title: 'Course 1 title',
-        topRated: true
+        name: 'Course 1 title',
+        isTopRated: true
       }
     ]
   };

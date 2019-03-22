@@ -19,6 +19,11 @@
 >
   No data. Feel free to add new course.
 </div>
+<div class="d-flex justify-content-center">
+  <ngb-pagination [collectionSize]="numberOfCourses" (pageChange)="pageChanged($event)"
+    [(page)]="page" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+  </ngb-pagination>
+</div>
 
 <ng-template #confirmCourseDeletionModal let-modal>
   <div class="modal-header">

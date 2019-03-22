@@ -8,7 +8,7 @@
       class="form-control"
       id="courseTitleFormControl"
       required
-      [(ngModel)]="course.title"
+      [(ngModel)]="course.name"
       [ngModelOptions]="{ standalone: true }"
     />
   </div>
@@ -30,14 +30,21 @@
     <label for="courseCreationDateFormControl"
       >Date <span class="text-danger">*Required</span></label
     >
-    <learn-portal-date-input
-      class=""
-      inputId="courseCreationDateFormControl"
+    <input
+      id="courseCreationDateFormControl"
+      [owlDateTime]="course_dt"
+      [owlDateTimeTrigger]="course_dt"
+      placeholder="Course date"
       [required]="true"
-      [ngModel]="course.creationDate | date: 'yyyy-MM-dd'"
+      [ngModel]="course.date"
       (ngModelChange)="updateCourseDate($event)"
       [ngModelOptions]="{ standalone: true }"
-    ></learn-portal-date-input>
+    />
+    <owl-date-time
+      #course_dt
+      pickerMode="dialog"
+      showSecondsTimer="true"
+    ></owl-date-time>
   </div>
   <div class="form-group d-flex flex-column">
     <label for="courseDurationFormControl"
@@ -46,7 +53,7 @@
     <learn-portal-course-duration-input
       inputId="courseDurationFormControl"
       [required]="true"
-      [(ngModel)]="course.duration"
+      [(ngModel)]="course.length"
       [ngModelOptions]="{ standalone: true }"
     ></learn-portal-course-duration-input>
   </div>

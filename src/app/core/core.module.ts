@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { BreadcrumbsComponent, HeaderComponent, LogoComponent } from './header';
 import { FooterComponent } from './footer/footer.component';
@@ -8,9 +10,10 @@ import { UserLoginComponent } from './header/components/user-login/user-login.co
 
 import { AuthorizationService } from './services';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ServerApiCallsInterceptor } from './interceptors';
 
 @NgModule({
-  imports: [CommonModule, RouterModule],
+  imports: [BrowserModule, CommonModule, HttpClientModule, RouterModule],
   declarations: [
     BreadcrumbsComponent,
     FooterComponent,
@@ -20,6 +23,16 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     UserLoginComponent
   ],
   exports: [HeaderComponent, FooterComponent, PageNotFoundComponent],
-  providers: [AuthorizationService]
+  providers: [
+    AuthorizationService,
+    { provide: 'BASE_API_URL', useValue: 'http://localhost:3004' },
+    { provide: 'AUTH_API_PATH', useValue: '/auth/login' },
+    { provide: 'USER_INFO_API_PATH', useValue: '/auth/userinfo' },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ServerApiCallsInterceptor,
+      multi: true
+    }
+  ]
 })
 export class CoreModule {}

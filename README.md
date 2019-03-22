@@ -1,6 +1,7 @@
 # AngularPlaygroundApplication
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.3.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.3.<br/>
+**This application will not work without [this json server](https://github.com/Saroko-dnd/json-server-for-angular-mentoring-program)**
 
 ## Development server
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 import { AuthorizationService } from '../../../services';
 
@@ -10,13 +10,11 @@ import { AuthorizationService } from '../../../services';
   styleUrls: ['./user-login.component.scss']
 })
 export class UserLoginComponent implements OnInit {
-  constructor(private authorization: AuthorizationService, private location: Location, private router: Router) {
-    authorization.loginPerformed.subscribe(userLogin => {
-        this.userLogin = userLogin;
-        this.userIsAuthenticated = true;
-      }
-    );
-  }
+  constructor(
+    private authorization: AuthorizationService,
+    private location: Location,
+    private router: Router
+  ) {}
 
   userIsAuthenticated: boolean;
   userLogin: string;
@@ -38,7 +36,18 @@ export class UserLoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userLogin = this.authorization.getUserInfo();
+    this.authorization.loginPerformed.subscribe(() => {
+      this.userIsAuthenticated = true;
+
+      this.authorization.getUserInfo().subscribe(user => {
+        this.userLogin = user.login;
+      });
+    });
+
     this.userIsAuthenticated = this.authorization.isAuthenticated();
+
+    if (this.userIsAuthenticated) {
+      this.userLogin = this.authorization.getUserLogin();
+    }
   }
 }

@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+
 import { CoreModule } from './core';
 import { CoursesModule } from './courses';
 import { LoginModule } from './login';
@@ -17,6 +19,7 @@ import { appRoutes } from './app.routing';
     CoreModule,
     CoursesModule,
     LoginModule,
+    Ng4LoadingSpinnerModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],

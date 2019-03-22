@@ -1,69 +1,37 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, Inject, EventEmitter } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { IUser } from 'src/app/shared';
 
+interface IResponceWithUserToken {
+  token: string;
+}
+
 @Injectable()
 export class AuthorizationService {
-  static users: IUser[] = [
-    {
-      id: '1',
-      firstName: 'James',
-      lastName: 'Smith'
-    },
-    {
-      id: '2',
-      firstName: 'John',
-      lastName: 'Davis'
-    },
-    {
-      id: '3',
-      firstName: 'Robert',
-      lastName: 'Williams'
-    },
-    {
-      id: '4',
-      firstName: 'Michael',
-      lastName: 'Jones'
-    },
-    {
-      id: '5',
-      firstName: 'William',
-      lastName: 'Brown'
-    },
-    {
-      id: '6',
-      firstName: 'David',
-      lastName: 'Miller'
-    },
-    {
-      id: '7',
-      firstName: 'Richard',
-      lastName: 'Wilson'
-    },
-    {
-      id: '8',
-      firstName: 'Joseph',
-      lastName: 'Taylor'
-    },
-    {
-      id: '9',
-      firstName: 'Thomas',
-      lastName: 'Anderson'
-    },
-    {
-      id: '10',
-      firstName: 'Charles',
-      lastName: 'Martinez'
-    }
-  ];
+  loginPerformed: EventEmitter<undefined>;
+  loginFailed: EventEmitter<undefined>;
 
-  loginPerformed: EventEmitter<string>;
+  login(username: string, password: string, successCallback: () => void): void {
+    this.http
+      .post<IResponceWithUserToken>(`${this.AUTH_API_PATH}`, {
+        login: username,
+        password
+      })
+      .subscribe(
+        response => {
+          localStorage.setItem('user-token', response.token);
+          this.loginPerformed.emit();
 
-  login(email: string, password: string): void {
-    localStorage.setItem('user-login', email);
-    localStorage.setItem('user-token', 'fake token');
-
-    this.loginPerformed.emit(email);
+          successCallback();
+        },
+        error => {
+          this.loginFailed.emit();
+        }
+      );
   }
 
   logout(): void {
@@ -72,21 +40,33 @@ export class AuthorizationService {
   }
 
   isAuthenticated(): boolean {
-    return (
-      localStorage.getItem('user-login') !== null &&
-      localStorage.getItem('user-token') !== null
-    );
+    return localStorage.getItem('user-token') !== null;
   }
 
-  getUsers(): IUser[] {
-    return AuthorizationService.users;
+  getAuthorizationToken(): string {
+    return localStorage.getItem('user-token');
   }
 
-  getUserInfo(): string {
+  getUserLogin(): string {
     return localStorage.getItem('user-login');
   }
 
-  constructor() {
+  getUserInfo(): Observable<IUser> {
+    return this.http.post<IUser>(`${this.USER_INFO_API_PATH}`, {}).pipe(
+      map(user => {
+        localStorage.setItem('user-login', user.login);
+
+        return user;
+      })
+    );
+  }
+
+  constructor(
+    @Inject('AUTH_API_PATH') private AUTH_API_PATH: String,
+    @Inject('USER_INFO_API_PATH') private USER_INFO_API_PATH: String,
+    private http: HttpClient
+  ) {
     this.loginPerformed = new EventEmitter();
+    this.loginFailed = new EventEmitter();
   }
 }

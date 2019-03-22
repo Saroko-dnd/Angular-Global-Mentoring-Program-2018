@@ -6,16 +6,16 @@
   <h2 class="w-100 border-dark border-bottom pb-1">Login</h2>
   <div class="col-sm-8 offset-sm-2 form-group px-0">
     <label for="inputEmail" class="col-form-label"
-      >Email <span class="text-danger">*Required</span></label
+      >Username<span class="text-danger">*Required</span></label
     >
     <div class="w-100">
       <input
-        type="email"
+        type="text"
         class="form-control"
         id="inputEmail"
-        placeholder="Email"
+        placeholder="Username"
         required="true"
-        [(ngModel)]="userEmailInput"
+        [(ngModel)]="userUsernameInput"
         [ngModelOptions]="{ standalone: true }"
       />
     </div>
@@ -41,5 +41,13 @@
     <div class="">
       <button type="submit" class="btn btn-primary">Login</button>
     </div>
+  </div>
+  <div
+    class="alert alert-danger m-1"
+    role="alert"
+    *ngIf="errorMessageIsVisible"
+  >
+    <b>Log in Error.</b> Your username or password is incorrect. Please try
+    again.
   </div>
 </form>
