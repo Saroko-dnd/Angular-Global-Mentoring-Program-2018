@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 
 import {fromEvent, Subscription} from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'learn-portal-search-course',
@@ -23,7 +24,9 @@ export class SearchCourseComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const searchInputEventObservable = fromEvent(this.searchInputRef.nativeElement, 'input');
 
-    this.searchInputSubscriber = searchInputEventObservable.subscribe(e => this.activateSearch());
+    this.searchInputSubscriber = searchInputEventObservable.pipe(
+      filter((e: any) => e.target.value.length >= 3),
+    ).subscribe(e => this.activateSearch());
   }
 
   ngOnDestroy() {
