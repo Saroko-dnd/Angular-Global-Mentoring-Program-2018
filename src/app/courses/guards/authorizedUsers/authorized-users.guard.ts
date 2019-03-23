@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, Router, RouterStateSnapshot  } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { AuthorizationService } from 'src/app/core';
 
@@ -16,11 +16,10 @@ export class AuthorizedUsersGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
       if (this.authorizationService.isAuthenticated()) {
-        return true;
+        return of(true);
       }
 
       this.router.navigateByUrl('/login');
-      return false;
-
+      return of(false);
   }
 }
