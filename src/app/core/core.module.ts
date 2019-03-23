@@ -25,6 +25,16 @@ import { ServerApiCallsInterceptor } from './interceptors';
   exports: [HeaderComponent, FooterComponent, PageNotFoundComponent],
   providers: [
     AuthorizationService,
+    { provide: 'DEFAULT_USER_INFO' , useValue: {
+      id: 1,
+      fakeToken: '',
+      name: {
+        first: '',
+        last: '',
+      },
+      login: 'Anonymous user',
+      password: '',
+    }},
     { provide: 'BASE_API_URL', useValue: 'http://localhost:3004' },
     { provide: 'AUTH_API_PATH', useValue: '/auth/login' },
     { provide: 'USER_INFO_API_PATH', useValue: '/auth/userinfo' },

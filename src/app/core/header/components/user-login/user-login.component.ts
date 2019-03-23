@@ -39,9 +39,11 @@ export class UserLoginComponent implements OnInit {
     this.authorization.loginPerformed.subscribe(() => {
       this.userIsAuthenticated = true;
 
-      this.authorization.getUserInfo().subscribe(user => {
-        this.userLogin = user.login;
-      });
+      this.authorization.getUserInfo().subscribe();
+    });
+
+    this.authorization.userData.subscribe(user => {
+      this.userLogin = user.login;
     });
 
     this.userIsAuthenticated = this.authorization.isAuthenticated();
