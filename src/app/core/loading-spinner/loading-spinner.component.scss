@@ -1,0 +1,57 @@
+$spinner-background-color:#000;
+$spinner-color:#00ff00;
+
+:host {
+  .loading-spinner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height:100vh;
+    width: 100vw;
+    background: $spinner-background-color;
+    opacity: 0.5;
+  }
+
+  .lds-spinner {
+    color: official;
+    display: inline-block;
+    position: relative;
+    width: 128px;
+    height: 128px;
+  }
+  .lds-spinner div {
+    transform-origin: 64px 64px;
+    animation: lds-spinner 1.2s linear infinite;
+  }
+  .lds-spinner div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 6px;
+    left: 60px;
+    width: 10px;
+    height: 28px;
+    border-radius: 20%;
+    background: $spinner-color;
+  }
+
+  @for $i from 1 through 12 {
+    .lds-spinner div:nth-child(#{$i}) {
+      transform: rotate(($i - 1) * 30deg);
+      animation-delay: -1.2s + ($i/10);
+    };
+  }
+
+  @keyframes lds-spinner {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+}

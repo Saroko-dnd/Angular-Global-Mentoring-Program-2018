@@ -11,6 +11,7 @@ import { UserLoginComponent } from './header/components/user-login/user-login.co
 import { AuthorizationService } from './services';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ServerApiCallsInterceptor } from './interceptors';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 @NgModule({
   imports: [BrowserModule, CommonModule, HttpClientModule, RouterModule],
@@ -20,9 +21,10 @@ import { ServerApiCallsInterceptor } from './interceptors';
     HeaderComponent,
     LogoComponent,
     PageNotFoundComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    LoadingSpinnerComponent
   ],
-  exports: [HeaderComponent, FooterComponent, PageNotFoundComponent],
+  exports: [FooterComponent, HeaderComponent, LoadingSpinnerComponent, PageNotFoundComponent],
   providers: [
     AuthorizationService,
     { provide: 'DEFAULT_USER_INFO' , useValue: {
