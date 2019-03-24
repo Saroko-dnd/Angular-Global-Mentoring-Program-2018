@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthorizationService } from '../../../core/services';
+import { AuthorizationService, LoadingSpinnerService } from '../../../core/services';
 
 @Component({
   selector: 'learn-portal-login',
@@ -11,7 +11,8 @@ import { AuthorizationService } from '../../../core/services';
 export class LoginComponent implements OnInit {
   constructor(
     private authorizationService: AuthorizationService,
-    private router: Router
+    private router: Router,
+    private spinnerService: LoadingSpinnerService
   ) {}
 
   userUsernameInput: string;
@@ -19,6 +20,8 @@ export class LoginComponent implements OnInit {
   errorMessageIsVisible = false;
 
   login() {
+    this.spinnerService.show();
+
     this.errorMessageIsVisible = false;
 
     this.authorizationService.login(
@@ -27,6 +30,8 @@ export class LoginComponent implements OnInit {
       () => {
         this.router.navigateByUrl('/courses');
         console.log('logged in successfully');
+
+        this.spinnerService.hide();
       }
     );
   }

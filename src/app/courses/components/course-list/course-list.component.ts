@@ -8,6 +8,7 @@ import { ICourse } from '../../../shared';
 import { FilterPipe } from '../../../shared/pipes';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoadingSpinnerService } from 'src/app/core/services';
 
 @Component({
   selector: 'learn-portal-course-list',
@@ -20,7 +21,7 @@ export class CourseListComponent implements OnInit {
     private filterPipe: FilterPipe,
     private modalService: NgbModal,
     private router: Router,
-    private spinnerService: Ng4LoadingSpinnerService
+    private spinnerService: LoadingSpinnerService
   ) {}
   courses: ICourse[] = [];
   numberOfCourses: number;

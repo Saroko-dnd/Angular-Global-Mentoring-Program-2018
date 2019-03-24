@@ -2,7 +2,7 @@ import { Injectable, Inject, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import { IUser } from 'src/app/shared';
 
@@ -14,6 +14,7 @@ interface IResponceWithUserToken {
 export class AuthorizationService {
   loginPerformed: EventEmitter<undefined>;
   loginFailed: EventEmitter<undefined>;
+  userData: BehaviorSubject<IUser>;
 
   login(username: string, password: string, successCallback: () => void): void {
     this.http
@@ -54,6 +55,7 @@ export class AuthorizationService {
   getUserInfo(): Observable<IUser> {
     return this.http.post<IUser>(`${this.USER_INFO_API_PATH}`, {}).pipe(
       map(user => {
+        this.userData.next(user);
         localStorage.setItem('user-login', user.login);
 
         return user;
@@ -63,10 +65,13 @@ export class AuthorizationService {
 
   constructor(
     @Inject('AUTH_API_PATH') private AUTH_API_PATH: String,
+    @Inject('DEFAULT_USER_INFO') private DEFAULT_USER_INFO: IUser,
     @Inject('USER_INFO_API_PATH') private USER_INFO_API_PATH: String,
     private http: HttpClient
   ) {
     this.loginPerformed = new EventEmitter();
     this.loginFailed = new EventEmitter();
+
+    this.userData = new BehaviorSubject<IUser>(this.DEFAULT_USER_INFO);
   }
 }

@@ -5,11 +5,10 @@ import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
 import * as moment from 'moment';
 
-import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
-
-import { IAuthor } from 'src/app/shared/types/iauthor';
+import { IAuthor } from '../../../shared/types/iauthor';
 import { CoursesService } from '../../services';
-import { ICourse } from 'src/app/shared';
+import { ICourse } from '../../../shared';
+import { LoadingSpinnerService } from 'src/app/core/services';
 
 interface IAuthorForMultiSelector extends IAuthor {
   name: string;
@@ -30,7 +29,7 @@ export class CourseEditFormComponent implements OnInit {
     private coursesService: CoursesService,
     private route: ActivatedRoute,
     private router: Router,
-    private spinnerService: Ng4LoadingSpinnerService
+    private spinnerService: LoadingSpinnerService
   ) {}
 
   @ViewChild('authorsTooltip') authorsTooltip: NgbTooltip;

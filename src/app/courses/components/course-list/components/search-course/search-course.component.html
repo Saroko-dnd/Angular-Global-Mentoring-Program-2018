@@ -8,14 +8,8 @@
       (keyup.enter)="activateSearch()"
       [(ngModel)]="inputSearchValue"
       [ngModelOptions]="{ standalone: true }"
+      #searchInput
     />
-    <button
-      class="btn btn-outline-success my-2 my-sm-0 search-course-button"
-      type="button"
-      (click)="activateSearch()"
-    >
-      Search
-    </button>
   </form>
   <nav>
     <button
