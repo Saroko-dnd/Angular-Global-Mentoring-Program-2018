@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthorizationService, LoadingSpinnerService } from '../../../core/services';
+import {
+  AuthorizationService,
+  LoadingSpinnerService
+} from '../../../core/services';
 
 @Component({
   selector: 'learn-portal-login',
@@ -24,21 +27,20 @@ export class LoginComponent implements OnInit {
 
     this.errorMessageIsVisible = false;
 
-    this.authorizationService.login(
-      this.userUsernameInput,
-      this.userPasswordInput,
-      () => {
-        this.router.navigateByUrl('/courses');
-        console.log('logged in successfully');
-
-        this.spinnerService.hide();
-      }
-    );
+    this.authorizationService
+      .login(this.userUsernameInput, this.userPasswordInput)
+      .subscribe(
+        () => {
+          this.router.navigateByUrl('/courses');
+          console.log('logged in successfully');
+          this.spinnerService.hide();
+        },
+        () => {
+          this.errorMessageIsVisible = true;
+          this.spinnerService.hide();
+        }
+      );
   }
 
-  ngOnInit() {
-    this.authorizationService.loginFailed.subscribe(() => {
-      this.errorMessageIsVisible = true;
-    });
-  }
+  ngOnInit() {}
 }

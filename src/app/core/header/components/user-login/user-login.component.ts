@@ -16,7 +16,6 @@ export class UserLoginComponent implements OnInit {
     private router: Router
   ) {}
 
-  userIsAuthenticated: boolean;
   userLogin: string;
 
   isAuth(): boolean {
@@ -28,7 +27,6 @@ export class UserLoginComponent implements OnInit {
   }
 
   logout() {
-    this.userIsAuthenticated = false;
     this.userLogin = '';
     this.authorization.logout();
 
@@ -37,8 +35,6 @@ export class UserLoginComponent implements OnInit {
 
   ngOnInit() {
     this.authorization.loginPerformed.subscribe(() => {
-      this.userIsAuthenticated = true;
-
       this.authorization.getUserInfo().subscribe();
     });
 
@@ -46,9 +42,7 @@ export class UserLoginComponent implements OnInit {
       this.userLogin = user.login;
     });
 
-    this.userIsAuthenticated = this.authorization.isAuthenticated();
-
-    if (this.userIsAuthenticated) {
+    if (this.authorization.isAuthenticated()) {
       this.userLogin = this.authorization.getUserLogin();
     }
   }
