@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
 import {
   AuthorizationService,
   LoadingSpinnerService
 } from '../../../core/services';
+import { ILoginState } from 'src/app/login/store/login.state';
+import { ResetLoginState, Login } from 'src/app/login/store/login.actions';
 
 @Component({
   selector: 'learn-portal-login',
@@ -13,34 +18,26 @@ import {
 })
 export class LoginComponent implements OnInit {
   constructor(
+    private store: Store<{login: ILoginState}>,
     private authorizationService: AuthorizationService,
     private router: Router,
     private spinnerService: LoadingSpinnerService
-  ) {}
+  ) {
+  }
 
   userUsernameInput: string;
   userPasswordInput: string;
-  errorMessageIsVisible = false;
+  loginFailed$: Observable<boolean>;
 
   login() {
-    this.spinnerService.show();
+    this.store.dispatch(new ResetLoginState());
 
-    this.errorMessageIsVisible = false;
-
-    this.authorizationService
-      .login(this.userUsernameInput, this.userPasswordInput)
-      .subscribe(
-        () => {
-          this.router.navigateByUrl('/courses');
-          console.log('logged in successfully');
-          this.spinnerService.hide();
-        },
-        () => {
-          this.errorMessageIsVisible = true;
-          this.spinnerService.hide();
-        }
-      );
+    this.store.dispatch(new Login({username: this.userUsernameInput, password: this.userPasswordInput}));
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loginFailed$ = this.store.pipe(select(state => {
+      return state.login.loginFailed;
+    }));
+  }
 }

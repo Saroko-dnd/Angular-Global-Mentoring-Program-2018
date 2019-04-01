@@ -45,7 +45,7 @@
   <div
     class="alert alert-danger m-1"
     role="alert"
-    *ngIf="errorMessageIsVisible"
+    *ngIf="(loginFailed$ | async)"
   >
     <b>Log in Error.</b> Your username or password is incorrect. Please try
     again.

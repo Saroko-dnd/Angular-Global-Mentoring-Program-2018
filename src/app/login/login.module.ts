@@ -3,12 +3,23 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+
 import { LoginComponent } from './components';
 
 import { loginRoutes } from './login.routing';
+import { LoginEffects } from 'src/app/login/store/login.effects';
+import { loginStateReducer } from 'src/app/login/store/login.reducers';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, RouterModule.forRoot(loginRoutes)],
+  imports: [
+    CommonModule,
+    EffectsModule.forFeature([LoginEffects]),
+    FormsModule,
+    RouterModule.forRoot(loginRoutes),
+    StoreModule.forFeature('login', loginStateReducer)
+  ],
   declarations: [LoginComponent],
   exports: [LoginComponent]
 })
