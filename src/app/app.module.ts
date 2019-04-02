@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
@@ -25,7 +26,8 @@ import { appRoutes } from './app.routing';
     LoginModule,
     Ng4LoadingSpinnerModule.forRoot(),
     RouterModule.forRoot(appRoutes),
-    StoreModule.forRoot({})
+    StoreModule.forRoot({router: routerReducer}),
+    StoreRouterConnectingModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

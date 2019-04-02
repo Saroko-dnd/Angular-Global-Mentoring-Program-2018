@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
 import { AuthorizationService } from '../../../services';
+import { IUserDataState } from 'src/app/core/header/components/user-login/store/user-data.state';
+import { GetLoggedInUserData, Logout } from 'src/app/core/header/components/user-login/store/user-data.actions';
 
 @Component({
   selector: 'learn-portal-user-login',
@@ -11,39 +16,32 @@ import { AuthorizationService } from '../../../services';
 })
 export class UserLoginComponent implements OnInit {
   constructor(
+    private store: Store<{ core: IUserDataState}>,
     private authorization: AuthorizationService,
     private location: Location,
     private router: Router
   ) {}
 
-  userLogin: string;
-
-  isAuth(): boolean {
-    return this.location.path() === '/login';
-  }
+  userLogin: Observable<string>;
+  isVisible: Observable<boolean>;
 
   login() {
     this.router.navigateByUrl('/login');
   }
 
   logout() {
-    this.userLogin = '';
-    this.authorization.logout();
-
-    console.log('logout');
+    this.store.dispatch(new Logout());
   }
 
   ngOnInit() {
-    this.authorization.loginPerformed.subscribe(() => {
-      this.authorization.getUserInfo().subscribe();
-    });
+    this.userLogin = this.store.pipe(select(state => {
+      return state.core.user.login;
+    }));
 
-    this.authorization.userData.subscribe(user => {
-      this.userLogin = user.login;
-    });
+    this.isVisible = this.store.pipe(select(state => {
+      return state.core.shouldBeVisibleForUser;
+    }));
 
-    if (this.authorization.isAuthenticated()) {
-      this.userLogin = this.authorization.getUserLogin();
-    }
+    this.store.dispatch(new GetLoggedInUserData());
   }
 }

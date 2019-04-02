@@ -1,5 +1,5 @@
-<form class="form-inline my-2 my-lg-0" *ngIf="!isAuth()">
-  <span class="mr-sm-3">{{ userLogin }}</span>
+<form class="form-inline my-2 my-lg-0" *ngIf="(isVisible | async)">
+  <span class="mr-sm-3">{{ userLogin | async }}</span>
   <button
     class="btn btn-primary my-2 my-sm-0"
     type="button"

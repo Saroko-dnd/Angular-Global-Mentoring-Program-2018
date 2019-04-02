@@ -15,7 +15,7 @@ export function loginStateReducer(
 
     case LoginActions.LoginWasSuccessful:
     case LoginActions.ResetLoginState: {
-      return state;
+      return initialLoginState;
     }
 
     default: {

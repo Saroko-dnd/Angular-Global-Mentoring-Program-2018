@@ -4,6 +4,9 @@ import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+
 import { BreadcrumbsComponent, HeaderComponent, LogoComponent } from './header';
 import { FooterComponent } from './footer/footer.component';
 import { UserLoginComponent } from './header/components/user-login/user-login.component';
@@ -12,9 +15,17 @@ import { AuthorizationService } from './services';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ServerApiCallsInterceptor } from './interceptors';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { UserDataStoreEffects } from 'src/app/core/header/components/user-login/store/user-data.effects';
+import { userDataStateReducer } from 'src/app/core/header/components/user-login/store/user-data.reducers';
 
 @NgModule({
-  imports: [BrowserModule, CommonModule, HttpClientModule, RouterModule],
+  imports: [
+    BrowserModule,
+    CommonModule,
+    HttpClientModule,
+    RouterModule,
+    EffectsModule.forFeature([UserDataStoreEffects]),
+    StoreModule.forFeature('core', userDataStateReducer)],
   declarations: [
     BreadcrumbsComponent,
     FooterComponent,
