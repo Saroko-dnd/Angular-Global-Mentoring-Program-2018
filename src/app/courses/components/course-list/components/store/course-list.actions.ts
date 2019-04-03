@@ -31,7 +31,7 @@ export class LoadPage implements Action {
   constructor(public payload: { pageNumber: number }) {}
 }
 
-export type UserDataStoreActionsUnion =
+export type CourseListActionsUnion =
   | ActivateSearch
   | DeleteItem
   | EditItem
