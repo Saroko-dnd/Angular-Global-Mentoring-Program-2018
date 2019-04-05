@@ -52,4 +52,5 @@ export type CourseListActionsUnion =
   | ActivateSearch
   | DeleteItem
   | EditItem
-  | LoadPage;
+  | LoadPage
+  | UpdateCourseListData;
