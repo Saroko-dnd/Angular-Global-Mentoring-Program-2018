@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { ICoursesData } from 'src/app/shared';
 
 export enum CourseListActions {
   ActivateSearch = '[course-list Component] Activate search',
@@ -28,7 +29,23 @@ export class EditItem implements Action {
 export class LoadPage implements Action {
   readonly type = CourseListActions.LoadPage;
 
-  constructor(public payload: { pageNumber: number }) {}
+  constructor(
+    public payload: {
+      pageNumber: number;
+      pageCapacity: number;
+      searchQuery: string;
+    }
+  ) {}
+}
+
+export class UpdateCourseListData implements Action {
+  readonly type = CourseListActions.LoadPage;
+
+  constructor(
+    public payload: {
+      coursesData: ICoursesData;
+    }
+  ) {}
 }
 
 export type CourseListActionsUnion =
