@@ -5,7 +5,8 @@ export enum CourseListActions {
   ActivateSearch = '[course-list Component] Activate search',
   DeleteItem = '[course-list Component] Delete item',
   EditItem = '[course-list Component] Edit item',
-  LoadPage = '[course-list Component] Load page'
+  LoadPage = '[course-list Component] Load page',
+  UpdateCourseListData = '[course-list Component] Update course list data'
 }
 
 export class ActivateSearch implements Action {
@@ -39,7 +40,7 @@ export class LoadPage implements Action {
 }
 
 export class UpdateCourseListData implements Action {
-  readonly type = CourseListActions.LoadPage;
+  readonly type = CourseListActions.UpdateCourseListData;
 
   constructor(
     public payload: {
