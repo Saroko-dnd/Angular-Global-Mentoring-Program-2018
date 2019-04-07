@@ -7,7 +7,10 @@ import { Observable } from 'rxjs';
 
 import { AuthorizationService } from '../../../services';
 import { IUserDataState } from 'src/app/core/header/components/user-login/store/user-data.state';
-import { GetLoggedInUserData, Logout } from 'src/app/core/header/components/user-login/store/user-data.actions';
+import {
+  GetLoggedInUserData,
+  Logout
+} from 'src/app/core/header/components/user-login/store/user-data.actions';
 
 @Component({
   selector: 'learn-portal-user-login',
@@ -16,7 +19,7 @@ import { GetLoggedInUserData, Logout } from 'src/app/core/header/components/user
 })
 export class UserLoginComponent implements OnInit {
   constructor(
-    private store: Store<{ core: IUserDataState}>,
+    private store: Store<{ core: IUserDataState }>,
     private authorization: AuthorizationService,
     private location: Location,
     private router: Router
@@ -34,13 +37,17 @@ export class UserLoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userLogin = this.store.pipe(select(state => {
-      return state.core.user.login;
-    }));
+    this.userLogin = this.store.pipe(
+      select(state => {
+        return state.core.user.login;
+      })
+    );
 
-    this.isVisible = this.store.pipe(select(state => {
-      return state.core.shouldBeVisibleForUser;
-    }));
+    this.isVisible = this.store.pipe(
+      select(state => {
+        return state.core.shouldBeVisibleForUser;
+      })
+    );
 
     this.store.dispatch(new GetLoggedInUserData());
   }

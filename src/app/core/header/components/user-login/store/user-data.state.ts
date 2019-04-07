@@ -11,11 +11,10 @@ export const initialUserDataState: IUserDataState = {
     fakeToken: '',
     name: {
       first: '',
-      last: '',
+      last: ''
     },
     login: 'Anonymous user',
-    password: '',
+    password: ''
   },
   shouldBeVisibleForUser: false
 };
-

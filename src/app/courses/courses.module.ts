@@ -4,6 +4,9 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
@@ -29,11 +32,14 @@ import { ShowCourseFreshnessDirective } from './directives';
 
 import { DurationPipe } from './pipes';
 import { SharedModule } from '../shared';
+import { CourseListEffects } from './components/course-list/components/store/course-list.effects';
+import { courseListStateReducer } from './components/course-list/components/store/course-list.reducers';
 
 @NgModule({
   imports: [
     BrowserAnimationsModule,
     CommonModule,
+    EffectsModule.forFeature([CourseListEffects]),
     FormsModule,
     NgbModalModule,
     NgbTooltipModule,
@@ -42,7 +48,8 @@ import { SharedModule } from '../shared';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     RouterModule.forRoot(coursesRoutes),
-    SharedModule
+    SharedModule,
+    StoreModule.forFeature('courseList', courseListStateReducer)
   ],
   declarations: [
     CourseDurationInputComponent,

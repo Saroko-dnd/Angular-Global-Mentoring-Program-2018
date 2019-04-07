@@ -3,10 +3,13 @@ import { ICoursesData } from 'src/app/shared';
 
 export enum CourseListActions {
   ActivateSearch = '[course-list Component] Activate search',
+  DecrementPageNumber = '[course-list Component] Decrement page number',
   DeleteItem = '[course-list Component] Delete item',
   EditItem = '[course-list Component] Edit item',
   LoadPage = '[course-list Component] Load page',
-  UpdateCourseListData = '[course-list Component] Update course list data'
+  UpdateCourseListData = '[course-list Component] Update course list data',
+  UpdateSearchQuery = '[course-list Component] Update search query',
+  PageChanged = '[course-list Component] Page changed'
 }
 
 export class ActivateSearch implements Action {
@@ -18,7 +21,11 @@ export class ActivateSearch implements Action {
 export class DeleteItem implements Action {
   readonly type = CourseListActions.DeleteItem;
 
-  constructor(public payload: { deletedCourseId: string }) {}
+  constructor(
+    public payload: {
+      deletedCourseId: string;
+    }
+  ) {}
 }
 
 export class EditItem implements Action {
@@ -33,8 +40,16 @@ export class LoadPage implements Action {
   constructor(
     public payload: {
       pageNumber: number;
-      pageCapacity: number;
-      searchQuery: string;
+    }
+  ) {}
+}
+
+export class PageChanged implements Action {
+  readonly type = CourseListActions.PageChanged;
+
+  constructor(
+    public payload: {
+      newPageNumber: number;
     }
   ) {}
 }
@@ -49,9 +64,28 @@ export class UpdateCourseListData implements Action {
   ) {}
 }
 
+export class UpdateSearchQuery implements Action {
+  readonly type = CourseListActions.UpdateSearchQuery;
+
+  constructor(
+    public payload: {
+      newSearchQuery: string;
+    }
+  ) {}
+}
+
+export class DecrementPageNumber implements Action {
+  readonly type = CourseListActions.DecrementPageNumber;
+
+  constructor() {}
+}
+
 export type CourseListActionsUnion =
   | ActivateSearch
+  | DecrementPageNumber
   | DeleteItem
   | EditItem
   | LoadPage
-  | UpdateCourseListData;
+  | PageChanged
+  | UpdateCourseListData
+  | UpdateSearchQuery;
