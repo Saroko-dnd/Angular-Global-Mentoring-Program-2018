@@ -9,15 +9,7 @@ import { IAuthor } from '../../../shared/types/iauthor';
 import { CoursesService } from '../../services';
 import { ICourse } from '../../../shared';
 import { LoadingSpinnerService } from 'src/app/core/services';
-
-interface IAuthorForMultiSelector extends IAuthor {
-  name: string;
-}
-
-interface IMultiSelectorModel {
-  dropdownList: IAuthorForMultiSelector[];
-  selectedAuthors: IAuthorForMultiSelector[];
-}
+import { IMultiSelectorModel } from './types/multi-selector-model';
 
 @Component({
   selector: 'learn-portal-course-edit-form',
@@ -97,6 +89,10 @@ export class CourseEditFormComponent implements OnInit {
 
   onAllAuthorsRemoved() {
     console.log('all authores are removed');
+  }
+
+  onCourseDurationChange(duration: number) {
+    console.log(`Course duration changed to: ${duration}`);
   }
 
   saveCourse() {

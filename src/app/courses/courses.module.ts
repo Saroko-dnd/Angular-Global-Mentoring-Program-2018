@@ -32,8 +32,8 @@ import { ShowCourseFreshnessDirective } from './directives';
 
 import { DurationPipe } from './pipes';
 import { SharedModule } from '../shared';
-import { CourseListEffects } from './components/course-list/components/store/course-list.effects';
-import { courseListStateReducer } from './components/course-list/components/store/course-list.reducers';
+import { CourseListEffects } from './components/course-list/store/course-list.effects';
+import { courseListStateReducer } from './components/course-list/store/course-list.reducers';
 
 @NgModule({
   imports: [

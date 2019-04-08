@@ -13,14 +13,14 @@ import { FilterPipe } from '../../../shared/pipes';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoadingSpinnerService } from 'src/app/core/services';
-import { ICourseListState } from './components/store/course-list.state';
+import { ICourseListState } from './store/course-list.state';
 import {
   LoadPage,
   DeleteItem,
   EditItem,
   ActivateSearch,
   PageChanged
-} from './components/store/course-list.actions';
+} from './store/course-list.actions';
 
 @Component({
   selector: 'learn-portal-course-list',

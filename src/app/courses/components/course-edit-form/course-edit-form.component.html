@@ -54,6 +54,7 @@
       inputId="courseDurationFormControl"
       [required]="true"
       [(ngModel)]="course.length"
+      (ngModelChange)="onCourseDurationChange($event)"
       [ngModelOptions]="{ standalone: true }"
     ></learn-portal-course-duration-input>
   </div>
