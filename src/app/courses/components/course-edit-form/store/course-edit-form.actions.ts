@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { ICourse, ICoursesData } from 'src/app/shared';
 import { IAuthorForMultiSelector } from 'src/app/courses/components/course-edit-form/types/author-for-multi-selector';
 import { IMultiSelectorModel } from 'src/app/courses/components/course-edit-form/types/multi-selector-model';
+import { IAuthor } from 'src/app/shared/types/iauthor';
 
 export enum CourseEditFormActions {
   AddedNewAuthor = '[course-edit-form Component] Added new author',
@@ -10,11 +11,16 @@ export enum CourseEditFormActions {
   CourseDateChanged = '[course-edit-form Component] Course date changed',
   CourseDescriptionChanged = '[course-edit-form Component] Course description changed',
   CourseDurationChanged = '[course-edit-form Component] Course duration changed',
+  CourseLoaded = '[course-edit-form Component] Course loaded',
   CourseNameChanged = '[course-edit-form Component] Course name changed',
+  InitCourseEditFormData = '[course-edit-form Component] Initialize course edit form data',
+  ListOfAuthorsLoaded = '[course-edit-form Component] List of authors loaded',
   LoadCourse = '[course-edit-form Component] Load course',
   LoadListOfAuthors = '[course-edit-form Component] Load list of authors',
   RemovedAuthor = '[course-edit-form Component] Removed author',
   SaveCourse = '[course-edit-form Component] Save course',
+  UpdateCourseDate = '[course-edit-form Component] Update course date',
+  UpdateListOfSelectedAuthors = '[course-edit-form Component] Update course date',
   ValidateCourseAuthors = '[course-edit-form Component] Validate course authors',
   ValidationFinished = '[course-edit-form Component] Finished validation of course authors'
 }
@@ -55,16 +61,34 @@ export class CourseDurationChanged implements Action {
   constructor(public payload: { duration: number }) {}
 }
 
+export class CourseLoaded implements Action {
+  readonly type = CourseEditFormActions.CourseLoaded;
+
+  constructor(public payload: { course: ICourse }) {}
+}
+
 export class CourseNameChanged implements Action {
   readonly type = CourseEditFormActions.CourseNameChanged;
 
   constructor(public payload: { name: string }) {}
 }
 
+export class InitCourseEditFormData implements Action {
+  readonly type = CourseEditFormActions.InitCourseEditFormData;
+
+  constructor() {}
+}
+
+export class ListOfAuthorsLoaded implements Action {
+  readonly type = CourseEditFormActions.ListOfAuthorsLoaded;
+
+  constructor(public payload: { authors: IAuthor[] }) {}
+}
+
 export class LoadCourse implements Action {
   readonly type = CourseEditFormActions.LoadCourse;
 
-  constructor(public payload: { courseId: string }) {}
+  constructor() {}
 }
 
 export class LoadListOfAuthors implements Action {
@@ -82,7 +106,15 @@ export class RemovedAuthor implements Action {
 export class SaveCourse implements Action {
   readonly type = CourseEditFormActions.SaveCourse;
 
-  constructor(public payload: { course: ICourse, authors: IMultiSelectorModel }) {}
+  constructor(
+    public payload: { course: ICourse; authors: IMultiSelectorModel }
+  ) {}
+}
+
+export class UpdateCourseDate implements Action {
+  readonly type = CourseEditFormActions.UpdateCourseDate;
+
+  constructor(public payload: { date: string }) {}
 }
 
 export class ValidateCourseAuthors implements Action {
@@ -104,10 +136,14 @@ export type CourseEditFormActionsUnion =
   | CourseDateChanged
   | CourseDescriptionChanged
   | CourseDurationChanged
+  | CourseLoaded
   | CourseNameChanged
+  | InitCourseEditFormData
+  | ListOfAuthorsLoaded
   | LoadCourse
   | LoadListOfAuthors
   | RemovedAuthor
   | SaveCourse
+  | UpdateCourseDate
   | ValidateCourseAuthors
   | ValidationFinished;
