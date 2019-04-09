@@ -50,6 +50,8 @@ export class CourseEditFormEffects {
   initCourseEditFormData$ = this.actions$.pipe(
     ofType(CourseEditFormActions.InitCourseEditFormData),
     map(() => {
+      this.spinnerService.show();
+
       if (!this.router.url.endsWith('new')) {
         return [new LoadCourse(), new LoadListOfAuthors()];
       } else {
@@ -66,6 +68,8 @@ export class CourseEditFormEffects {
         .getItemById(this.route.snapshot.params['id'])
         .pipe(
           map(course => {
+            this.spinnerService.hide();
+
             return new CourseLoaded({ course });
           })
         );
@@ -78,6 +82,8 @@ export class CourseEditFormEffects {
     switchMap(() => {
       return this.coursesService.getAuthors().pipe(
         map(authors => {
+          this.spinnerService.hide();
+
           return new ListOfAuthorsLoaded({ authors });
         })
       );
