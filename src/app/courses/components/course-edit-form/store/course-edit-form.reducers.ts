@@ -76,6 +76,17 @@ export function courseEditFormStateReducer(
       return newState;
     }
 
+    case CourseEditFormActions.RemovedAuthor: {
+      newState.authorsMultiSelect.selectedAuthors.splice(
+        newState.authorsMultiSelect.selectedAuthors.findIndex(author => {
+          return author.id === action.payload.author.id;
+        }),
+        1
+      );
+
+      return newState;
+    }
+
     case CourseEditFormActions.UpdateCourseDate: {
       newState.course.date = action.payload.date;
 
