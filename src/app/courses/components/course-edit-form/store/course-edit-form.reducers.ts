@@ -87,14 +87,20 @@ export function courseEditFormStateReducer(
       return newState;
     }
 
-    case CourseEditFormActions.ResetAuthorsValidationState: {
-      newState.selectedAuthorsIsInvalidated = initialCourseEditFormState.selectedAuthorsIsInvalidated;
+    case CourseEditFormActions.UpdateCourseDate: {
+      newState.course.date = action.payload.date;
 
       return newState;
     }
 
-    case CourseEditFormActions.UpdateCourseDate: {
-      newState.course.date = action.payload.date;
+    case CourseEditFormActions.ValidationOfAuthorsFailed: {
+      newState.selectedAuthorsIsInvalidated = true;
+
+      return newState;
+    }
+
+    case CourseEditFormActions.ValidationOfAuthorsPassed: {
+      newState.selectedAuthorsIsInvalidated = false;
 
       return newState;
     }

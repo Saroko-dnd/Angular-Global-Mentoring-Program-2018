@@ -18,12 +18,12 @@ export enum CourseEditFormActions {
   LoadCourse = '[course-edit-form Component] Load course',
   LoadListOfAuthors = '[course-edit-form Component] Load list of authors',
   RemovedAuthor = '[course-edit-form Component] Removed author',
-  ResetAuthorsValidationState = '[course-edit-form Component] Reset authors validation state',
   SaveCourse = '[course-edit-form Component] Save course',
   UpdateCourseDate = '[course-edit-form Component] Update course date',
   UpdateListOfSelectedAuthors = '[course-edit-form Component] Update course date',
   ValidateCourseAuthors = '[course-edit-form Component] Validate course authors',
-  ValidationFinished = '[course-edit-form Component] Finished validation of course authors'
+  ValidationOfAuthorsFailed = '[course-edit-form Component] Validation of course authors failed',
+  ValidationOfAuthorsPassed = '[course-edit-form Component] Validation of course authors passed'
 }
 
 export class AddedNewAuthor implements Action {
@@ -104,18 +104,10 @@ export class RemovedAuthor implements Action {
   constructor(public payload: { author: IAuthorForMultiSelector }) {}
 }
 
-export class ResetAuthorsValidationState implements Action {
-  readonly type = CourseEditFormActions.ResetAuthorsValidationState;
-
-  constructor() {}
-}
-
 export class SaveCourse implements Action {
   readonly type = CourseEditFormActions.SaveCourse;
 
-  constructor(
-    public payload: { course: ICourse; authors: IMultiSelectorModel }
-  ) {}
+  constructor() {}
 }
 
 export class UpdateCourseDate implements Action {
@@ -130,10 +122,16 @@ export class ValidateCourseAuthors implements Action {
   constructor() {}
 }
 
-export class ValidationFinished implements Action {
-  readonly type = CourseEditFormActions.ValidationFinished;
+export class ValidationOfAuthorsFailed implements Action {
+  readonly type = CourseEditFormActions.ValidationOfAuthorsFailed;
 
-  constructor(public payload: { result: boolean }) {}
+  constructor() {}
+}
+
+export class ValidationOfAuthorsPassed implements Action {
+  readonly type = CourseEditFormActions.ValidationOfAuthorsPassed;
+
+  constructor() {}
 }
 
 export type CourseEditFormActionsUnion =
@@ -150,8 +148,8 @@ export type CourseEditFormActionsUnion =
   | LoadCourse
   | LoadListOfAuthors
   | RemovedAuthor
-  | ResetAuthorsValidationState
   | SaveCourse
   | UpdateCourseDate
   | ValidateCourseAuthors
-  | ValidationFinished;
+  | ValidationOfAuthorsFailed
+  | ValidationOfAuthorsPassed;

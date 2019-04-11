@@ -34,12 +34,14 @@ import { DurationPipe } from './pipes';
 import { SharedModule } from '../shared';
 import { CourseListEffects } from './components/course-list/store/course-list.effects';
 import { courseListStateReducer } from './components/course-list/store/course-list.reducers';
+import { courseEditFormStateReducer } from './components/course-edit-form/store/course-edit-form.reducers';
+import { CourseEditFormEffects } from './components/course-edit-form/store/course-edit-form.effects';
 
 @NgModule({
   imports: [
     BrowserAnimationsModule,
     CommonModule,
-    EffectsModule.forFeature([CourseListEffects]),
+    EffectsModule.forFeature([CourseListEffects, CourseEditFormEffects]),
     FormsModule,
     NgbModalModule,
     NgbTooltipModule,
@@ -49,7 +51,10 @@ import { courseListStateReducer } from './components/course-list/store/course-li
     OwlNativeDateTimeModule,
     RouterModule.forRoot(coursesRoutes),
     SharedModule,
-    StoreModule.forFeature('courseList', courseListStateReducer)
+    StoreModule.forFeature('courses', {
+      list: courseListStateReducer,
+      courseEditFormStateReducer
+    })
   ],
   declarations: [
     CourseDurationInputComponent,

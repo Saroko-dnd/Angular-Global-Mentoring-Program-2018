@@ -34,7 +34,7 @@ export class CourseListComponent implements OnInit {
     private modalService: NgbModal,
     private router: Router,
     private spinnerService: LoadingSpinnerService,
-    private store: Store<{ courseList: ICourseListState }>
+    private store: Store<{ courses: { list: ICourseListState } }>
   ) {}
 
   courses$: Observable<ICourse[]>;
@@ -87,31 +87,32 @@ export class CourseListComponent implements OnInit {
   ngOnInit() {
     this.courses$ = this.store.pipe(
       select(state => {
-        return state.courseList.courses;
+        console.log(state);
+        return state.courses.list.courses;
       })
     );
 
     this.numberOfCourses$ = this.store.pipe(
       select(state => {
-        return state.courseList.numberOfCourses;
+        return state.courses.list.numberOfCourses;
       })
     );
 
     this.pageCapacity$ = this.store.pipe(
       select(state => {
-        return state.courseList.pageCapacity;
+        return state.courses.list.pageCapacity;
       })
     );
 
     this.page$ = this.store.pipe(
       select(state => {
-        return state.courseList.page;
+        return state.courses.list.page;
       })
     );
 
     this.searchQuery$ = this.store.pipe(
       select(state => {
-        return state.courseList.searchQuery;
+        return state.courses.list.searchQuery;
       })
     );
 

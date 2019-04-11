@@ -27,23 +27,25 @@ export class CourseListEffects {
   activateSearch$ = this.actions$.pipe(
     ofType(CourseListActions.ActivateSearch),
     withLatestFrom(this.store$),
-    switchMap((data: [ActivateSearch, { courseList: ICourseListState }]) => {
-      this.spinnerService.show();
+    switchMap(
+      (data: [ActivateSearch, { courses: { list: ICourseListState } }]) => {
+        this.spinnerService.show();
 
-      return [
-        new UpdateSearchQuery({
-          newSearchQuery: data[0].payload.textFragment
-        }),
-        new LoadPage({ pageNumber: 0 })
-      ];
-    })
+        return [
+          new UpdateSearchQuery({
+            newSearchQuery: data[0].payload.textFragment
+          }),
+          new LoadPage({ pageNumber: 0 })
+        ];
+      }
+    )
   );
 
   @Effect()
   deleteItem$ = this.actions$.pipe(
     ofType(CourseListActions.DeleteItem),
     withLatestFrom(this.store$),
-    mergeMap((data: [DeleteItem, { courseList: ICourseListState }]) => {
+    mergeMap((data: [DeleteItem, { courses: { list: ICourseListState } }]) => {
       this.spinnerService.show();
 
       return this.coursesService
@@ -51,20 +53,20 @@ export class CourseListEffects {
         .pipe(
           switchMap(() => {
             if (
-              data[1].courseList.page !== 1 &&
-              data[1].courseList.courses.length === 1
+              data[1].courses.list.page !== 1 &&
+              data[1].courses.list.courses.length === 1
             ) {
               return [
                 new DecrementPageNumber(),
                 new LoadPage({
-                  pageNumber: data[1].courseList.page - 2
+                  pageNumber: data[1].courses.list.page - 2
                 })
               ];
             }
 
             return [
               new LoadPage({
-                pageNumber: data[1].courseList.page - 1
+                pageNumber: data[1].courses.list.page - 1
               })
             ];
           })
@@ -84,14 +86,14 @@ export class CourseListEffects {
   loadPage$ = this.actions$.pipe(
     ofType(CourseListActions.LoadPage),
     withLatestFrom(this.store$),
-    mergeMap((data: [LoadPage, { courseList: ICourseListState }]) => {
+    mergeMap((data: [LoadPage, { courses: { list: ICourseListState } }]) => {
       this.spinnerService.show();
 
       return this.coursesService
         .getList(
           data[0].payload.pageNumber,
-          data[1].courseList.pageCapacity,
-          data[1].courseList.searchQuery
+          data[1].courses.list.pageCapacity,
+          data[1].courses.list.searchQuery
         )
         .pipe(
           map(coursesInfo => {
@@ -107,7 +109,7 @@ export class CourseListEffects {
   pageChanged$ = this.actions$.pipe(
     ofType(CourseListActions.PageChanged),
     withLatestFrom(this.store$),
-    map((data: [PageChanged, { courseList: ICourseListState }]) => {
+    map((data: [PageChanged, { courses: { list: ICourseListState } }]) => {
       return new LoadPage({ pageNumber: data[0].payload.newPageNumber - 1 });
     })
   );

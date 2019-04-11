@@ -10,6 +10,8 @@ import { map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import * as moment from 'moment';
 
+import cloneDeep from 'lodash/cloneDeep';
+
 import { LoadingSpinnerService } from 'src/app/core/services';
 
 import { CoursesService } from 'src/app/courses/services';
@@ -22,7 +24,11 @@ import {
   CourseLoaded,
   LoadCourse,
   LoadListOfAuthors,
-  ListOfAuthorsLoaded
+  ListOfAuthorsLoaded,
+  ValidateCourseAuthors,
+  ValidationOfAuthorsFailed,
+  ValidationOfAuthorsPassed,
+  SaveCourse
 } from './course-edit-form.actions';
 import { ICourseEditFormState } from './course-edit-form.state';
 
@@ -88,6 +94,55 @@ export class CourseEditFormEffects {
         })
       );
     })
+  );
+
+  @Effect({ dispatch: false })
+  saveCourse$ = this.actions$.pipe(
+    ofType(CourseEditFormActions.SaveCourse),
+    withLatestFrom(this.store$),
+    map((data: [SaveCourse, { courseEditForm: ICourseEditFormState }]) => {
+      const stateCopy: ICourseEditFormState = cloneDeep(data[1].courseEditForm);
+
+      stateCopy.authorsMultiSelect.selectedAuthors.forEach(author => {
+        stateCopy.course.authors.push({
+          id: author.id,
+          firstName: author.firstName,
+          lastName: author.lastName
+        });
+      });
+
+      this.spinnerService.show();
+
+      if (!this.router.url.endsWith('new')) {
+        this.coursesService.updateItem(stateCopy.course).subscribe(response => {
+          this.router.navigateByUrl('/courses');
+          this.spinnerService.hide();
+        });
+      } else {
+        this.coursesService
+          .createCourse(stateCopy.course)
+          .subscribe(response => {
+            this.router.navigateByUrl('/courses');
+            this.spinnerService.hide();
+          });
+      }
+    })
+  );
+
+  @Effect()
+  validateCourseAuthors$ = this.actions$.pipe(
+    ofType(CourseEditFormActions.ValidateCourseAuthors),
+    withLatestFrom(this.store$),
+    map(
+      (
+        data: [ValidateCourseAuthors, { courseEditForm: ICourseEditFormState }]
+      ) => {
+        if (data[1].courseEditForm.authorsMultiSelect.selectedAuthors.length) {
+          return new ValidationOfAuthorsPassed();
+        }
+        return new ValidationOfAuthorsFailed();
+      }
+    )
   );
 
   constructor(
