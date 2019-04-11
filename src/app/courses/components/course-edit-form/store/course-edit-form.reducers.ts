@@ -87,6 +87,12 @@ export function courseEditFormStateReducer(
       return newState;
     }
 
+    case CourseEditFormActions.ResetAuthorsValidationState: {
+      newState.selectedAuthorsIsInvalidated = initialCourseEditFormState.selectedAuthorsIsInvalidated;
+
+      return newState;
+    }
+
     case CourseEditFormActions.UpdateCourseDate: {
       newState.course.date = action.payload.date;
 

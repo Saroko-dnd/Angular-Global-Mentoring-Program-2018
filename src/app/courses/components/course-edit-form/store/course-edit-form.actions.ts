@@ -18,6 +18,7 @@ export enum CourseEditFormActions {
   LoadCourse = '[course-edit-form Component] Load course',
   LoadListOfAuthors = '[course-edit-form Component] Load list of authors',
   RemovedAuthor = '[course-edit-form Component] Removed author',
+  ResetAuthorsValidationState = '[course-edit-form Component] Reset authors validation state',
   SaveCourse = '[course-edit-form Component] Save course',
   UpdateCourseDate = '[course-edit-form Component] Update course date',
   UpdateListOfSelectedAuthors = '[course-edit-form Component] Update course date',
@@ -103,6 +104,12 @@ export class RemovedAuthor implements Action {
   constructor(public payload: { author: IAuthorForMultiSelector }) {}
 }
 
+export class ResetAuthorsValidationState implements Action {
+  readonly type = CourseEditFormActions.ResetAuthorsValidationState;
+
+  constructor() {}
+}
+
 export class SaveCourse implements Action {
   readonly type = CourseEditFormActions.SaveCourse;
 
@@ -143,6 +150,7 @@ export type CourseEditFormActionsUnion =
   | LoadCourse
   | LoadListOfAuthors
   | RemovedAuthor
+  | ResetAuthorsValidationState
   | SaveCourse
   | UpdateCourseDate
   | ValidateCourseAuthors
