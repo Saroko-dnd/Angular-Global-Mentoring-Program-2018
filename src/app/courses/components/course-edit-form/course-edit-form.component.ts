@@ -132,7 +132,7 @@ export class CourseEditFormComponent implements OnInit {
   saveCourse() {
     this.validate();
 
-    if (!this.selectedAuthorsAreValid) {
+    if (this.selectedAuthorsAreValid) {
       this.course.authors = [];
 
       this.authorsMultiSelect.selectedAuthors.forEach(author => {
@@ -167,10 +167,9 @@ export class CourseEditFormComponent implements OnInit {
   validate() {
     if (this.authorsMultiSelect.selectedAuthors.length) {
       this.selectedAuthorsAreValid = true;
-      return true;
     }
 
     this.authorsTooltip.open();
-    return false;
+    this.selectedAuthorsAreValid = false;
   }
 }
