@@ -4,7 +4,7 @@ import { IMultiSelectorModel } from '../types/multi-selector-model';
 export interface ICourseEditFormState {
   course: ICourse;
   authorsMultiSelect: IMultiSelectorModel;
-  selectedAuthorsIsInvalidated: boolean;
+  selectedAuthorsAreValid: boolean;
 }
 
 export const initialCourseEditFormState: ICourseEditFormState = {
@@ -21,5 +21,5 @@ export const initialCourseEditFormState: ICourseEditFormState = {
     dropdownList: [],
     selectedAuthors: []
   },
-  selectedAuthorsIsInvalidated: false
+  selectedAuthorsAreValid: true
 };

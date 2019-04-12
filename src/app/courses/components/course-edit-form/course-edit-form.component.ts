@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { Store } from '@ngrx/store';
+
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
 import * as moment from 'moment';
@@ -10,6 +12,15 @@ import { CoursesService } from '../../services';
 import { ICourse } from '../../../shared';
 import { LoadingSpinnerService } from 'src/app/core/services';
 import { IMultiSelectorModel } from './types/multi-selector-model';
+import { ICourseEditFormState } from './store/course-edit-form.state';
+import {
+  InitCourseEditFormData,
+  CancelCourseEditing,
+  AddedNewAuthor,
+  AllAuthorsRemoved,
+  CourseDurationChanged
+} from './store/course-edit-form.actions';
+import { IAuthorForMultiSelector } from './types/author-for-multi-selector';
 
 @Component({
   selector: 'learn-portal-course-edit-form',
@@ -21,7 +32,8 @@ export class CourseEditFormComponent implements OnInit {
     private coursesService: CoursesService,
     private route: ActivatedRoute,
     private router: Router,
-    private spinnerService: LoadingSpinnerService
+    private spinnerService: LoadingSpinnerService,
+    private store: Store<{ courses: { editForm: ICourseEditFormState } }>
   ) {}
 
   @ViewChild('authorsTooltip') authorsTooltip: NgbTooltip;
@@ -42,8 +54,11 @@ export class CourseEditFormComponent implements OnInit {
   };
 
   formIsValid = false;
+  selectedAuthorsAreValid = false;
 
   ngOnInit() {
+    // this.store.dispatch(new InitCourseEditFormData());
+
     this.coursesService.getAuthors().subscribe(authorsList => {
       this.authorsMultiSelect.dropdownList = authorsList.map(author => {
         return {
@@ -76,29 +91,48 @@ export class CourseEditFormComponent implements OnInit {
   }
 
   cancelCourseEditing() {
+    // this.store.dispatch(new CancelCourseEditing());
     this.router.navigateByUrl('/courses');
   }
 
-  onAuthorAdded(addedAuthor: any) {
+  onAuthorAdded(addedAuthor: IAuthorForMultiSelector) {
+    /*this.store.dispatch(
+      new AddedNewAuthor({
+        author: addedAuthor
+      })
+    );*/
     console.log(addedAuthor);
   }
 
-  onAuthorRemoved(removedAuthor: any) {
-    console.log(removedAuthor);
+  onAuthorRemoved(removedAuthorInfo: any) {
+    /*this.store.dispatch(
+      new AddedNewAuthor({
+        author: removedAuthorInfo.value
+      })
+    );*/
+    console.log(removedAuthorInfo);
   }
 
   onAllAuthorsRemoved() {
+    /*this.store.dispatch(
+      new AllAuthorsRemoved()
+    );*/
     console.log('all authores are removed');
   }
 
   onCourseDurationChange(duration: number) {
+    /*this.store.dispatch(
+      new CourseDurationChanged({
+        duration
+      })
+    );*/
     console.log(`Course duration changed to: ${duration}`);
   }
 
   saveCourse() {
     this.validate();
 
-    if (this.formIsValid) {
+    if (!this.selectedAuthorsAreValid) {
       this.course.authors = [];
 
       this.authorsMultiSelect.selectedAuthors.forEach(author => {
@@ -132,7 +166,7 @@ export class CourseEditFormComponent implements OnInit {
 
   validate() {
     if (this.authorsMultiSelect.selectedAuthors.length) {
-      this.formIsValid = true;
+      this.selectedAuthorsAreValid = true;
       return true;
     }
 

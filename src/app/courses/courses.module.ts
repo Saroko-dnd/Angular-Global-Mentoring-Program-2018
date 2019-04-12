@@ -53,7 +53,7 @@ import { CourseEditFormEffects } from './components/course-edit-form/store/cours
     SharedModule,
     StoreModule.forFeature('courses', {
       list: courseListStateReducer,
-      courseEditFormStateReducer
+      editForm: courseEditFormStateReducer
     })
   ],
   declarations: [

@@ -94,13 +94,13 @@ export function courseEditFormStateReducer(
     }
 
     case CourseEditFormActions.ValidationOfAuthorsFailed: {
-      newState.selectedAuthorsIsInvalidated = true;
+      newState.selectedAuthorsAreValid = false;
 
       return newState;
     }
 
     case CourseEditFormActions.ValidationOfAuthorsPassed: {
-      newState.selectedAuthorsIsInvalidated = false;
+      newState.selectedAuthorsAreValid = true;
 
       return newState;
     }
