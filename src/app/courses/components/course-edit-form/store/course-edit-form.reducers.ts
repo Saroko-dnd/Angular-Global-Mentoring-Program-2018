@@ -26,6 +26,11 @@ export function courseEditFormStateReducer(
       return newState;
     }
 
+    case CourseEditFormActions.CourseSaved:
+    case CourseEditFormActions.CancelCourseEditing: {
+      return initialCourseEditFormState;
+    }
+
     case CourseEditFormActions.CourseDescriptionChanged: {
       newState.course.description = action.payload.description;
 
