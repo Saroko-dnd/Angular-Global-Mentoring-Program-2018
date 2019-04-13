@@ -78,7 +78,7 @@ export class CourseNameChanged implements Action {
 export class CourseSaved implements Action {
   readonly type = CourseEditFormActions.CourseSaved;
 
-  constructor(public payload: { name: string }) {}
+  constructor() {}
 }
 
 export class InitCourseEditFormData implements Action {
