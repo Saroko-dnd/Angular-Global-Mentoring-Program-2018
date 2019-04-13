@@ -34,14 +34,6 @@ import { ICourseEditFormState } from './course-edit-form.state';
 
 @Injectable()
 export class CourseEditFormEffects {
-  @Effect({ dispatch: false })
-  cancelCourseEditing$ = this.actions$.pipe(
-    ofType(CourseEditFormActions.CancelCourseEditing),
-    tap(() => {
-      this.router.navigateByUrl('/courses');
-    })
-  );
-
   @Effect()
   courseDateChanged$ = this.actions$.pipe(
     ofType(CourseEditFormActions.CourseDateChanged),
@@ -49,6 +41,17 @@ export class CourseEditFormEffects {
       return new UpdateCourseDate({
         date: moment(courseDateChangedAction.payload.date).format()
       });
+    })
+  );
+
+  @Effect({ dispatch: false })
+  courseEditingCompleted$ = this.actions$.pipe(
+    ofType(
+      CourseEditFormActions.CancelCourseEditing,
+      CourseEditFormActions.CourseSaved
+    ),
+    tap(() => {
+      this.router.navigateByUrl('/courses');
     })
   );
 
