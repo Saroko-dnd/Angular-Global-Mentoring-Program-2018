@@ -13,6 +13,7 @@ export enum CourseEditFormActions {
   CourseDurationChanged = '[course-edit-form Component] Course duration changed',
   CourseLoaded = '[course-edit-form Component] Course loaded',
   CourseNameChanged = '[course-edit-form Component] Course name changed',
+  CourseSaved = '[course-edit-form Component] Course saved',
   InitCourseEditFormData = '[course-edit-form Component] Initialize course edit form data',
   ListOfAuthorsLoaded = '[course-edit-form Component] List of authors loaded',
   LoadCourse = '[course-edit-form Component] Load course',
@@ -70,6 +71,12 @@ export class CourseLoaded implements Action {
 
 export class CourseNameChanged implements Action {
   readonly type = CourseEditFormActions.CourseNameChanged;
+
+  constructor(public payload: { name: string }) {}
+}
+
+export class CourseSaved implements Action {
+  readonly type = CourseEditFormActions.CourseSaved;
 
   constructor(public payload: { name: string }) {}
 }
@@ -143,6 +150,7 @@ export type CourseEditFormActionsUnion =
   | CourseDurationChanged
   | CourseLoaded
   | CourseNameChanged
+  | CourseSaved
   | InitCourseEditFormData
   | ListOfAuthorsLoaded
   | LoadCourse

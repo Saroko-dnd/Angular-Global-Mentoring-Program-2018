@@ -106,7 +106,7 @@ export class CourseEditFormComponent implements OnInit {
 
   onAuthorRemoved(removedAuthorInfo: any) {
     /*this.store.dispatch(
-      new AddedNewAuthor({
+      new RemovedAuthor({
         author: removedAuthorInfo.value
       })
     );*/
