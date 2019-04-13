@@ -25,11 +25,12 @@ import {
   LoadCourse,
   LoadListOfAuthors,
   ListOfAuthorsLoaded,
-  ValidateCourseAuthors,
   ValidationOfAuthorsFailed,
   ValidationOfAuthorsPassed,
   SaveCourse,
-  CourseSaved
+  CourseSaved,
+  AllAuthorsRemoved,
+  RemovedAuthor
 } from './course-edit-form.actions';
 import { ICourseEditFormState } from './course-edit-form.state';
 
@@ -146,12 +147,19 @@ export class CourseEditFormEffects {
   );
 
   @Effect()
-  validateCourseAuthors$ = this.actions$.pipe(
-    ofType(CourseEditFormActions.ValidateCourseAuthors),
+  changedListOfSelectedAuthors$ = this.actions$.pipe(
+    ofType(
+      CourseEditFormActions.RemovedAuthor,
+      CourseEditFormActions.AllAuthorsRemoved,
+      CourseEditFormActions.AddedNewAuthor
+    ),
     withLatestFrom(this.store$),
     map(
       (
-        data: [ValidateCourseAuthors, { courseEditForm: ICourseEditFormState }]
+        data: [
+          RemovedAuthor | AllAuthorsRemoved,
+          { courseEditForm: ICourseEditFormState }
+        ]
       ) => {
         if (data[1].courseEditForm.authorsMultiSelect.selectedAuthors.length) {
           return new ValidationOfAuthorsPassed();

@@ -22,7 +22,6 @@ export enum CourseEditFormActions {
   SaveCourse = '[course-edit-form Component] Save course',
   UpdateCourseDate = '[course-edit-form Component] Update course date',
   UpdateListOfSelectedAuthors = '[course-edit-form Component] Update course date',
-  ValidateCourseAuthors = '[course-edit-form Component] Validate course authors',
   ValidationOfAuthorsFailed = '[course-edit-form Component] Validation of course authors failed',
   ValidationOfAuthorsPassed = '[course-edit-form Component] Validation of course authors passed'
 }
@@ -123,12 +122,6 @@ export class UpdateCourseDate implements Action {
   constructor(public payload: { date: string }) {}
 }
 
-export class ValidateCourseAuthors implements Action {
-  readonly type = CourseEditFormActions.ValidateCourseAuthors;
-
-  constructor() {}
-}
-
 export class ValidationOfAuthorsFailed implements Action {
   readonly type = CourseEditFormActions.ValidationOfAuthorsFailed;
 
@@ -158,6 +151,5 @@ export type CourseEditFormActionsUnion =
   | RemovedAuthor
   | SaveCourse
   | UpdateCourseDate
-  | ValidateCourseAuthors
   | ValidationOfAuthorsFailed
   | ValidationOfAuthorsPassed;
