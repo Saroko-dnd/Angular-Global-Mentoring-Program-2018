@@ -28,7 +28,8 @@ import {
   ValidateCourseAuthors,
   ValidationOfAuthorsFailed,
   ValidationOfAuthorsPassed,
-  SaveCourse
+  SaveCourse,
+  CourseSaved
 } from './course-edit-form.actions';
 import { ICourseEditFormState } from './course-edit-form.state';
 
@@ -103,33 +104,45 @@ export class CourseEditFormEffects {
   saveCourse$ = this.actions$.pipe(
     ofType(CourseEditFormActions.SaveCourse),
     withLatestFrom(this.store$),
-    map((data: [SaveCourse, { courseEditForm: ICourseEditFormState }]) => {
-      const stateCopy: ICourseEditFormState = cloneDeep(data[1].courseEditForm);
+    switchMap(
+      (data: [SaveCourse, { courseEditForm: ICourseEditFormState }]) => {
+        const stateCopy: ICourseEditFormState = cloneDeep(
+          data[1].courseEditForm
+        );
 
-      stateCopy.authorsMultiSelect.selectedAuthors.forEach(author => {
-        stateCopy.course.authors.push({
-          id: author.id,
-          firstName: author.firstName,
-          lastName: author.lastName
-        });
-      });
+        if (!data[1].courseEditForm.authorsMultiSelect.selectedAuthors.length) {
+          return of(new ValidationOfAuthorsFailed());
+        }
 
-      this.spinnerService.show();
+        this.spinnerService.show();
 
-      if (!this.router.url.endsWith('new')) {
-        this.coursesService.updateItem(stateCopy.course).subscribe(response => {
-          this.router.navigateByUrl('/courses');
-          this.spinnerService.hide();
-        });
-      } else {
-        this.coursesService
-          .createCourse(stateCopy.course)
-          .subscribe(response => {
-            this.router.navigateByUrl('/courses');
-            this.spinnerService.hide();
+        stateCopy.authorsMultiSelect.selectedAuthors.forEach(author => {
+          stateCopy.course.authors.push({
+            id: author.id,
+            firstName: author.firstName,
+            lastName: author.lastName
           });
+        });
+
+        if (!this.router.url.endsWith('new')) {
+          return this.coursesService.updateItem(stateCopy.course).pipe(
+            map(() => {
+              this.spinnerService.hide();
+
+              return new CourseSaved();
+            })
+          );
+        } else {
+          return this.coursesService.createCourse(stateCopy.course).pipe(
+            map(() => {
+              this.spinnerService.hide();
+
+              return new CourseSaved();
+            })
+          );
+        }
       }
-    })
+    )
   );
 
   @Effect()
