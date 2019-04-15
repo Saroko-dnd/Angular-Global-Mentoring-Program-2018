@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash/cloneDeep';
+
 import { ICourseListState, initialCourseListState } from './course-list.state';
 import {
   CourseListActions,
@@ -8,7 +10,7 @@ export function courseListStateReducer(
   state = initialCourseListState,
   action: CourseListActionsUnion
 ): ICourseListState {
-  const newState = { ...state };
+  const newState = cloneDeep(state);
 
   switch (action.type) {
     case CourseListActions.DecrementPageNumber: {

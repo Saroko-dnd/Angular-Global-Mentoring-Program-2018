@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash/cloneDeep';
+
 import {
   initialCourseEditFormState,
   ICourseEditFormState
@@ -11,7 +13,7 @@ export function courseEditFormStateReducer(
   state = initialCourseEditFormState,
   action: CourseEditFormActionsUnion
 ): ICourseEditFormState {
-  const newState = { ...state };
+  const newState = cloneDeep(state);
 
   switch (action.type) {
     case CourseEditFormActions.AddedNewAuthor: {
@@ -30,6 +32,7 @@ export function courseEditFormStateReducer(
     case CourseEditFormActions.CourseSaved:
     case CourseEditFormActions.ResetCourseEditFormState: {
       console.log('reset');
+      console.log(initialCourseEditFormState);
       return initialCourseEditFormState;
     }
 
