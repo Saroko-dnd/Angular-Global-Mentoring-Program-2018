@@ -151,7 +151,7 @@ export class CourseEditFormEffects {
           return this.coursesService.updateItem(stateCopy.course).pipe(
             map(() => {
               this.spinnerService.hide();
-              console.log('updateItem');
+
               return new CourseSaved();
             })
           );
@@ -159,7 +159,7 @@ export class CourseEditFormEffects {
           return this.coursesService.createCourse(stateCopy.course).pipe(
             map(() => {
               this.spinnerService.hide();
-              console.log('createCourse');
+
               return new CourseSaved();
             })
           );

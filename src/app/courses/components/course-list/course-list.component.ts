@@ -87,7 +87,6 @@ export class CourseListComponent implements OnInit {
   ngOnInit() {
     this.courses$ = this.store.pipe(
       select(state => {
-        console.log(state);
         return state.courses.list.courses;
       })
     );

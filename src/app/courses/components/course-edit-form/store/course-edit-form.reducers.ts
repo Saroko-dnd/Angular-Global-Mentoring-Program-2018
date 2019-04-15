@@ -31,8 +31,6 @@ export function courseEditFormStateReducer(
     case CourseEditFormActions.CancelCourseEditing:
     case CourseEditFormActions.CourseSaved:
     case CourseEditFormActions.ResetCourseEditFormState: {
-      console.log('reset');
-      console.log(initialCourseEditFormState);
       return initialCourseEditFormState;
     }
 
@@ -87,8 +85,6 @@ export function courseEditFormStateReducer(
     }
 
     case CourseEditFormActions.RemovedAuthor: {
-      console.log(typeof action.payload.author.id);
-      console.log(typeof newState.authorsMultiSelect.selectedAuthors[0].id);
       newState.authorsMultiSelect.selectedAuthors.splice(
         newState.authorsMultiSelect.selectedAuthors.findIndex(author => {
           return author.id === action.payload.author.id;

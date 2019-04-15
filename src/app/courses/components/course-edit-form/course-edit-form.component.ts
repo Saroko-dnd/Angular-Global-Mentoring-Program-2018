@@ -58,42 +58,36 @@ export class CourseEditFormComponent implements OnInit {
   ngOnInit() {
     this.courseDate = this.store.pipe(
       select(state => {
-        console.log(state);
         return state.courses.editForm.course.date;
       })
     );
 
     this.courseDescription = this.store.pipe(
       select(state => {
-        console.log(state);
         return state.courses.editForm.course.description;
       })
     );
 
     this.courseLength = this.store.pipe(
       select(state => {
-        console.log(state);
         return state.courses.editForm.course.length;
       })
     );
 
     this.courseName = this.store.pipe(
       select(state => {
-        console.log(state);
         return state.courses.editForm.course.name;
       })
     );
 
     this.fullListOfAuthors = this.store.pipe(
       select(state => {
-        console.log(state);
         return state.courses.editForm.authorsMultiSelect.dropdownList;
       })
     );
 
     this.selectedAuthors = this.store.pipe(
       select(state => {
-        console.log(state);
         return state.courses.editForm.authorsMultiSelect.selectedAuthors;
       })
     );
@@ -101,14 +95,12 @@ export class CourseEditFormComponent implements OnInit {
     this.store
       .pipe(
         select(state => {
-          console.log(state);
           return state.courses.editForm.selectedAuthorsAreValid;
         })
       )
       .subscribe(result => {
         this.selectedAuthorsAreValid = result;
       });
-    console.log(this.route.snapshot.params['id']);
 
     this.store.dispatch(new InitCourseEditFormData());
   }
@@ -123,7 +115,6 @@ export class CourseEditFormComponent implements OnInit {
         author: addedAuthor
       })
     );
-    console.log(addedAuthor);
   }
 
   onAuthorRemoved(removedAuthorInfo: any) {
@@ -132,7 +123,6 @@ export class CourseEditFormComponent implements OnInit {
         author: removedAuthorInfo.value
       })
     );
-    console.log(removedAuthorInfo);
   }
 
   onAllAuthorsRemoved() {
@@ -146,7 +136,6 @@ export class CourseEditFormComponent implements OnInit {
         description
       })
     );
-    console.log(`Course description changed to: ${description}`);
   }
 
   onCourseDurationChange(duration: number) {
@@ -155,7 +144,6 @@ export class CourseEditFormComponent implements OnInit {
         duration
       })
     );
-    console.log(`Course duration changed to: ${duration}`);
   }
 
   onCourseTitleChange(title: string) {
@@ -164,7 +152,6 @@ export class CourseEditFormComponent implements OnInit {
         name: title
       })
     );
-    console.log(`Course title changed to: ${title}`);
   }
 
   saveCourse() {
