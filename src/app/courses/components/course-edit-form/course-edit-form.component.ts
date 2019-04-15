@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+
+import { Observable } from 'rxjs';
 
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
@@ -18,7 +20,12 @@ import {
   CancelCourseEditing,
   AddedNewAuthor,
   AllAuthorsRemoved,
-  CourseDurationChanged
+  CourseDurationChanged,
+  CourseNameChanged,
+  CourseDescriptionChanged,
+  RemovedAuthor,
+  SaveCourse,
+  CourseDateChanged
 } from './store/course-edit-form.actions';
 import { IAuthorForMultiSelector } from './types/author-for-multi-selector';
 
@@ -38,138 +45,137 @@ export class CourseEditFormComponent implements OnInit {
 
   @ViewChild('authorsTooltip') authorsTooltip: NgbTooltip;
 
-  authorsMultiSelect: IMultiSelectorModel = {
-    dropdownList: [],
-    selectedAuthors: []
-  };
+  fullListOfAuthors: Observable<IAuthorForMultiSelector[]>;
+  selectedAuthors: Observable<IAuthorForMultiSelector[]>;
 
-  course: ICourse = {
-    authors: [],
-    date: null,
-    description: null,
-    length: null,
-    id: null,
-    name: null,
-    isTopRated: false
-  };
+  courseDate: Observable<string>;
+  courseDescription: Observable<string>;
+  courseLength: Observable<number>;
+  courseName: Observable<string>;
 
-  formIsValid = false;
-  selectedAuthorsAreValid = false;
+  selectedAuthorsAreValid: boolean;
 
   ngOnInit() {
-    // this.store.dispatch(new InitCourseEditFormData());
+    this.courseDate = this.store.pipe(
+      select(state => {
+        console.log(state);
+        return state.courses.editForm.course.date;
+      })
+    );
 
-    this.coursesService.getAuthors().subscribe(authorsList => {
-      this.authorsMultiSelect.dropdownList = authorsList.map(author => {
-        return {
-          id: author.id,
-          firstName: author.firstName,
-          lastName: author.lastName,
-          name: `${author.firstName} ${author.lastName}`
-        };
+    this.courseDescription = this.store.pipe(
+      select(state => {
+        console.log(state);
+        return state.courses.editForm.course.description;
+      })
+    );
+
+    this.courseLength = this.store.pipe(
+      select(state => {
+        console.log(state);
+        return state.courses.editForm.course.length;
+      })
+    );
+
+    this.courseName = this.store.pipe(
+      select(state => {
+        console.log(state);
+        return state.courses.editForm.course.name;
+      })
+    );
+
+    this.fullListOfAuthors = this.store.pipe(
+      select(state => {
+        console.log(state);
+        return state.courses.editForm.authorsMultiSelect.dropdownList;
+      })
+    );
+
+    this.selectedAuthors = this.store.pipe(
+      select(state => {
+        console.log(state);
+        return state.courses.editForm.authorsMultiSelect.selectedAuthors;
+      })
+    );
+
+    this.store
+      .pipe(
+        select(state => {
+          console.log(state);
+          return state.courses.editForm.selectedAuthorsAreValid;
+        })
+      )
+      .subscribe(result => {
+        this.selectedAuthorsAreValid = result;
       });
-    });
+    console.log(this.route.snapshot.params['id']);
 
-    if (!this.router.url.endsWith('new')) {
-      this.coursesService
-        .getItemById(this.route.snapshot.params['id'])
-        .subscribe(course => {
-          this.course = course;
-
-          this.authorsMultiSelect.selectedAuthors = this.course.authors.map(
-            author => {
-              return {
-                id: author.id,
-                firstName: author.firstName,
-                lastName: author.lastName,
-                name: `${author.firstName} ${author.lastName}`
-              };
-            }
-          );
-        });
-    }
+    this.store.dispatch(new InitCourseEditFormData());
   }
 
   cancelCourseEditing() {
-    // this.store.dispatch(new CancelCourseEditing());
-    this.router.navigateByUrl('/courses');
+    this.store.dispatch(new CancelCourseEditing());
   }
 
   onAuthorAdded(addedAuthor: IAuthorForMultiSelector) {
-    /*this.store.dispatch(
+    this.store.dispatch(
       new AddedNewAuthor({
         author: addedAuthor
       })
-    );*/
+    );
     console.log(addedAuthor);
   }
 
   onAuthorRemoved(removedAuthorInfo: any) {
-    /*this.store.dispatch(
+    this.store.dispatch(
       new RemovedAuthor({
         author: removedAuthorInfo.value
       })
-    );*/
+    );
     console.log(removedAuthorInfo);
   }
 
   onAllAuthorsRemoved() {
-    /*this.store.dispatch(
-      new AllAuthorsRemoved()
-    );*/
+    this.store.dispatch(new AllAuthorsRemoved());
     console.log('all authores are removed');
   }
 
+  onCourseDescriptionChange(description: string) {
+    this.store.dispatch(
+      new CourseDescriptionChanged({
+        description
+      })
+    );
+    console.log(`Course description changed to: ${description}`);
+  }
+
   onCourseDurationChange(duration: number) {
-    /*this.store.dispatch(
+    this.store.dispatch(
       new CourseDurationChanged({
         duration
       })
-    );*/
+    );
     console.log(`Course duration changed to: ${duration}`);
   }
 
+  onCourseTitleChange(title: string) {
+    this.store.dispatch(
+      new CourseNameChanged({
+        name: title
+      })
+    );
+    console.log(`Course title changed to: ${title}`);
+  }
+
   saveCourse() {
-    this.validate();
-
     if (this.selectedAuthorsAreValid) {
-      this.course.authors = [];
-
-      this.authorsMultiSelect.selectedAuthors.forEach(author => {
-        this.course.authors.push({
-          id: author.id,
-          firstName: author.firstName,
-          lastName: author.lastName
-        });
-      });
-
-      this.spinnerService.show();
-      if (!this.router.url.endsWith('new')) {
-        this.coursesService.updateItem(this.course).subscribe(response => {
-          this.router.navigateByUrl('/courses');
-          this.spinnerService.hide();
-        });
-      } else {
-        this.coursesService.createCourse(this.course).subscribe(response => {
-          this.router.navigateByUrl('/courses');
-          this.spinnerService.hide();
-        });
-      }
+      this.store.dispatch(new SaveCourse());
+    } else {
+      this.authorsTooltip.open();
     }
   }
 
   updateCourseDate(date: Date) {
-    const courseDate = moment(date);
-
-    this.course.date = courseDate.format();
-  }
-
-  validate() {
-    if (this.authorsMultiSelect.selectedAuthors.length) {
-      this.selectedAuthorsAreValid = true;
-    }
-
-    this.authorsTooltip.open();
-    this.selectedAuthorsAreValid = false;
+    this.store.dispatch(new CourseDateChanged({ date }));
   }
 }

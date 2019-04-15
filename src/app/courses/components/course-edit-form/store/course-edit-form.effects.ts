@@ -4,9 +4,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
+import {
+  ROUTER_NAVIGATED,
+  RouterNavigatedAction,
+  RouterReducerState
+} from '@ngrx/router-store';
+
 import { of } from 'rxjs';
 
-import { map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import {
+  map,
+  mergeMap,
+  switchMap,
+  tap,
+  withLatestFrom,
+  concatMap
+} from 'rxjs/operators';
 
 import * as moment from 'moment';
 
@@ -30,7 +43,8 @@ import {
   SaveCourse,
   CourseSaved,
   AllAuthorsRemoved,
-  RemovedAuthor
+  RemovedAuthor,
+  ResetCourseEditFormState
 } from './course-edit-form.actions';
 import { ICourseEditFormState } from './course-edit-form.state';
 
@@ -49,8 +63,8 @@ export class CourseEditFormEffects {
   @Effect({ dispatch: false })
   courseEditingCompleted$ = this.actions$.pipe(
     ofType(
-      CourseEditFormActions.CancelCourseEditing,
-      CourseEditFormActions.CourseSaved
+      CourseEditFormActions.CourseSaved,
+      CourseEditFormActions.CancelCourseEditing
     ),
     tap(() => {
       this.router.navigateByUrl('/courses');
@@ -60,13 +74,17 @@ export class CourseEditFormEffects {
   @Effect()
   initCourseEditFormData$ = this.actions$.pipe(
     ofType(CourseEditFormActions.InitCourseEditFormData),
-    map(() => {
+    switchMap(() => {
       this.spinnerService.show();
 
       if (!this.router.url.endsWith('new')) {
-        return [new LoadCourse(), new LoadListOfAuthors()];
+        return [
+          new ResetCourseEditFormState(),
+          new LoadCourse(),
+          new LoadListOfAuthors()
+        ];
       } else {
-        return of(new LoadListOfAuthors());
+        return [new ResetCourseEditFormState(), new LoadListOfAuthors()];
       }
     })
   );
@@ -74,9 +92,10 @@ export class CourseEditFormEffects {
   @Effect()
   loadCourse$ = this.actions$.pipe(
     ofType(CourseEditFormActions.LoadCourse),
-    switchMap(() => {
+    withLatestFrom(this.store$),
+    switchMap((data: [LoadCourse, { router: RouterReducerState }]) => {
       return this.coursesService
-        .getItemById(this.route.snapshot.params['id'])
+        .getItemById(data[1].router.state.root.firstChild.params['id'])
         .pipe(
           map(course => {
             this.spinnerService.hide();
@@ -101,22 +120,25 @@ export class CourseEditFormEffects {
     })
   );
 
-  @Effect({ dispatch: false })
+  @Effect()
   saveCourse$ = this.actions$.pipe(
     ofType(CourseEditFormActions.SaveCourse),
     withLatestFrom(this.store$),
-    switchMap(
-      (data: [SaveCourse, { courseEditForm: ICourseEditFormState }]) => {
+    concatMap(
+      (data: [SaveCourse, { courses: { editForm: ICourseEditFormState } }]) => {
         const stateCopy: ICourseEditFormState = cloneDeep(
-          data[1].courseEditForm
+          data[1].courses.editForm
         );
 
-        if (!data[1].courseEditForm.authorsMultiSelect.selectedAuthors.length) {
+        if (
+          !data[1].courses.editForm.authorsMultiSelect.selectedAuthors.length
+        ) {
           return of(new ValidationOfAuthorsFailed());
         }
 
         this.spinnerService.show();
 
+        stateCopy.course.authors.length = 0;
         stateCopy.authorsMultiSelect.selectedAuthors.forEach(author => {
           stateCopy.course.authors.push({
             id: author.id,
@@ -129,7 +151,7 @@ export class CourseEditFormEffects {
           return this.coursesService.updateItem(stateCopy.course).pipe(
             map(() => {
               this.spinnerService.hide();
-
+              console.log('updateItem');
               return new CourseSaved();
             })
           );
@@ -137,7 +159,7 @@ export class CourseEditFormEffects {
           return this.coursesService.createCourse(stateCopy.course).pipe(
             map(() => {
               this.spinnerService.hide();
-
+              console.log('createCourse');
               return new CourseSaved();
             })
           );
@@ -158,10 +180,12 @@ export class CourseEditFormEffects {
       (
         data: [
           RemovedAuthor | AllAuthorsRemoved,
-          { courseEditForm: ICourseEditFormState }
+          { courses: { editForm: ICourseEditFormState } }
         ]
       ) => {
-        if (data[1].courseEditForm.authorsMultiSelect.selectedAuthors.length) {
+        if (
+          data[1].courses.editForm.authorsMultiSelect.selectedAuthors.length
+        ) {
           return new ValidationOfAuthorsPassed();
         }
         return new ValidationOfAuthorsFailed();
