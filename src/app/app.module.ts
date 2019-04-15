@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
@@ -27,6 +28,9 @@ import { appRoutes } from './app.routing';
     Ng4LoadingSpinnerModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     StoreModule.forRoot({router: routerReducer}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 50,
+    }),
     StoreRouterConnectingModule.forRoot(),
   ],
   providers: [],
