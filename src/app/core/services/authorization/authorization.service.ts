@@ -16,22 +16,17 @@ export class AuthorizationService {
   loginFailed: EventEmitter<undefined>;
   userData: BehaviorSubject<IUser>;
 
-  login(username: string, password: string, successCallback: () => void): void {
-    this.http
+  login(username: string, password: string): Observable<void> {
+    return this.http
       .post<IResponceWithUserToken>(`${this.AUTH_API_PATH}`, {
         login: username,
         password
       })
-      .subscribe(
-        response => {
+      .pipe(
+        map(response => {
           localStorage.setItem('user-token', response.token);
           this.loginPerformed.emit();
-
-          successCallback();
-        },
-        error => {
-          this.loginFailed.emit();
-        }
+        })
       );
   }
 

@@ -3,7 +3,7 @@
   (searchActivated)="onSearchActivated($event)"
 ></learn-portal-search-course>
 <ul class="p-0 m-0">
-  <li *ngFor="let courseItem of (courses | orderBy: 'creationDate')">
+  <li *ngFor="let courseItem of (courses$ | async | orderBy: 'creationDate')">
     <learn-portal-course-list-item
       [course]="courseItem"
       (itemDeleted)="onItemDeleted($event, confirmCourseDeletionModal)"
@@ -13,15 +13,21 @@
   </li>
 </ul>
 <div
-  *ngIf="!courses.length"
+  *ngIf="!(courses$ | async).length"
   class="alert alert-warning text-center"
   role="alert"
 >
   No data. Feel free to add new course.
 </div>
 <div class="d-flex justify-content-center">
-  <ngb-pagination [collectionSize]="numberOfCourses" (pageChange)="pageChanged($event)"
-    [(page)]="page" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+  <ngb-pagination
+    [collectionSize]="numberOfCourses$ | async"
+    (pageChange)="pageChanged($event)"
+    [page]="page$ | async"
+    [maxSize]="5"
+    [rotate]="true"
+    [boundaryLinks]="true"
+  >
   </ngb-pagination>
 </div>
 

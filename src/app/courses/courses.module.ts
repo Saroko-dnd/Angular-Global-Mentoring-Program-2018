@@ -4,6 +4,9 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
@@ -29,11 +32,16 @@ import { ShowCourseFreshnessDirective } from './directives';
 
 import { DurationPipe } from './pipes';
 import { SharedModule } from '../shared';
+import { CourseListEffects } from './components/course-list/store/course-list.effects';
+import { courseListStateReducer } from './components/course-list/store/course-list.reducers';
+import { courseEditFormStateReducer } from './components/course-edit-form/store/course-edit-form.reducers';
+import { CourseEditFormEffects } from './components/course-edit-form/store/course-edit-form.effects';
 
 @NgModule({
   imports: [
     BrowserAnimationsModule,
     CommonModule,
+    EffectsModule.forFeature([CourseListEffects, CourseEditFormEffects]),
     FormsModule,
     NgbModalModule,
     NgbTooltipModule,
@@ -42,7 +50,11 @@ import { SharedModule } from '../shared';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     RouterModule.forRoot(coursesRoutes),
-    SharedModule
+    SharedModule,
+    StoreModule.forFeature('courses', {
+      list: courseListStateReducer,
+      editForm: courseEditFormStateReducer
+    })
   ],
   declarations: [
     CourseDurationInputComponent,
