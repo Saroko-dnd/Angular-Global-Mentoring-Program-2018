@@ -1,4 +1,9 @@
-<form class="d-flex flex-column mb-1" (submit)="saveCourse()" ngNativeValidate>
+<form
+  class="d-flex flex-column mb-1"
+  (submit)="saveCourse()"
+  ngNativeValidate
+  [formGroup]="courseEditForm"
+>
   <div class="form-group">
     <label for="courseTitleFormControl"
       >Title <span class="text-danger">*Required</span></label
@@ -8,9 +13,7 @@
       class="form-control"
       id="courseTitleFormControl"
       required
-      [ngModel]="courseName | async"
-      [ngModelOptions]="{ standalone: true }"
-      (ngModelChange)="onCourseTitleChange($event)"
+      formControlName="courseName"
     />
   </div>
   <div class="form-group">
@@ -22,10 +25,7 @@
       id="courseDescriptionFormControl"
       required="true"
       rows="4"
-      [ngModel]="courseDescription | async"
-      [ngModelOptions]="{ standalone: true }"
-      (ngModelChange)="onCourseDescriptionChange($event)"
-      ngDefaultControl
+      formControlName="courseDescription"
     ></textarea>
   </div>
   <div class="form-group col-sm-3 px-0">
@@ -38,9 +38,7 @@
       [owlDateTimeTrigger]="course_dt"
       placeholder="Course date"
       [required]="true"
-      [ngModel]="courseDate | async"
-      (ngModelChange)="updateCourseDate($event)"
-      [ngModelOptions]="{ standalone: true }"
+      formControlName="courseDate"
     />
     <owl-date-time
       #course_dt
@@ -55,9 +53,7 @@
     <learn-portal-course-duration-input
       inputId="courseDurationFormControl"
       [required]="true"
-      [ngModel]="courseLength | async"
-      (ngModelChange)="onCourseDurationChange($event)"
-      [ngModelOptions]="{ standalone: true }"
+      formControlName="courseLength"
     ></learn-portal-course-duration-input>
   </div>
   <div>
@@ -79,8 +75,7 @@
       (add)="onAuthorAdded($event)"
       (remove)="onAuthorRemoved($event)"
       (clear)="onAllAuthorsRemoved()"
-      [ngModel]="selectedAuthors | async"
-      [ngModelOptions]="{ standalone: true }"
+      formControlName="authorsSelector"
     >
     </ng-select>
   </div>

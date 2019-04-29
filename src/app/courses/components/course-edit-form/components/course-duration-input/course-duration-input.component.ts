@@ -1,5 +1,11 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Component, forwardRef, Input, OnInit, OnDestroy } from '@angular/core';
+import {
+  NG_VALUE_ACCESSOR,
+  ControlValueAccessor,
+  FormControl
+} from '@angular/forms';
+
+import { Subscription } from 'rxjs';
 
 import { IInputEvent } from 'src/app/shared/types';
 
@@ -18,36 +24,40 @@ export const COURSE_DURATION_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   providers: [COURSE_DURATION_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class CourseDurationInputComponent
-  implements OnInit, ControlValueAccessor {
+  implements OnInit, OnDestroy, ControlValueAccessor {
   @Input() inputId: string;
   @Input() required: boolean;
 
-  private innerValue: number;
+  innerValue = new FormControl('');
+  innerValueSubscriber: Subscription;
 
   private onTouchedCallback: () => void = noop;
   private onChangeCallback: (_: any) => void = noop;
 
   constructor() {}
 
-  ngOnInit() {}
-
-  onInput(e: IInputEvent) {
-    if ((<HTMLInputElement>e.srcElement).value) {
-      (<HTMLInputElement>e.srcElement).value =
-        '' + Math.abs(+(<HTMLInputElement>e.srcElement).value);
-    }
+  ngOnInit() {
+    this.innerValueSubscriber = this.innerValue.valueChanges.subscribe(
+      value => {
+        if (typeof value === 'number') {
+          if (value < 0) {
+            this.innerValue.setValue(Math.abs(value));
+          } else {
+            this.onChangeCallback(value);
+          }
+        }
+      }
+    );
   }
 
   get value(): number {
-    return this.innerValue;
+    return this.innerValue.value;
   }
 
   set value(value: number) {
     value = value ? Math.abs(value) : value;
-
-    if (value !== this.innerValue) {
-      this.innerValue = value;
-      this.onChangeCallback(value);
+    if (value !== this.innerValue.value) {
+      this.innerValue.setValue(value);
     }
   }
 
@@ -58,8 +68,8 @@ export class CourseDurationInputComponent
   writeValue(value: number): void {
     value = value ? Math.abs(value) : value;
 
-    if (value !== this.innerValue) {
-      this.innerValue = value;
+    if (value !== this.innerValue.value) {
+      this.innerValue.setValue(value);
     }
   }
 
@@ -73,5 +83,9 @@ export class CourseDurationInputComponent
 
   setDisabledState?(isDisabled: boolean): void {
     // There is no need for that now
+  }
+
+  ngOnDestroy(): void {
+    this.innerValueSubscriber.unsubscribe();
   }
 }

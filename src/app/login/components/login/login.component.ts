@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
 
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -18,26 +19,34 @@ import { ResetLoginState, Login } from 'src/app/login/store/login.actions';
 })
 export class LoginComponent implements OnInit {
   constructor(
-    private store: Store<{login: ILoginState}>,
+    private store: Store<{ login: ILoginState }>,
     private authorizationService: AuthorizationService,
     private router: Router,
     private spinnerService: LoadingSpinnerService
-  ) {
-  }
+  ) {}
 
-  userUsernameInput: string;
-  userPasswordInput: string;
+  loginForm = new FormGroup({
+    username: new FormControl(''),
+    password: new FormControl('')
+  });
   loginFailed$: Observable<boolean>;
 
   login() {
     this.store.dispatch(new ResetLoginState());
 
-    this.store.dispatch(new Login({username: this.userUsernameInput, password: this.userPasswordInput}));
+    this.store.dispatch(
+      new Login({
+        username: this.loginForm.get('username').value,
+        password: this.loginForm.get('password').value
+      })
+    );
   }
 
   ngOnInit() {
-    this.loginFailed$ = this.store.pipe(select(state => {
-      return state.login.loginFailed;
-    }));
+    this.loginFailed$ = this.store.pipe(
+      select(state => {
+        return state.login.loginFailed;
+      })
+    );
   }
 }

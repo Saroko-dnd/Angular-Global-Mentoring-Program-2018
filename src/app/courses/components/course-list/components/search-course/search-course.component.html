@@ -6,9 +6,7 @@
       aria-label="Search"
       placeholder="Text to search"
       (keyup.enter)="activateSearch()"
-      [(ngModel)]="inputSearchValue"
-      [ngModelOptions]="{ standalone: true }"
-      #searchInput
+      [formControl]="searchInput"
     />
   </form>
   <nav>
