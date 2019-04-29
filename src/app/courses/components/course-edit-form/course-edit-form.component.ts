@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
 
@@ -50,16 +50,12 @@ export class CourseEditFormComponent implements OnInit {
   fullListOfAuthors: Observable<IAuthorForMultiSelector[]>;
   selectedAuthors: Observable<IAuthorForMultiSelector[]>;
   courseEditForm = new FormGroup({
-    courseName: new FormControl(''),
-    courseDescription: new FormControl(''),
+    courseName: new FormControl('', Validators.maxLength(50)),
+    courseDescription: new FormControl('', Validators.maxLength(500)),
     courseDate: new FormControl(''),
     courseLength: new FormControl(''),
     authorsSelector: new FormControl('')
   });
-  courseDate: Observable<string>;
-  courseDescription: Observable<string>;
-  courseLength: Observable<number>;
-  courseName: Observable<string>;
 
   selectedAuthorsAreValid: boolean;
 
