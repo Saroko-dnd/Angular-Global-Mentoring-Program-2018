@@ -5,6 +5,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
+import { distinctUntilKeyChanged } from 'rxjs/operators';
 
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
@@ -63,6 +64,29 @@ export class CourseEditFormComponent implements OnInit {
   selectedAuthorsAreValid: boolean;
 
   ngOnInit() {
+    this.subscribeFormControlsToStoreData();
+    this.subscribeStoreToFormControlsData();
+
+    this.fullListOfAuthors = this.store.pipe(
+      select(state => {
+        return state.courses.editForm.authorsMultiSelect.dropdownList;
+      })
+    );
+
+    this.store
+      .pipe(
+        select(state => {
+          return state.courses.editForm.selectedAuthorsAreValid;
+        })
+      )
+      .subscribe(result => {
+        this.selectedAuthorsAreValid = result;
+      });
+
+    this.store.dispatch(new InitCourseEditFormData());
+  }
+
+  subscribeFormControlsToStoreData() {
     this.store
       .pipe(
         select(state => {
@@ -103,33 +127,44 @@ export class CourseEditFormComponent implements OnInit {
         this.courseEditForm.get('courseName')!.setValue(name);
       });
 
-    this.fullListOfAuthors = this.store.pipe(
-      select(state => {
-        return state.courses.editForm.authorsMultiSelect.dropdownList;
-      })
-    );
-
     this.store
       .pipe(
         select(state => {
           return state.courses.editForm.authorsMultiSelect.selectedAuthors;
-        })
+        }),
+        distinctUntilKeyChanged('length')
       )
       .subscribe(selectedAuthors => {
         this.courseEditForm.get('authorsSelector')!.setValue(selectedAuthors);
       });
+  }
 
-    this.store
-      .pipe(
-        select(state => {
-          return state.courses.editForm.selectedAuthorsAreValid;
-        })
-      )
-      .subscribe(result => {
-        this.selectedAuthorsAreValid = result;
+  subscribeStoreToFormControlsData() {
+    this.courseEditForm
+      .get('courseDate')
+      .valueChanges.subscribe((newDate: string | null) => {
+        if (newDate) {
+          this.updateCourseDate(newDate);
+        }
       });
 
-    this.store.dispatch(new InitCourseEditFormData());
+    this.courseEditForm
+      .get('courseDescription')
+      .valueChanges.subscribe((newDescription: string) => {
+        this.onCourseDescriptionChange(newDescription);
+      });
+
+    this.courseEditForm
+      .get('courseLength')
+      .valueChanges.subscribe((newLength: number) => {
+        this.onCourseDurationChange(newLength);
+      });
+
+    this.courseEditForm
+      .get('courseName')
+      .valueChanges.subscribe((newName: string) => {
+        this.onCourseTitleChange(newName);
+      });
   }
 
   cancelCourseEditing() {
@@ -171,8 +206,6 @@ export class CourseEditFormComponent implements OnInit {
         duration
       })
     );
-    console.log('onCourseDurationChange');
-    console.log(duration);
   }
 
   onCourseTitleChange(title: string) {
@@ -184,6 +217,7 @@ export class CourseEditFormComponent implements OnInit {
   }
 
   saveCourse() {
+    console.log(this.selectedAuthorsAreValid);
     if (this.selectedAuthorsAreValid) {
       this.store.dispatch(new SaveCourse());
     } else {
@@ -191,7 +225,7 @@ export class CourseEditFormComponent implements OnInit {
     }
   }
 
-  updateCourseDate(date: Date) {
+  updateCourseDate(date: string) {
     this.store.dispatch(new CourseDateChanged({ date }));
   }
 }

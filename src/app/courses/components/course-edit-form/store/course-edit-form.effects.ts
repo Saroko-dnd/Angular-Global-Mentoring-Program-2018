@@ -74,19 +74,29 @@ export class CourseEditFormEffects {
   @Effect()
   initCourseEditFormData$ = this.actions$.pipe(
     ofType(CourseEditFormActions.InitCourseEditFormData),
-    switchMap(() => {
-      this.spinnerService.show();
+    switchMap(
+      (): (
+        | LoadCourse
+        | LoadListOfAuthors
+        | ResetCourseEditFormState
+        | ValidationOfAuthorsFailed)[] => {
+        this.spinnerService.show();
 
-      if (!this.router.url.endsWith('new')) {
-        return [
-          new ResetCourseEditFormState(),
-          new LoadCourse(),
-          new LoadListOfAuthors()
-        ];
-      } else {
-        return [new ResetCourseEditFormState(), new LoadListOfAuthors()];
+        if (!this.router.url.endsWith('new')) {
+          return [
+            new ResetCourseEditFormState(),
+            new LoadCourse(),
+            new LoadListOfAuthors()
+          ];
+        } else {
+          return [
+            new ResetCourseEditFormState(),
+            new LoadListOfAuthors(),
+            new ValidationOfAuthorsFailed()
+          ];
+        }
       }
-    })
+    )
   );
 
   @Effect()
@@ -129,10 +139,14 @@ export class CourseEditFormEffects {
         const stateCopy: ICourseEditFormState = cloneDeep(
           data[1].courses.editForm
         );
-
+        console.log('saveCourse$ effect');
+        console.log(
+          data[1].courses.editForm.authorsMultiSelect.selectedAuthors.length
+        );
         if (
           !data[1].courses.editForm.authorsMultiSelect.selectedAuthors.length
         ) {
+          console.log('ValidationOfAuthorsFailed');
           return of(new ValidationOfAuthorsFailed());
         }
 
@@ -183,11 +197,16 @@ export class CourseEditFormEffects {
           { courses: { editForm: ICourseEditFormState } }
         ]
       ) => {
+        console.log('changedListOfSelectedAuthors');
+        console.log(
+          data[1].courses.editForm.authorsMultiSelect.selectedAuthors.length
+        );
         if (
           data[1].courses.editForm.authorsMultiSelect.selectedAuthors.length
         ) {
           return new ValidationOfAuthorsPassed();
         }
+        console.log('ValidationOfAuthorsFailed');
         return new ValidationOfAuthorsFailed();
       }
     )

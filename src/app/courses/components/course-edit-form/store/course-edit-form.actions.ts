@@ -47,7 +47,7 @@ export class CancelCourseEditing implements Action {
 export class CourseDateChanged implements Action {
   readonly type = CourseEditFormActions.CourseDateChanged;
 
-  constructor(public payload: { date: Date }) {}
+  constructor(public payload: { date: string }) {}
 }
 
 export class CourseDescriptionChanged implements Action {
