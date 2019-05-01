@@ -13,11 +13,7 @@ import * as moment from 'moment';
 
 import { IAuthor } from '../../../shared/types/iauthor';
 import { CoursesService } from '../../services';
-import {
-  ICourse,
-  dateFormatValidator,
-  isNumberValidator
-} from '../../../shared';
+import { ICourse, isNumberValidator } from '../../../shared';
 import { LoadingSpinnerService } from 'src/app/core/services';
 import { IMultiSelectorModel } from './types/multi-selector-model';
 import { ICourseEditFormState } from './store/course-edit-form.state';
@@ -55,11 +51,20 @@ export class CourseEditFormComponent implements OnInit {
   fullListOfAuthors: Observable<IAuthorForMultiSelector[]>;
   selectedAuthors: Observable<IAuthorForMultiSelector[]>;
   courseEditForm = new FormGroup({
-    courseName: new FormControl('', Validators.maxLength(50)),
-    courseDescription: new FormControl('', Validators.maxLength(500)),
-    courseDate: new FormControl('', [dateFormatValidator]),
-    courseLength: new FormControl('', [isNumberValidator]),
-    authorsSelector: new FormControl('', [selectedAuthorsValidator])
+    courseName: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(50)
+    ]),
+    courseDescription: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(500)
+    ]),
+    courseDate: new FormControl('', [Validators.required]),
+    courseLength: new FormControl('', [Validators.required, isNumberValidator]),
+    authorsSelector: new FormControl('', [
+      Validators.required,
+      selectedAuthorsValidator
+    ])
   });
 
   selectedAuthorsAreValid: boolean;
@@ -95,7 +100,7 @@ export class CourseEditFormComponent implements OnInit {
         })
       )
       .subscribe(date => {
-        this.courseEditForm.get('courseDate')!.setValue(date);
+        this.courseEditForm.get('courseDate').setValue(date);
       });
 
     this.store
@@ -105,7 +110,7 @@ export class CourseEditFormComponent implements OnInit {
         })
       )
       .subscribe(description => {
-        this.courseEditForm.get('courseDescription')!.setValue(description);
+        this.courseEditForm.get('courseDescription').setValue(description);
       });
 
     this.store
@@ -115,7 +120,7 @@ export class CourseEditFormComponent implements OnInit {
         })
       )
       .subscribe(length => {
-        this.courseEditForm.get('courseLength')!.setValue(length);
+        this.courseEditForm.get('courseLength').setValue(length);
       });
 
     this.store
@@ -125,7 +130,7 @@ export class CourseEditFormComponent implements OnInit {
         })
       )
       .subscribe(name => {
-        this.courseEditForm.get('courseName')!.setValue(name);
+        this.courseEditForm.get('courseName').setValue(name);
       });
 
     this.store
@@ -136,7 +141,7 @@ export class CourseEditFormComponent implements OnInit {
         distinctUntilKeyChanged('length')
       )
       .subscribe(selectedAuthors => {
-        this.courseEditForm.get('authorsSelector')!.setValue(selectedAuthors);
+        this.courseEditForm.get('authorsSelector').setValue(selectedAuthors);
       });
   }
 

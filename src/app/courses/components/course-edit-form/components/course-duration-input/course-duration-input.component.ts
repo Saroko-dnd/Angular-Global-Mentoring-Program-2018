@@ -39,13 +39,11 @@ export class CourseDurationInputComponent
   ngOnInit() {
     this.innerValueSubscriber = this.innerValue.valueChanges.subscribe(
       value => {
-        if (typeof value === 'number') {
-          if (value < 0) {
-            this.innerValue.setValue(Math.abs(value));
-          } else {
-            this.onChangeCallback(value);
-          }
+        if (typeof value === 'number' && value < 0) {
+          this.innerValue.setValue(Math.abs(value));
         }
+
+        this.onChangeCallback(value);
       }
     );
   }
