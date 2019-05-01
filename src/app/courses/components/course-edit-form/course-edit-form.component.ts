@@ -13,7 +13,11 @@ import * as moment from 'moment';
 
 import { IAuthor } from '../../../shared/types/iauthor';
 import { CoursesService } from '../../services';
-import { ICourse } from '../../../shared';
+import {
+  ICourse,
+  dateFormatValidator,
+  isNumberValidator
+} from '../../../shared';
 import { LoadingSpinnerService } from 'src/app/core/services';
 import { IMultiSelectorModel } from './types/multi-selector-model';
 import { ICourseEditFormState } from './store/course-edit-form.state';
@@ -30,6 +34,7 @@ import {
   CourseDateChanged
 } from './store/course-edit-form.actions';
 import { IAuthorForMultiSelector } from './types/author-for-multi-selector';
+import { selectedAuthorsValidator } from './validators/authors-selector.validator';
 
 @Component({
   selector: 'learn-portal-course-edit-form',
@@ -52,9 +57,9 @@ export class CourseEditFormComponent implements OnInit {
   courseEditForm = new FormGroup({
     courseName: new FormControl('', Validators.maxLength(50)),
     courseDescription: new FormControl('', Validators.maxLength(500)),
-    courseDate: new FormControl(''),
-    courseLength: new FormControl(''),
-    authorsSelector: new FormControl('')
+    courseDate: new FormControl('', [dateFormatValidator]),
+    courseLength: new FormControl('', [isNumberValidator]),
+    authorsSelector: new FormControl('', [selectedAuthorsValidator])
   });
 
   selectedAuthorsAreValid: boolean;
