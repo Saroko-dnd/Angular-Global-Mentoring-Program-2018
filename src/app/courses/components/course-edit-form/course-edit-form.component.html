@@ -32,7 +32,13 @@
     <label for="courseCreationDateFormControl"
       >Date <span class="text-danger">*Required</span></label
     >
-    <input
+    <learn-portal-course-date-input
+      inputId="courseDateFormControl"
+      [required]="true"
+      formControlName="courseDate"
+    >
+    </learn-portal-course-date-input>
+    <!--<input
       id="courseCreationDateFormControl"
       [owlDateTime]="course_dt"
       [owlDateTimeTrigger]="course_dt"
@@ -44,7 +50,7 @@
       #course_dt
       pickerMode="dialog"
       showSecondsTimer="true"
-    ></owl-date-time>
+    ></owl-date-time>-->
   </div>
   <div class="form-group d-flex flex-column">
     <label for="courseDurationFormControl"

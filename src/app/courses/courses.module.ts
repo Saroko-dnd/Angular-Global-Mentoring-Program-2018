@@ -18,6 +18,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 
 import {
+  CourseDateInputComponent,
   CourseDurationInputComponent,
   CourseEditFormComponent,
   CourseListComponent,
@@ -58,6 +59,7 @@ import { CourseEditFormEffects } from './components/course-edit-form/store/cours
     })
   ],
   declarations: [
+    CourseDateInputComponent,
     CourseDurationInputComponent,
     CourseEditFormComponent,
     CourseListComponent,
