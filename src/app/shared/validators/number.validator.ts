@@ -5,7 +5,5 @@ export function isNumberValidator(
 ): ValidationErrors | null {
   const valueIsNumber = typeof control.value === 'number';
 
-  return valueIsNumber
-    ? null
-    : { invalidNumberValue: { value: control.value } };
+  return valueIsNumber ? null : { valueIsNotNumber: { value: control.value } };
 }

@@ -1,7 +1,25 @@
+$error-color: rgb(255, 0, 0);
+
 :host {
   flex-grow: 1;
 
   button {
     width: 6rem;
+  }
+}
+
+::ng-deep {
+  .ng-invalid {
+    &.ng-touched {
+      border-color: $error-color;
+    }
+  }
+
+  ng-select {
+    &.ng-invalid {
+      &.ng-touched {
+        box-shadow: 0px 0px 3px 0px $error-color;
+      }
+    }
   }
 }

@@ -223,7 +223,6 @@ export class CourseEditFormComponent implements OnInit {
   }
 
   saveCourse() {
-    console.log(this.selectedAuthorsAreValid);
     if (this.selectedAuthorsAreValid) {
       this.store.dispatch(new SaveCourse());
     } else {

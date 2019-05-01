@@ -6,6 +6,6 @@ export function selectedAuthorsValidator(
   const noSelectedAuthors = !control.value.length;
 
   return noSelectedAuthors
-    ? { invalidSelectedAuthorsValue: { value: control.value } }
+    ? { noSelectedAuthors: { value: control.value } }
     : null;
 }
