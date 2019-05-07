@@ -1,0 +1,42 @@
+{
+  "SITE_LOGO": "ОБУЧАЮЩИЙ ПОРТАЛ",
+  "SITE_FOOTER": "Авторское право © Видеокурсы, Все права защищены",
+
+  "BUTTON_ADD_COURSE_": "Добавить курс",
+  "BUTTON_DELETE_COURSE": "Удалить",
+  "BUTTON_EDIT_COURSE": "Редактировать",
+  "BUTTON_LOG_OFF": "Выйти",
+
+  "PLACEHOLDER_COURSE_SEARCH": "Введите текст для поиска",
+
+  "BREADCRUMBS_COURSES_LIST": "Курсы",
+  "BREADCRUMBS_CREATE_NEW_COURSE": "Новый",
+
+  "COURSE_DURATION_HOURS": "ч",
+  "COURSE_DURATION_MINUTES": "мин",
+
+  "DELETE_COURSE_MODAL_HEADER": "Подтвердите удаление курса",
+  "DELETE_COURSE_MODAL_BODY": "Вы действительно хотите удалить этот курс?",
+  "DELETE_COURSE_MODAL_CONFIRM_BUTTON": "Да",
+  "DELETE_COURSE_MODAL_CANCEL_BUTTON": "Нет",
+
+  "LOGIN_FORM_HEADER": "Авторизация",
+  "LOGIN_FORM_USERNAME_LABEL": "Имя пользователя",
+  "LOGIN_FORM_PASSWORD_LABEL": "Пароль",
+  "LOGIN_FORM_LOGIN_BUTTON": "Войти",
+  "LOGIN_FORM_ERROR_MESSAGE_HEADER": "Ошибка авторизации.",
+  "LOGIN_FORM_ERROR_MESSAGE_BODY": "Ваши имя пользователя или пароль указаны не верны. Пожалуйста попробуйте снова.",
+
+  "COURSE_EDIT_FORM_TITLE_LABEL": "Заголовок",
+  "COURSE_EDIT_FORM_DESCRIPTION_LABEL": "Описание",
+  "COURSE_EDIT_FORM_DATE_LABEL": "Дата",
+  "COURSE_EDIT_FORM_DATE_FIELD_PLACEHOLDER": "Дата курса",
+  "COURSE_EDIT_FORM_DURATION_LABEL": "Продолжительность",
+  "COURSE_EDIT_FORM_AUTHORS_LABEL": "Авторы",
+  "COURSE_EDIT_FORM_SAVE_BUTTON": "Сохранить",
+  "COURSE_EDIT_FORM_CANCEL_BUTTON": "Отменить",
+  "COURSE_EDIT_FORM_DURATION_FIELD_ERROR_MESSAGE": "Пожалуйста введите ЧИСЛО которое представляет собой продолжительность курса в секундах.",
+  "COURSE_EDIT_FORM_AUTHORS_FIELD_ERROR_MESSAGE": "Вы должны выбрать хотя бы одного автора.",
+
+  "ERROR_MESSAGE_REQUIRED_FIELD": "*Обязательное поле."
+}

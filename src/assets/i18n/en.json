@@ -1,0 +1,42 @@
+{
+  "SITE_LOGO": "LEARN PORTAL",
+  "SITE_FOOTER": "Copyright © Videocourses, All Rights Reserved",
+
+  "BUTTON_ADD_COURSE_": "Add course",
+  "BUTTON_DELETE_COURSE": "Delete",
+  "BUTTON_EDIT_COURSE": "Edit",
+  "BUTTON_LOG_OFF": "Log off",
+
+  "PLACEHOLDER_COURSE_SEARCH": "Type text to search for",
+
+  "BREADCRUMBS_COURSES_LIST": "Courses",
+  "BREADCRUMBS_CREATE_NEW_COURSE": "New",
+
+  "COURSE_DURATION_HOURS": "h",
+  "COURSE_DURATION_MINUTES": "min",
+
+  "DELETE_COURSE_MODAL_HEADER": "Confirm course deletion",
+  "DELETE_COURSE_MODAL_BODY": "Do you really want to delete this course?",
+  "DELETE_COURSE_MODAL_CONFIRM_BUTTON": "Yes",
+  "DELETE_COURSE_MODAL_CANCEL_BUTTON": "No",
+
+  "LOGIN_FORM_HEADER": "Login",
+  "LOGIN_FORM_USERNAME_LABEL": "Username",
+  "LOGIN_FORM_PASSWORD_LABEL": "Password",
+  "LOGIN_FORM_LOGIN_BUTTON": "Login",
+  "LOGIN_FORM_ERROR_MESSAGE_HEADER": "Log in Error.",
+  "LOGIN_FORM_ERROR_MESSAGE_BODY": "Your username or password is incorrect. Please try again.",
+
+  "COURSE_EDIT_FORM_TITLE_LABEL": "Title",
+  "COURSE_EDIT_FORM_DESCRIPTION_LABEL": "Description",
+  "COURSE_EDIT_FORM_DATE_LABEL": "Date",
+  "COURSE_EDIT_FORM_DATE_FIELD_PLACEHOLDER": "Course date",
+  "COURSE_EDIT_FORM_DURATION_LABEL": "Duration",
+  "COURSE_EDIT_FORM_AUTHORS_LABEL": "Authors",
+  "COURSE_EDIT_FORM_SAVE_BUTTON": "Save",
+  "COURSE_EDIT_FORM_CANCEL_BUTTON": "Cancel",
+  "COURSE_EDIT_FORM_DURATION_FIELD_ERROR_MESSAGE": "Please enter NUMBER that represents course duration in seconds",
+  "COURSE_EDIT_FORM_AUTHORS_FIELD_ERROR_MESSAGE": "You must select at least one author",
+
+  "ERROR_MESSAGE_REQUIRED_FIELD": "*Required"
+}
