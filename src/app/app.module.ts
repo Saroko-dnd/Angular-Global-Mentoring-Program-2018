@@ -27,11 +27,11 @@ import { appRoutes } from './app.routing';
     LoginModule,
     Ng4LoadingSpinnerModule.forRoot(),
     RouterModule.forRoot(appRoutes),
-    StoreModule.forRoot({router: routerReducer}),
+    StoreModule.forRoot({ router: routerReducer }),
     StoreDevtoolsModule.instrument({
-      maxAge: 50,
+      maxAge: 50
     }),
-    StoreRouterConnectingModule.forRoot(),
+    StoreRouterConnectingModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

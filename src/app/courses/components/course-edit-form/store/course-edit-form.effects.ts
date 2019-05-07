@@ -74,19 +74,29 @@ export class CourseEditFormEffects {
   @Effect()
   initCourseEditFormData$ = this.actions$.pipe(
     ofType(CourseEditFormActions.InitCourseEditFormData),
-    switchMap(() => {
-      this.spinnerService.show();
+    switchMap(
+      (): (
+        | LoadCourse
+        | LoadListOfAuthors
+        | ResetCourseEditFormState
+        | ValidationOfAuthorsFailed)[] => {
+        this.spinnerService.show();
 
-      if (!this.router.url.endsWith('new')) {
-        return [
-          new ResetCourseEditFormState(),
-          new LoadCourse(),
-          new LoadListOfAuthors()
-        ];
-      } else {
-        return [new ResetCourseEditFormState(), new LoadListOfAuthors()];
+        if (!this.router.url.endsWith('new')) {
+          return [
+            new ResetCourseEditFormState(),
+            new LoadCourse(),
+            new LoadListOfAuthors()
+          ];
+        } else {
+          return [
+            new ResetCourseEditFormState(),
+            new LoadListOfAuthors(),
+            new ValidationOfAuthorsFailed()
+          ];
+        }
       }
-    })
+    )
   );
 
   @Effect()

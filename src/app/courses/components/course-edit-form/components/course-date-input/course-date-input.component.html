@@ -1,0 +1,18 @@
+<div>
+  <input
+    #courseDateInput
+    id="{{ inputId }}"
+    required="{{ required }}"
+    [owlDateTime]="course_dt"
+    [owlDateTimeTrigger]="course_dt"
+    placeholder="Course date"
+    [required]="true"
+    [formControl]="innerValue"
+    (blur)="onTouchedCallback($event)"
+  />
+  <owl-date-time
+    #course_dt
+    pickerMode="dialog"
+    showSecondsTimer="true"
+  ></owl-date-time>
+</div>

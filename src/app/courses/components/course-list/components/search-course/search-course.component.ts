@@ -1,6 +1,15 @@
-import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
+import { FormControl } from '@angular/forms';
 
-import {fromEvent, Subscription} from 'rxjs';
+import { fromEvent, Subscription } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
 
 @Component({
@@ -13,21 +22,22 @@ export class SearchCourseComponent implements OnInit, OnDestroy {
 
   @Output() searchActivated = new EventEmitter<string>();
 
-  @ViewChild('searchInput') searchInputRef: ElementRef;
-  inputSearchValue = '';
+  searchInput = new FormControl('');
   searchInputSubscriber: Subscription;
 
   activateSearch() {
-    this.searchActivated.emit(this.inputSearchValue);
+    this.searchActivated.emit(this.searchInput.value);
   }
 
   ngOnInit() {
-    const searchInputEventObservable = fromEvent(this.searchInputRef.nativeElement, 'input');
-
-    this.searchInputSubscriber = searchInputEventObservable.pipe(
-      debounceTime(1000),
-      filter((e: any) => e.target.value.length >= 3),
-    ).subscribe(e => this.activateSearch());
+    this.searchInputSubscriber = this.searchInput.valueChanges
+      .pipe(
+        debounceTime(1000),
+        filter((value: string) => !value || value.length >= 3)
+      )
+      .subscribe(value => {
+        this.activateSearch();
+      });
   }
 
   ngOnDestroy() {

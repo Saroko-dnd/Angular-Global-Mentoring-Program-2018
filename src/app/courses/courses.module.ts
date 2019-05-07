@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { EffectsModule } from '@ngrx/effects';
@@ -18,6 +18,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 
 import {
+  CourseDateInputComponent,
   CourseDurationInputComponent,
   CourseEditFormComponent,
   CourseListComponent,
@@ -49,6 +50,7 @@ import { CourseEditFormEffects } from './components/course-edit-form/store/cours
     NgSelectModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(coursesRoutes),
     SharedModule,
     StoreModule.forFeature('courses', {
@@ -57,6 +59,7 @@ import { CourseEditFormEffects } from './components/course-edit-form/store/cours
     })
   ],
   declarations: [
+    CourseDateInputComponent,
     CourseDurationInputComponent,
     CourseEditFormComponent,
     CourseListComponent,

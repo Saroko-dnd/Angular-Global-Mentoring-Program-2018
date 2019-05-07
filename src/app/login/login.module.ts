@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -17,6 +17,7 @@ import { loginStateReducer } from 'src/app/login/store/login.reducers';
     CommonModule,
     EffectsModule.forFeature([LoginEffects]),
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(loginRoutes),
     StoreModule.forFeature('login', loginStateReducer)
   ],

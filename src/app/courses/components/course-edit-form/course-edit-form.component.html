@@ -1,69 +1,114 @@
-<form class="d-flex flex-column mb-1" (submit)="saveCourse()" ngNativeValidate>
+<form
+  class="d-flex flex-column mb-1"
+  (submit)="saveCourse()"
+  ngNativeValidate
+  [formGroup]="courseEditForm"
+>
   <div class="form-group">
     <label for="courseTitleFormControl"
-      >Title <span class="text-danger">*Required</span></label
+      >Title
+      <span
+        *ngIf="
+          (courseEditForm.get('courseName').errors || {}).required &&
+          courseEditForm.get('courseName').touched
+        "
+        class="text-danger"
+        >*Required.</span
+      ></label
     >
     <input
       type="text"
       class="form-control"
       id="courseTitleFormControl"
       required
-      [ngModel]="courseName | async"
-      [ngModelOptions]="{ standalone: true }"
-      (ngModelChange)="onCourseTitleChange($event)"
+      formControlName="courseName"
     />
   </div>
   <div class="form-group">
     <label for="courseDescriptionFormControl"
-      >Description <span class="text-danger">*Required</span></label
+      >Description
+      <span
+        *ngIf="
+          (courseEditForm.get('courseDescription').errors || {}).required &&
+          courseEditForm.get('courseDescription').touched
+        "
+        class="text-danger"
+        >*Required.</span
+      ></label
     >
     <textarea
       class="form-control"
       id="courseDescriptionFormControl"
       required="true"
       rows="4"
-      [ngModel]="courseDescription | async"
-      [ngModelOptions]="{ standalone: true }"
-      (ngModelChange)="onCourseDescriptionChange($event)"
-      ngDefaultControl
+      formControlName="courseDescription"
     ></textarea>
   </div>
   <div class="form-group col-sm-3 px-0">
     <label for="courseCreationDateFormControl"
-      >Date <span class="text-danger">*Required</span></label
-    >
-    <input
-      id="courseCreationDateFormControl"
-      [owlDateTime]="course_dt"
-      [owlDateTimeTrigger]="course_dt"
-      placeholder="Course date"
+      >Date
+      <span
+        *ngIf="
+          (courseEditForm.get('courseDate').errors || {}).required &&
+          courseEditForm.get('courseDate').touched
+        "
+        class="text-danger"
+        >*Required.</span
+      >
+    </label>
+    <learn-portal-course-date-input
+      inputId="courseDateFormControl"
       [required]="true"
-      [ngModel]="courseDate | async"
-      (ngModelChange)="updateCourseDate($event)"
-      [ngModelOptions]="{ standalone: true }"
-    />
-    <owl-date-time
-      #course_dt
-      pickerMode="dialog"
-      showSecondsTimer="true"
-    ></owl-date-time>
+      formControlName="courseDate"
+    >
+    </learn-portal-course-date-input>
   </div>
   <div class="form-group d-flex flex-column">
     <label for="courseDurationFormControl"
-      >Duration <span class="text-danger">*Required</span></label
-    >
+      >Duration
+      <span
+        *ngIf="
+          (courseEditForm.get('courseLength').errors || {}).required &&
+          courseEditForm.get('courseLength').touched
+        "
+        class="text-danger"
+        >*Required.
+      </span>
+      <span
+        *ngIf="
+          (courseEditForm.get('courseLength').errors || {}).valueIsNotNumber &&
+          courseEditForm.get('courseLength').touched
+        "
+        class="text-danger"
+        >Please enter NUMBER that represents course duration in seconds</span
+      >
+    </label>
     <learn-portal-course-duration-input
       inputId="courseDurationFormControl"
       [required]="true"
-      [ngModel]="courseLength | async"
-      (ngModelChange)="onCourseDurationChange($event)"
-      [ngModelOptions]="{ standalone: true }"
+      formControlName="courseLength"
     ></learn-portal-course-duration-input>
   </div>
   <div>
     <label (click)="authorsSelector.focus()"
-      >Authors <span class="text-danger">*Required</span></label
-    >
+      >Authors
+      <span
+        *ngIf="
+          (courseEditForm.get('authorsSelector').errors || {}).required &&
+          courseEditForm.get('authorsSelector').touched
+        "
+        class="text-danger"
+        >*Required.
+      </span>
+      <span
+        *ngIf="
+          (courseEditForm.get('authorsSelector').errors || {})
+            .noSelectedAuthors && courseEditForm.get('authorsSelector').touched
+        "
+        class="text-danger"
+        >You must select at least one author</span
+      >
+    </label>
     <ng-select
       #authorsSelector
       #authorsTooltip="ngbTooltip"
@@ -79,13 +124,16 @@
       (add)="onAuthorAdded($event)"
       (remove)="onAuthorRemoved($event)"
       (clear)="onAllAuthorsRemoved()"
-      [ngModel]="selectedAuthors | async"
-      [ngModelOptions]="{ standalone: true }"
+      formControlName="authorsSelector"
     >
     </ng-select>
   </div>
   <div class="d-flex">
-    <button type="submit" class="btn btn-success">
+    <button
+      type="submit"
+      class="btn btn-success"
+      [disabled]="!!courseEditForm.invalid"
+    >
       Save
     </button>
     <button

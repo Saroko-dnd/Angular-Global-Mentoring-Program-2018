@@ -2,6 +2,7 @@
   ngNativeValidate
   class="col-sm-6 offset-sm-3 login-form shadow-lg border border-secondary px-0 flex-grow-0 flex-shrink-1 align-self-center"
   (submit)="login()"
+  [formGroup]="loginForm"
 >
   <h2 class="w-100 border-dark border-bottom pb-1">Login</h2>
   <div class="col-sm-8 offset-sm-2 form-group px-0">
@@ -15,8 +16,7 @@
         id="inputEmail"
         placeholder="Username"
         required="true"
-        [(ngModel)]="userUsernameInput"
-        [ngModelOptions]="{ standalone: true }"
+        formControlName="username"
       />
     </div>
   </div>
@@ -32,8 +32,7 @@
         placeholder="Password"
         required="true"
         autocomplete="password"
-        [(ngModel)]="userPasswordInput"
-        [ngModelOptions]="{ standalone: true }"
+        formControlName="password"
       />
     </div>
   </div>
@@ -42,11 +41,7 @@
       <button type="submit" class="btn btn-primary">Login</button>
     </div>
   </div>
-  <div
-    class="alert alert-danger m-1"
-    role="alert"
-    *ngIf="(loginFailed$ | async)"
-  >
+  <div class="alert alert-danger m-1" role="alert" *ngIf="loginFailed$ | async">
     <b>Log in Error.</b> Your username or password is incorrect. Please try
     again.
   </div>
