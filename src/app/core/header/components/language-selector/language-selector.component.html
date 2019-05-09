@@ -1,0 +1,8 @@
+<label (click)="authorsSelector.focus()" class="mr-2">language:</label>
+<ng-select
+  #languageSelector
+  [items]="languages"
+  [clearable]="false"
+  [formControl]="languageSelectorControl"
+>
+</ng-select>
