@@ -22,6 +22,8 @@ import { UserDataStoreEffects } from 'src/app/core/header/components/user-login/
 import { userDataStateReducer } from 'src/app/core/header/components/user-login/store/user-data.reducers';
 import { LanguageSelectorComponent } from './header/components/language-selector/language-selector.component';
 
+import { SharedModule } from '../shared';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { LanguageSelectorComponent } from './header/components/language-selector
     ReactiveFormsModule,
     RouterModule,
     EffectsModule.forFeature([UserDataStoreEffects]),
-    StoreModule.forFeature('core', userDataStateReducer)
+    StoreModule.forFeature('core', userDataStateReducer),
+    SharedModule
   ],
   declarations: [
     BreadcrumbsComponent,
