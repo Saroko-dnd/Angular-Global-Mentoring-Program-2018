@@ -3,7 +3,7 @@
   (searchActivated)="onSearchActivated($event)"
 ></learn-portal-search-course>
 <ul class="p-0 m-0">
-  <li *ngFor="let courseItem of (courses$ | async | orderBy: 'creationDate')">
+  <li *ngFor="let courseItem of courses$ | async | orderBy: 'creationDate'">
     <learn-portal-course-list-item
       [course]="courseItem"
       (itemDeleted)="onItemDeleted($event, confirmCourseDeletionModal)"
@@ -33,7 +33,7 @@
 
 <ng-template #confirmCourseDeletionModal let-modal>
   <div class="modal-header">
-    <h3 class="modal-title">Confirm course deletion</h3>
+    <h3 class="modal-title">{{ 'DELETE_COURSE_MODAL_HEADER' | translate }}</h3>
     <button
       type="button"
       class="close"
@@ -44,7 +44,9 @@
     </button>
   </div>
   <div class="modal-body text-center">
-    <p class="lead">Do you really want to delete this course?</p>
+    <p class="lead">
+      {{ 'DELETE_COURSE_MODAL_BODY' | translate }}
+    </p>
   </div>
   <div class="modal-footer d-flex justify-content-around">
     <button
@@ -52,14 +54,14 @@
       class="btn btn-outline-secondary"
       (click)="modal.close('Yes')"
     >
-      Yes
+      {{ 'DELETE_COURSE_MODAL_CONFIRM_BUTTON' | translate }}
     </button>
     <button
       type="button"
       class="btn btn-outline-secondary"
       (click)="modal.close('No')"
     >
-      No
+      {{ 'DELETE_COURSE_MODAL_CANCEL_BUTTON' | translate }}
     </button>
   </div>
 </ng-template>
