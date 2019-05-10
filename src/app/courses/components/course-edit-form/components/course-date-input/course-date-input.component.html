@@ -5,7 +5,7 @@
     required="{{ required }}"
     [owlDateTime]="course_dt"
     [owlDateTimeTrigger]="course_dt"
-    placeholder="Course date"
+    placeholder="{{ 'COURSE_EDIT_FORM_DATE_FIELD_PLACEHOLDER' | translate }}"
     [required]="true"
     [formControl]="innerValue"
     (blur)="onTouchedCallback($event)"

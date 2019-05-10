@@ -6,14 +6,14 @@
 >
   <div class="form-group">
     <label for="courseTitleFormControl"
-      >Title
+      >{{ 'COURSE_EDIT_FORM_TITLE_LABEL' | translate }}
       <span
         *ngIf="
           (courseEditForm.get('courseName').errors || {}).required &&
           courseEditForm.get('courseName').touched
         "
         class="text-danger"
-        >*Required.</span
+        >{{ 'ERROR_MESSAGE_REQUIRED_FIELD' | translate }}</span
       ></label
     >
     <input
@@ -26,14 +26,14 @@
   </div>
   <div class="form-group">
     <label for="courseDescriptionFormControl"
-      >Description
+      >{{ 'COURSE_EDIT_FORM_DESCRIPTION_LABEL' | translate }}
       <span
         *ngIf="
           (courseEditForm.get('courseDescription').errors || {}).required &&
           courseEditForm.get('courseDescription').touched
         "
         class="text-danger"
-        >*Required.</span
+        >{{ 'ERROR_MESSAGE_REQUIRED_FIELD' | translate }}</span
       ></label
     >
     <textarea
@@ -44,16 +44,16 @@
       formControlName="courseDescription"
     ></textarea>
   </div>
-  <div class="form-group col-sm-3 px-0">
+  <div class="form-group px-0">
     <label for="courseCreationDateFormControl"
-      >Date
+      >{{ 'COURSE_EDIT_FORM_DATE_LABEL' | translate }}
       <span
         *ngIf="
           (courseEditForm.get('courseDate').errors || {}).required &&
           courseEditForm.get('courseDate').touched
         "
         class="text-danger"
-        >*Required.</span
+        >{{ 'ERROR_MESSAGE_REQUIRED_FIELD' | translate }}</span
       >
     </label>
     <learn-portal-course-date-input
@@ -65,14 +65,14 @@
   </div>
   <div class="form-group d-flex flex-column">
     <label for="courseDurationFormControl"
-      >Duration
+      >{{ 'COURSE_EDIT_FORM_DURATION_LABEL' | translate }}
       <span
         *ngIf="
           (courseEditForm.get('courseLength').errors || {}).required &&
           courseEditForm.get('courseLength').touched
         "
         class="text-danger"
-        >*Required.
+        >{{ 'ERROR_MESSAGE_REQUIRED_FIELD' | translate }}
       </span>
       <span
         *ngIf="
@@ -80,7 +80,7 @@
           courseEditForm.get('courseLength').touched
         "
         class="text-danger"
-        >Please enter NUMBER that represents course duration in seconds</span
+        >{{ 'COURSE_EDIT_FORM_DURATION_FIELD_ERROR_MESSAGE' | translate }}</span
       >
     </label>
     <learn-portal-course-duration-input
@@ -91,14 +91,14 @@
   </div>
   <div>
     <label (click)="authorsSelector.focus()"
-      >Authors
+      >{{ 'COURSE_EDIT_FORM_AUTHORS_LABEL' | translate }}
       <span
         *ngIf="
           (courseEditForm.get('authorsSelector').errors || {}).required &&
           courseEditForm.get('authorsSelector').touched
         "
         class="text-danger"
-        >*Required.
+        >{{ 'ERROR_MESSAGE_REQUIRED_FIELD' | translate }}
       </span>
       <span
         *ngIf="
@@ -106,7 +106,7 @@
             .noSelectedAuthors && courseEditForm.get('authorsSelector').touched
         "
         class="text-danger"
-        >You must select at least one author</span
+        >{{ 'COURSE_EDIT_FORM_AUTHORS_FIELD_ERROR_MESSAGE' | translate }}</span
       >
     </label>
     <ng-select
@@ -120,7 +120,9 @@
       [closeOnSelect]="false"
       [hideSelected]="true"
       bindLabel="name"
-      placeholder="Start typing"
+      placeholder="{{
+        'COURSE_EDIT_FORM_AUTHORS_FIELD_PLACEHOLDER' | translate
+      }}"
       (add)="onAuthorAdded($event)"
       (remove)="onAuthorRemoved($event)"
       (clear)="onAllAuthorsRemoved()"
@@ -134,14 +136,14 @@
       class="btn btn-success"
       [disabled]="!!courseEditForm.invalid"
     >
-      Save
+      {{ 'COURSE_EDIT_FORM_SAVE_BUTTON' | translate }}
     </button>
     <button
       type="button"
       class="ml-3 btn btn-dark"
       (click)="cancelCourseEditing()"
     >
-      Cancel
+      {{ 'COURSE_EDIT_FORM_CANCEL_BUTTON' | translate }}
     </button>
   </div>
 </form>
