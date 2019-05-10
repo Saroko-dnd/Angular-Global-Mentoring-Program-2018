@@ -1,4 +1,4 @@
-<label (click)="languageSelector.focus()" class="mr-2">language:</label>
+<label (click)="languageSelector.focus()" class="mr-2">{{ 'LANGUAGE_SELECTOR_LABEL' | translate }}</label>
 <ng-select
   #languageSelector
   [items]="languages"

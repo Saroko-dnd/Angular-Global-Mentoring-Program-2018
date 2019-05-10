@@ -10,6 +10,8 @@ import { StoreModule } from '@ngrx/store';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 
+import { SharedModule } from '../shared';
+
 import { BreadcrumbsComponent, HeaderComponent, LogoComponent } from './header';
 import { FooterComponent } from './footer/footer.component';
 import { UserLoginComponent } from './header/components/user-login/user-login.component';
@@ -21,8 +23,7 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
 import { UserDataStoreEffects } from 'src/app/core/header/components/user-login/store/user-data.effects';
 import { userDataStateReducer } from 'src/app/core/header/components/user-login/store/user-data.reducers';
 import { LanguageSelectorComponent } from './header/components/language-selector/language-selector.component';
-
-import { SharedModule } from '../shared';
+import { breadcrumbsTranslationKeys } from './header/components/breadcrumbs/i18n/translation-keys-mapping';
 
 @NgModule({
   imports: [
@@ -67,6 +68,10 @@ import { SharedModule } from '../shared';
         login: 'Anonymous user',
         password: ''
       }
+    },
+    {
+      provide: 'BREADCRUMBS_TRANSLATION_KEYS_MAPPING',
+      useValue: breadcrumbsTranslationKeys
     },
     {
       provide: 'I18N_TRANSLATIONS_PATH',

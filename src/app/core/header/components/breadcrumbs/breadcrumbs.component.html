@@ -7,9 +7,9 @@
       *ngFor="let breadcrumb of breadcrumbsTrail"
     >
       <a *ngIf="breadcrumb.route" [routerLink]="breadcrumb.route">{{
-        breadcrumb.label
+        translationKeys[breadcrumb.label] | translate
       }}</a>
-      <span *ngIf="!breadcrumb.route">{{ breadcrumb.label }}</span>
+      <span *ngIf="!breadcrumb.route">{{ (translationKeys[breadcrumb.label] | translate) || breadcrumb.label }}</span>
     </li>
   </ul>
 </nav>
