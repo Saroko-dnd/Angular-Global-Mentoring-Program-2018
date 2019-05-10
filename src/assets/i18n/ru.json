@@ -27,7 +27,7 @@
   "LOGIN_FORM_PASSWORD_LABEL": "Пароль",
   "LOGIN_FORM_LOGIN_BUTTON": "Войти",
   "LOGIN_FORM_ERROR_MESSAGE_HEADER": "Ошибка авторизации.",
-  "LOGIN_FORM_ERROR_MESSAGE_BODY": "Ваши имя пользователя или пароль указаны не верны. Пожалуйста попробуйте снова.",
+  "LOGIN_FORM_ERROR_MESSAGE_BODY": "Ваши имя пользователя или пароль указаны не верно. Пожалуйста попробуйте снова.",
 
   "COURSE_EDIT_FORM_TITLE_LABEL": "Название",
   "COURSE_EDIT_FORM_DESCRIPTION_LABEL": "Описание",
