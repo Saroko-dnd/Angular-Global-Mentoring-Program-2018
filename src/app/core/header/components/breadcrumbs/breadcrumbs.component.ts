@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -20,7 +20,7 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
   constructor(
     private location: Location,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    @Inject('BREADCRUMBS_TRANSLATION_KEYS_MAPPING') public translationKeys: any,
   ) {}
 
   breadcrumbsTrail: IBreadcrumb[];

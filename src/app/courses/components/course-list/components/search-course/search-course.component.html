@@ -4,7 +4,7 @@
       class="form-control search-course-input mr-sm-2 flex-grow-1"
       type="search"
       aria-label="Search"
-      placeholder="Text to search"
+      placeholder="{{ 'PLACEHOLDER_COURSE_SEARCH' | translate }}"
       (keyup.enter)="activateSearch()"
       [formControl]="searchInput"
     />
@@ -15,7 +15,7 @@
       [routerLink]="['./new']"
       class="btn btn-outline-primary"
     >
-      <i class="fa fa-plus-square"></i> Add course
+      <i class="fa fa-plus-square"></i> {{ 'BUTTON_ADD_COURSE' | translate }}
     </button>
   </nav>
 </div>

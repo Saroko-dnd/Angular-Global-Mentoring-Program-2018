@@ -6,6 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
+import { SharedModule } from '../shared';
+
 import { LoginComponent } from './components';
 
 import { loginRoutes } from './login.routing';
@@ -19,6 +21,7 @@ import { loginStateReducer } from 'src/app/login/store/login.reducers';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(loginRoutes),
+    SharedModule,
     StoreModule.forFeature('login', loginStateReducer)
   ],
   declarations: [LoginComponent],

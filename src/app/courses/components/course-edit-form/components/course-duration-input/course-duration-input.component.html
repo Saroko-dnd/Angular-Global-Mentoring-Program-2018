@@ -8,5 +8,5 @@
     (blur)="onTouchedCallback($event)"
     [formControl]="innerValue"
   />
-  <span class="ml-3">{{ value || 0 | duration }}</span>
+  <span class="ml-3">{{ value || 0 | duration | async }}</span>
 </div>

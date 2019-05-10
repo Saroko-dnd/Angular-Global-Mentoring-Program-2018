@@ -18,7 +18,6 @@ import {
   Logout,
   UpdateComponentVisibility
 } from 'src/app/core/header/components/user-login/store/user-data.actions';
-import { EmptyAction } from 'src/app/shared';
 
 @Injectable()
 export class UserDataStoreEffects {
